@@ -20,120 +20,68 @@
   I dedicated myself to cloud computing and passed my AWS Solutions Architect Certification exam in 2015. It helped construct my knowledge to build a simplier open source project that anyone can test, build, host their own network.
   
 ##How it works
-  As an alternative of Mojang's Minecraft Realms, if you install Minecraftly in your server, then each of your player will have his/her own server, accessible via (player's MC username).(your domain name).com
-  
-##Player Flow
- Usually, in a normal Minecraft server, player flow is like this:
+ Usually, in a traditional Minecraft server, player flow is like this:
 ```go
-                               Player A
-                                  |
-                                  |
-                                  |
-                                  ▼ 
-                              Server 1
-                                  |
-                                  |
-                                  |
-                                  ▼ 
-                               World 1
+   Player A                            Player B                            Player C
+      |                                   |                                   |
+      |                                   |                                   |
+      |                                   |                                   |
+      +-----------------------------------+-----------------------------------+
+                                          |
+                                          |
+                                          |
+                                          ▼ 
+                                       Server 1
+                                          |
+                                          |
+                                          |
+                                          ▼ 
+                                    SERVER_world_1
+                                    SERVER_world_1_nether
+                                    SERVER_world_1_the_end
 ```
- With the old way of distributing players, a single machine gets filled up with players very quickly, and will crash at a certain amount of concurrent players online.
+or some server attempts to scale like this:
+```go
+   Player A                            Player B                            Player C
+      |                                   |                                   |
+      |                                   |                                   |
+      |                                   |                                   |
+      +-----------------------------------+-----------------------------------+
+                   |                                    |
+                   |                                    |
+                   |                                    |
+                   ▼                                    ▼ 
+                Server 1                             Server 2
+                   |                                    |
+                   |                                    |
+                   |                                    |
+                   ▼                                    ▼ 
+             SERVER_world_1                       SERVER_world_2
+             SERVER_world_1_nether                SERVER_world_2_nether
+             SERVER_world_1_the_end               SERVER_world_2_the_end
+```
+ Above are the old ways of handling players. Bottleneck usually happens when a single machine gets filled up with high amount of concurrent players.
 
+
+#The Right Way to Scale
  Let's visualize a smarter way to distribute players. In Minecraftly, it's like this:
 ```ruby
-                               Player A
-                                  |
-                                  |
-                                  |
-                                  ▼ 
-                       Server 1 or 2 or 3 or ∞
-                                  |
-                                  |
-                                  |
-                                  ▼ 
-                               World A
+        Player A                       Player B                       Player C
+           |                              |                              |
+           |                              |                              |
+           |                              |                              |
+           ▼                              ▼                              ▼
+       Server 1 or 2 or 3 or 4 or 5 or 6 or 7 or 8 or 9 or 10 or 11 or 12... or ∞
+           |                              |                              |
+           |                              |                              |
+           |                              |                              |
+           ▼                              ▼                              ▼
++------------------------------------------------------------------------------------+
+| PLAYER_world_A               PLAYER_world_B                 PLAYER_world_C         |
+| PLAYER_world_A_nether        PLAYER_world_B_nether          PLAYER_world_C_nether  |
+| PLAYER_world_A_the_end       PLAYER_world_B_the_end         PLAYER_world_C_the_end |
++------------------------------------------------------------------------------------+
 ```
- As you can see, in this method, it doesn't matter which server brings player his/her own world when they log in, as long as the one server serves the correct world to the correct player at that correct moment.
- 
- You will then ask: The visualization above shows one player and one world. What about multiple players at the same time? Here you go:
-```ruby
-     Player A          Player B          Player C          Player D          Player E
-        |                 |                 |                 |                 |
-        |                 |                 |                 |                 |
-        |                 |                 |                 |                 |
-        ▼                 ▼                 ▼                 ▼                 ▼
-    Server 1 or 2 or 3 or 4 or 5 or 6 or 7 or 8 or 9 or 10 or 11 or 12 or 13 or ... or ∞
-        |                 |                 |                 |                 |
-        |                 |                 |                 |                 |
-        |                 |                 |                 |                 |
-        ▼                 ▼                 ▼                 ▼                 ▼
-   +----------------------------------------------------------------------------------+
-   |                                                                                  |
-   | World A           World B            World C           World E           World F |
-   |                                                                                  |
-   +----------------------------------------------------------------------------------+
-```
- How do I store world A, B, C, D, E, and F for the respective players and load them as fast as possible, using traditional way of saving worlds on disk?
- 
- The answer is to have all servers using the same "global worlds" folder, storing all the worlds for the respective player there.
- 
- For multiple servers to "share the same folder", the simpliest way is to use NFS (Network File System) server.
- 
-##Architecture
-  Minecraftly operates under the premise that everything can fail at anytime, so we focus on designing a high availability, fault tolerant system that can withstand failure at the server, database, or network level.
-  
-  First, let's visualize the stack:
-  
-```ruby
-                           Minecraft Players
-                                  ▲
-                                  |
-                                  |
-                                  |
-                                  ▼
-      +----------------- Network Load Balancer -----------------+
-      |                           |                             |
-      |                           |                             |
-      |                           |                             |
-   BungeeCord 1              BungeeCord 2                 BungeeCord n
-      |                           |                             |
-      |                           |                             |
-      |                           |                             |
-   Spigot 1                    Spigot 2                      Spigot n
-      |                           |                             |
-      |                           |                             |
-      |                           |                             |
-      +------------------- NFS, MySQL & Redis ------------------+
-      
-```
-  
-  According to the drawing above, you can clearly see that all BungeeCord & Spigot servers share the same NFS, MySQL and Redis servers. In this case, we call such shared server "endpoints" (because behind the endpoints maybe a cluster of servers as well.
-
-  There are an infinite amount of BungeeCord and Spigot servers, having the same exact configuration. It doesn't matter how many BungeeCord or Spigot servers out there. As long as they use the same NFS mount point, the same MySQL server, and the same Redis server, then the player's experience will be unified.
-  
-##Single Machine Environment (for testing)
-To build a single machine test environment, it will be visualized like this:
-
-```ruby
-                           Minecraft Players
-                                  ▲
-                                  |
-                                  |
-                                  |
-                                  ▼
-   BungeeCord 1 (port 25565)                    BungeeCord 2 (port 25566)
-      |                                                         |
-      |                                                         |
-      |                                                         |
-   Spigot 1 (port 25567)                           Spigot 2 (port 25568)
-      |                                                         |
-      |                                                         |
-      |                                                         |
-      +--------------------- MySQL & Redis ---------------------+
-      
-```
-  
-  This testing environment is very simple. It works with traditional server cluster (VM, dedicated servers, etc...). It can also work with cloud servers (Amazon Web Services, Google Cloud Platform, Microsoft Azure).
   
 ##Requirements
  * BungeeCord: serve as a proxy server
@@ -147,6 +95,7 @@ To build a single machine test environment, it will be visualized like this:
 ##How is it better than [Minecraft Realms](https://minecraft.net/realms)?
  Minecraftly is better than Minecraft Realms in many ways. First, let's look at how complex and redundant Minecraft Realms is
 ![screen shot Minecraft Realms Architecture](https://media.amazonwebservices.com/blog/2014/minecraft_realms_arch_2.png)
+
  Cloud computing doesn't need to be that complicated. It's complicated mainly because of intellectual properties. Since we're open source, we can make it as simple and as extendable as possible.
  
  Here are some simple comparisons:
