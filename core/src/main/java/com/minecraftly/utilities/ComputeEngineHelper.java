@@ -21,7 +21,7 @@ public class ComputeEngineHelper {
      * @throws IOException
      */
     public static String queryUniqueId() throws IOException {
-        return queryComputeAPI("http://metadata.google.internal/computeMetadata/v1/instance/id");
+        return queryComputeAPI("http://metadata.google.internal/computeMetadata/v1/instance/hostname");
     }
 
     /**
@@ -32,7 +32,7 @@ public class ComputeEngineHelper {
      * @throws IOException
      */
     public static String queryIpAddress() throws IOException {
-        return queryComputeAPI("http://metadata.google.internal/computeMetadata/v1/instance/network-interfaces/0/ip");
+        return queryComputeAPI("http://metadata.google.internal/computeMetadata/v1/instance/hostname");
     }
 
     /**
