@@ -1,7 +1,5 @@
 #Welcome
-  These are the important information for Minecraftly Cloud Platform.  Read them carefully,
-as they tell you what this is all about, explain how to install the
-software, and what to do if something goes wrong. 
+  Please read everything carefully, as they tell you what this is all about, explain how to install the software, and what to do if something goes wrong. 
 
 ##What is Minecraftly?
   Minecraftly (Minecraftly Cloud Platform) is a free and open source (FOSS) alternative of the official Mojang's Minecraft Realms, designed and written from scratch by Viet Nguyen and Keir Nellyer, respectively, with assistance from some friendly developers and helpers from the internet. It aims towards creating an easy to run a distributed network, on any server, using traditional server system. Minecraftly Cloud Platform is now community-developed and will be remained free under GNU GPL license.
@@ -26,7 +24,7 @@ software, and what to do if something goes wrong.
   
 ##Player Flow
  Usually, in a normal Minecraft server, player flow is like this:
-```ruby
+```go
                                Player A
                                   |
                                   |
