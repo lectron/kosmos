@@ -1,5 +1,6 @@
 #This is a script to automatically install Minecraftly on a single server for testing
 #Requirements: Google Cloud Platform server only (for now). Debian 8 or higher. Server needs at least 1GB Ram
+```shell
 #! /bin/bash
 #Update operating system & install some packages
 sudo -i
@@ -104,3 +105,4 @@ cd /m/b1 && screen -dmS b1 java -jar BungeeCord.jar
 cd /m/b2 && screen -dmS b2 java -jar BungeeCord.jar
 cd /m/s1 && screen -dmS s1 java -Dcom.mojang.eula.agree=true -jar spigot.jar --world-dir /m/worlds --port 25567
 cd /m/s2 && screen -dmS s2 java -Dcom.mojang.eula.agree=true -jar spigot.jar --world-dir /m/worlds --port 25568
+```
