@@ -64,13 +64,16 @@
 ```
   
 ##Requirements
- * BungeeCord: serve as a proxy server
- * Spigot: serve as Minecraft server
- * MySQL Server
- * Redis Server (Will plan to not depend on Redis and RedisBungee)
- * RedisBungee plugin (Will plan to not depend on Redis and RedisBungee)
- * Vault plugin (for permissions hook)
- * ProtocolLib plugin (Will plan to not depend on ProtocolLib)
+ * BungeeCord: serve as a proxy server (equivalent to Nginx or HAProxy in web hosting)
+ * Spigot: serve as Minecraft server. Spigot is important because it has "--world-dir" flag at startup, which specifies the directory for all world maps.
+ * MySQL server: Holding players data like inventories, chests so players can have the same data cross servers
+ * Redis server: Holding sessions, healthchecks, lists of available servers data.
+ 
+##Dependencies
+ Dependencies are Java plugins, libraries, and classes that serve as prerequisites for Minecraftly plugins to run. As development goes, we aim to remove all dependencies, as much as possible, so the software isn't dependent on any external factor. That's how we build loosely coupled software.
+ * RedisBungee plugin: Currently acts as a bridge between Minecraftly plugins and Redis server
+ * Vault plugin: Acts as a bridge between Minecraftly and permissions plugins.
+ * ProtocolLib plugin: It's dependent somehow. Will work to remove this dependency.
 
 ##How is it better than [Minecraft Realms](https://minecraft.net/realms)?
  Minecraftly is better than Minecraft Realms in many ways. First, let's look at how complex and redundant Minecraft Realms is
