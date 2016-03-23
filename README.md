@@ -41,31 +41,10 @@
                                     SERVER_world_1_nether
                                     SERVER_world_1_the_end
 ```
-or some server attempts to scale like this:
-```go
-   Player A                            Player B                            Player C
-      |                                   |                                   |
-      |                                   |                                   |
-      |                                   |                                   |
-      +-----------------------------------+-----------------------------------+
-                   |                                    |
-                   |                                    |
-                   |                                    |
-                   ▼                                    ▼ 
-                Server 1                             Server 2
-                   |                                    |
-                   |                                    |
-                   |                                    |
-                   ▼                                    ▼ 
-             SERVER_world_1                       SERVER_world_2
-             SERVER_world_1_nether                SERVER_world_2_nether
-             SERVER_world_1_the_end               SERVER_world_2_the_end
-```
- Above are the old ways of handling players. Bottleneck usually happens when a single machine gets filled up with high amount of concurrent players.
-
+ Above is the old ways of handling players. Bottleneck usually happens when a single machine gets filled up with high amount of concurrent players.
 
 #The Right Way to Scale
- Let's visualize a smarter way to distribute players. In Minecraftly, it's like this:
+ Let's visualize a smarter way to distribute players, where server is seperated from world files. In Minecraftly, it's like this:
 ```ruby
         Player A                       Player B                       Player C
            |                              |                              |
