@@ -17,14 +17,16 @@
 #
 ###############################################################################
 
-#Update operating system & install some packages
+#Sudo
 sudo -i
-apt-get update -y
-DEBIAN_FRONTEND=noninteractive apt-get -y -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold" dist-upgrade
-apt-get install screen -y
-apt-get install git -y
 
-#Install MySQL server with username "root", no password, and database name "minecraftly"
+#Install screen to let multiple Minecraft sessions run in background
+apt-get install screen -y
+
+#Install MySQL database server
+#username: "root", 
+#no password 
+#database name: "minecraftly"
 export DEBIAN_FRONTEND=noninteractive
 echo "mysql-server-5.5 mysql-server/root_password password 123456" | debconf-set-selections
 echo "mysql-server-5.5 mysql-server/root_password_again password 123456" | debconf-set-selections
@@ -32,10 +34,10 @@ apt-get -y install mysql-server-5.5
 mysql -u root -p123456 -e "create database minecraftly;"
 mysqladmin -u root -p123456 password ''
 
-#Install Redis server
+#Install Redis NoSQL server
 apt-get install redis-server -y
 
-#Install Latest Java Version
+#Install latest Java version
 echo "deb http://ppa.launchpad.net/webupd8team/java/ubuntu trusty main" | tee /etc/apt/sources.list.d/webupd8team-java.list
 echo "deb-src http://ppa.launchpad.net/webupd8team/java/ubuntu trusty main" | tee -a /etc/apt/sources.list.d/webupd8team-java.list
 apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys EEA14886
