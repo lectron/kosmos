@@ -66,7 +66,7 @@
 ##Requirements
  * BungeeCord: serve as a proxy server (equivalent to Nginx or HAProxy in web hosting)
  * Spigot: serve as Minecraft server. Spigot is important because it has "--world-dir" flag at startup, which specifies the directory for all world maps.
- * MySQL server: Holding players data like inventories, chests so players can have the same data cross servers
+ * MySQL server: Holding each server data like ban list, whitelist, etc..
  * Redis server: Holding sessions, healthchecks, lists of available servers data.
  
 ##Dependencies
