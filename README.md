@@ -1,3 +1,5 @@
+![screen shot Minecraftly Cloud Platform Architecture](https://m.ly/images/ykl5mnN.svg)
+
 #Welcome
 ---
   Please read everything carefully, as they tell you what this is all about, explain how to install the software, and what to do if something goes wrong. 
