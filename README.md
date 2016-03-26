@@ -1,5 +1,3 @@
-<img src="https://m.ly/images/ykl5mnN.svg" width="100%">
-
 #Welcome
 ---
   Please read everything carefully, as they tell you what this is all about, explain how to install the software, and what to do if something goes wrong. 
@@ -79,7 +77,10 @@
 
 ##How is it better than [Minecraft Realms](https://minecraft.net/realms)?
  Minecraftly is better than Minecraft Realms in many ways. First, let's look at how complex and redundant Minecraft Realms is
-![screen shot Minecraft Realms Architecture](https://media.amazonwebservices.com/blog/2014/minecraft_realms_arch_2.png)
+![Minecraft Realms Architecture](https://media.amazonwebservices.com/blog/2014/minecraft_realms_arch_2.png)
+
+ Now look at Minecraftly Cloud Platform's architecture
+![Minecraftly Cloud Platform Architecture](https://m.ly/images/ykl5mnN.svg)
 
  Cloud computing doesn't need to be that complicated. It's complicated mainly because of intellectual properties. Since we're open source, we can make it as simple and as extendable as possible.
  
