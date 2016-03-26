@@ -25,17 +25,20 @@
  
 <img src="https://m.ly/images/8hGSRpe.svg" width="60%"/>
  
- Above is the old ways of handling players. Bottleneck usually happens when a single machine gets filled up with high amount of concurrent players.
+ Above is the old ways of handling players. It's too monolithic. Bottleneck usually happens when a single machine gets filled up with high amount of concurrent players.
  
  
- How about the official Minecraft Realms by Mojang?
+How about the official Minecraft Realms by Mojang?
  
  <img src="https://media.amazonwebservices.com/blog/2014/minecraft_realms_arch_2.png" width="60%"/>
  
+Minecraft Realms is scalable but too complicated, and players are still separated from the others.
  
- Now, let's visualize a smarter way to distribute players, where server is seperated from world files. In Minecraftly, it's like this:
+Now, let's visualize another way to distribute players, where server is seperated from world files. In Minecraftly, it's like this:
  
 <img src="https://m.ly/images/ykl5mnN.svg" width="60%"/>
+
+Players can interact with others normally, it's just that each player has their own world, accessible via their own public address.
 
 ##How is it better than [Minecraft Realms](https://minecraft.net/realms)?
  Cloud computing doesn't need to be that complicated. It's complicated mainly because of intellectual properties. Since we're open source, we can make it as simple and as extendable as possible.
