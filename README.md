@@ -23,20 +23,20 @@
 ##Architecture
  Usually, in a traditional Minecraft server, player flow is like this:
  
-<img src="https://m.ly/images/8hGSRpe.svg" width="60%"/>
+<img src="https://m.ly/images/8hGSRpe.svg" width="100%"/>
  
  Above is the old ways of handling players. It's too monolithic. Bottleneck usually happens when a single machine gets filled up with high amount of concurrent players.
  
  
 How about the official Minecraft Realms by Mojang?
  
- <img src="https://media.amazonwebservices.com/blog/2014/minecraft_realms_arch_2.png" width="60%"/>
+ <img src="https://media.amazonwebservices.com/blog/2014/minecraft_realms_arch_2.png" width="100%"/>
  
 Minecraft Realms is scalable but too complicated, and players are still separated from the others.
  
 Now, let's visualize another way to distribute players, where server is seperated from world files. In Minecraftly, it's like this:
  
-<img src="https://m.ly/images/ykl5mnN.svg" width="60%"/>
+<img src="https://m.ly/images/ykl5mnN.svg" width="100%"/>
 
 Players can interact with others normally, it's just that each player has their own world, accessible via their own public address.
 
