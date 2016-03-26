@@ -20,48 +20,25 @@
   
   I dedicated myself to cloud computing and passed my AWS Solutions Architect Certification exam in 2015. It helped construct my knowledge to build a simplier open source project that anyone can test, build, host their own network.
   
-##How it works
+##Architecture
  Usually, in a traditional Minecraft server, player flow is like this:
-```go
-   Player A                            Player B                            Player C
-      |                                   |                                   |
-      |                                   |                                   |
-      |                                   |                                   |
-      +-----------------------------------+-----------------------------------+
-                                          |
-                                          |
-                                          |
-                                          ▼ 
-                                       Server 1
-                                          |
-                                          |
-                                          |
-                                          ▼ 
-                                    SERVER_world_1
-                                    SERVER_world_1_nether
-                                    SERVER_world_1_the_end
-```
+<img src="https://m.ly/images/8hGSRpe.svg" width="100%"/>
  Above is the old ways of handling players. Bottleneck usually happens when a single machine gets filled up with high amount of concurrent players.
+ 
+ How about the official Minecraft Realms by Mojang?
+ <img src="https://media.amazonwebservices.com/blog/2014/minecraft_realms_arch_2.png" width="100%"/>
+ 
+  Now, let's visualize a smarter way to distribute players, where server is seperated from world files. In Minecraftly, it's like this:
+<img src="https://m.ly/images/ykl5mnN.svg" width="100%"/>
 
-#The Right Way to Scale
- Let's visualize a smarter way to distribute players, where server is seperated from world files. In Minecraftly, it's like this:
-```ruby
-        Player A                       Player B                       Player C
-           |                              |                              |
-           |                              |                              |
-           |                              |                              |
-           ▼                              ▼                              ▼
-       Server 1 or 2 or 3 or 4 or 5 or 6 or 7 or 8 or 9 or 10 or 11 or 12... or ∞
-           |                              |                              |
-           |                              |                              |
-           |                              |                              |
-           ▼                              ▼                              ▼
-+------------------------------------------------------------------------------------+
-| PLAYER_world_A               PLAYER_world_B                 PLAYER_world_C         |
-| PLAYER_world_A_nether        PLAYER_world_B_nether          PLAYER_world_C_nether  |
-| PLAYER_world_A_the_end       PLAYER_world_B_the_end         PLAYER_world_C_the_end |
-+------------------------------------------------------------------------------------+
-```
+##How is it better than [Minecraft Realms](https://minecraft.net/realms)?
+ Cloud computing doesn't need to be that complicated. It's complicated mainly because of intellectual properties. Since we're open source, we can make it as simple and as extendable as possible.
+ 
+ Here are some simple comparisons:
+ * Minecraftly doesn't need Frontend, Manager, Controller, and Amazon S3 object storage
+ * Minecraftly doesn't need move world from object storage back to local block storage, which means players can load world right away.
+ * Minecraftly lets players jump from server to server in real time, embracing the feeling of having many people playing with you at the same time.
+ * Minecraftly saves server cost more efficiently than Minecraft Realms. While Realms creates a separated server for each paid player which is costly, we use one server for many free and paid players, and still deliver better and more seamless performance.
   
 ##Requirements
  * BungeeCord: serve as a proxy server (equivalent to Nginx or HAProxy in web hosting)
@@ -75,21 +52,6 @@
  * Vault plugin: Acts as a bridge between Minecraftly and permissions plugins.
  * ProtocolLib plugin: It's dependent somehow. Will work to remove this dependency.
 
-##How is it better than [Minecraft Realms](https://minecraft.net/realms)?
- Minecraftly is better than Minecraft Realms in many ways. First, let's look at how complex and redundant Minecraft Realms is
-![Minecraft Realms Architecture](https://media.amazonwebservices.com/blog/2014/minecraft_realms_arch_2.png)
-
- Now look at Minecraftly Cloud Platform's architecture
-![Minecraftly Cloud Platform Architecture](https://m.ly/images/ykl5mnN.svg)
-
- Cloud computing doesn't need to be that complicated. It's complicated mainly because of intellectual properties. Since we're open source, we can make it as simple and as extendable as possible.
- 
- Here are some simple comparisons:
- * Minecraftly doesn't need Frontend, Manager, Controller, and Amazon S3 object storage
- * Minecraftly doesn't need move world from object storage back to local block storage, which means players can load world right away.
- * Minecraftly lets players jump from server to server in real time, embracing the feeling of having many people playing with you at the same time.
- * Minecraftly saves server cost more efficiently than Minecraft Realms. While Realms creates a separated server for each paid player which is costly, we use one server for many free and paid players, and still deliver better and more seamless performance.
- 
 ##Contributing
   Minecraftly is licensed under the GNU General Public License version 3 (GNU GPLv3), and we welcome anybody to fork and submit a Pull Request back with their changes, and if you want to join as a permanent member we can add you to the team.
 
