@@ -1,4 +1,4 @@
-![screen shot Minecraftly Cloud Platform Architecture](https://m.ly/images/ykl5mnN.svg)
+![screen shot Minecraftly Cloud Platform Architecture](https://m.ly/images/ykl5mnN.svg = 100%)
 
 #Welcome
 ---
