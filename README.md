@@ -1,4 +1,3 @@
-![screen shot Minecraftly Cloud Platform Architecture](https://m.ly/images/ykl5mnN.svg)
 <img src="https://m.ly/images/ykl5mnN.svg" width="100%">
 
 #Welcome
