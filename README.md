@@ -62,9 +62,14 @@ Players can interact with others normally, it's just that each player has their 
  * ProtocolLib plugin: It's dependent somehow. Will work to remove this dependency.
 
 ##Contributing
-  Minecraftly is licensed under the GNU General Public License version 3 (GNU GPLv3), and we welcome anybody to fork and submit a Pull Request back with their changes, and if you want to join as a permanent member we can add you to the team.
+ Thank you for your interest in Minecraftly. Contributing to Minecraftly is easy, just fork the project on GitHub, make your changes and submit a pull request to get your code merged. That's all there is to it.
+ 
+ Minecraftly is licensed under the GNU General Public License version 3 (GNU GPLv3), and we welcome anybody to fork and submit a Pull Request back with their changes, and if you want to join as a permanent member we can add you to the team.
 
-  For contributing information, check out the [CONTRIBUTING.md](CONTRIBUTING.md) file for more details.
+ Check out the [Wiki](wiki) for more information about setting up the development environment for Minecraftly, finding issues to work on, etc...
+
+ If you are new to open source and/or GitHub, or just aren't sure about some details in the contribution process, here's a tutorial to get you started:
+[How to Contribute to an Open Source Project on GitHub](https://egghead.io/series/how-to-contribute-to-an-open-source-project-on-git
 
 ##Managed Hosting
   Besides the free and open source version, we also offer a value added hosted service at [https://m.ly](https://m.ly). You can play with friends and don't have to setup server.
