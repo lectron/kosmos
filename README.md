@@ -69,7 +69,7 @@ Players can interact with others normally, it's just that each player has their 
  Check out the [Wiki](wiki) for more information about setting up the development environment for Minecraftly, finding issues to work on, etc...
 
  If you are new to open source and/or GitHub, or just aren't sure about some details in the contribution process, here's a tutorial to get you started:
-[How to Contribute to an Open Source Project on GitHub](https://egghead.io/series/how-to-contribute-to-an-open-source-project-on-git)
+[How to Contribute to an Open Source Project on GitHub](https://egghead.io/series/how-to-contribute-to-an-open-source-project-on-github)
 
 ##Managed Hosting
   Besides the free and open source version, we also offer a value added hosted service at [https://m.ly](https://m.ly). You can play with friends and don't have to setup server.
