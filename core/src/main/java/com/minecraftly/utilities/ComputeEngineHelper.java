@@ -7,7 +7,7 @@ import java.net.URL;
 import java.net.URLConnection;
 
 /**
- * These methods will only work in Google Compute Engine environments, running these elsewhere will result in failure.
+ * These methods USED TO only work in Google Compute Engine environments. HOWEVER, I made a quick fix for it to work with public IP of any server using http://ipinfo.io/ip service
  */
 public class ComputeEngineHelper {
 
@@ -21,7 +21,7 @@ public class ComputeEngineHelper {
      * @throws IOException
      */
     public static String queryUniqueId() throws IOException {
-        return queryComputeAPI("http://metadata.google.internal/computeMetadata/v1/instance/hostname");
+        return queryComputeAPI("http://ipinfo.io/ip");
     }
 
     /**
@@ -32,7 +32,7 @@ public class ComputeEngineHelper {
      * @throws IOException
      */
     public static String queryIpAddress() throws IOException {
-        return queryComputeAPI("http://metadata.google.internal/computeMetadata/v1/instance/hostname");
+        return queryComputeAPI("http://ipinfo.io/ip");
     }
 
     /**
