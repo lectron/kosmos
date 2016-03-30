@@ -45,7 +45,6 @@ apt-get update -y
 apt-get install oracle-java8-set-default -y
 
 #Make some directories & download some preconfigured files
-mkdir /minecraftly
 wget -P /minecraftly/bungeecord1 https://storage.googleapis.com/minecraftly/test/BungeeCord.jar
 wget -P /minecraftly/bungeecord2 https://storage.googleapis.com/minecraftly/test/BungeeCord.jar
 wget -P /minecraftly/bungeecord1/plugins https://storage.googleapis.com/minecraftly/test/RedisBungee.jar
