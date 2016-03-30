@@ -57,7 +57,7 @@ wget -P /minecraftly/bungeecord1/plugins/MinecraftlyBungee https://storage.googl
 wget -P /minecraftly/bungeecord2/plugins/MinecraftlyBungee https://storage.googleapis.com/minecraftly/test/motd.yml
 wget -P /minecraftly/spigot1 https://storage.googleapis.com/minecraftly/test/spigot.jar
 wget -P /minecraftly/spigot2 https://storage.googleapis.com/minecraftly/test/spigot.jar
-wget -P /minecraftly/pigots1/plugins https://storage.googleapis.com/minecraftly/test/Minecraftly.jar
+wget -P /minecraftly/spigot1/plugins https://storage.googleapis.com/minecraftly/test/Minecraftly.jar
 wget -P /minecraftly/spigot2/plugins https://storage.googleapis.com/minecraftly/test/Minecraftly.jar
 wget -P /minecraftly/spigot1/plugins https://storage.googleapis.com/minecraftly/test/ProtocolLib.jar
 wget -P /minecraftly/spigot2/plugins https://storage.googleapis.com/minecraftly/test/ProtocolLib.jar
