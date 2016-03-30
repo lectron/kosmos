@@ -65,16 +65,16 @@ wget -P /minecraftly/spigot1/plugins https://storage.googleapis.com/minecraftly/
 wget -P /minecraftly/spigot2/plugins https://storage.googleapis.com/minecraftly/test/Vault.jar
 
 #Start servers for the first time to generate files
-cd /m/b1 && screen -dmS b1 java -jar BungeeCord.jar
+cd /minecraftly/bungeecord1 && screen -dmS b1 java -jar BungeeCord.jar
 sleep 60
 screen -r b1 -X stuff 'end\n'
-cd /m/b2 && screen -dmS b2 java -jar BungeeCord.jar
+cd /minecraftly/bungeecord2 && screen -dmS b2 java -jar BungeeCord.jar
 sleep 60
 screen -r b2 -X stuff 'end\n'
-cd /m/s1 && screen -dmS s1 java -Dcom.mojang.eula.agree=true -jar spigot.jar --world-dir /mnt/worlds --port 25567
+cd /minecraftly/spigot1 && screen -dmS s1 java -Dcom.mojang.eula.agree=true -jar spigot.jar --world-dir /mnt/worlds --port 25567
 sleep 60
 screen -r s1 -X stuff 'stop\n'
-cd /m/s2 && screen -dmS s2 java -Dcom.mojang.eula.agree=true -jar spigot.jar --world-dir /mnt/worlds --port 25568
+cd /minecraftly/spigot2 && screen -dmS s2 java -Dcom.mojang.eula.agree=true -jar spigot.jar --world-dir /mnt/worlds --port 25568
 sleep 60
 screen -r s2 -X stuff 'stop\n'
 
@@ -104,7 +104,7 @@ sed -i "s/connection-throttle: .*/connection-throttle: -1/" /minecraftly/spigot1
 sed -i "s/connection-throttle: .*/connection-throttle: -1/" /minecraftly/spigot2/bukkit.yml
 
 #Start servers to play
-cd /minecraftly/b1 && screen -dmS b1 java -jar BungeeCord.jar
-cd /minecraftly/b2 && screen -dmS b2 java -jar BungeeCord.jar
+cd /minecraftly/bungeecord1 && screen -dmS b1 java -jar BungeeCord.jar
+cd /minecraftly/bungeecord2 && screen -dmS b2 java -jar BungeeCord.jar
 cd /minecraftly/spigot1 && screen -dmS s1 java -Dcom.mojang.eula.agree=true -jar spigot.jar --world-dir /mnt/worlds --port 25567
 cd /minecraftly/spigot2 && screen -dmS s2 java -Dcom.mojang.eula.agree=true -jar spigot.jar --world-dir /mnt/worlds --port 25568
