@@ -89,8 +89,8 @@ sed -i "s/md_5:/minecraftly:/" /minecraftly/bungeecord1/config.yml
 sed -i "s/md_5:/minecraftly:/" /minecraftly/bungeecord2/config.yml
 sed -i "s/heartbeatPort: .*/heartbeatPort: 25567/" /minecraftly/spigot1/plugins/Minecraftly/config.yml
 sed -i "s/heartbeatPort: .*/heartbeatPort: 25568/" /minecraftly/spigot2/plugins/Minecraftly/config.yml
-sed -i "s/address: localhost:.*/address: localhost:25567/" /m/bungeecord1/config.yml
-sed -i "s/address: localhost:.*/address: localhost:25568/" /m/bungeecord2/config.yml
+sed -i "s/address: localhost:.*/address: localhost:25567/" /minecraftly/bungeecord1/config.yml
+sed -i "s/address: localhost:.*/address: localhost:25568/" /minecraftly/bungeecord2/config.yml
 HOSTNAME=$(ifconfig eth0 | grep "inet addr" | cut -d ':' -f 2 | cut -d ' ' -f 1)
 sed -i "s/server-id:.*/server-id: $HOSTNAME/" /minecraftly/bungeecord1/plugins/RedisBungee/config.yml
 sed -i "s/server-id:.*/server-id: $HOSTNAME/" /minecraftly/bungeecord2/plugins/RedisBungee/config.yml
