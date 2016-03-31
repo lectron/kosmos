@@ -104,12 +104,12 @@ sed -i "s/connection-throttle: .*/connection-throttle: -1/" /minecraftly/spigot1
 sed -i "s/connection-throttle: .*/connection-throttle: -1/" /minecraftly/spigot2/bukkit.yml
 
 #Make some symbolic links so that both server share the same playerdata and achievement stats folders
-mkdir /minecraftly/playerdata
+mkdir -p /minecraftly/playerdata
+mkdir -p /minecraftly/stats
 mkdir -p /minecraftly/world1
 mkdir -p /minecraftly/world2
 ln -s /minecraftly/playerdata /minecraftly/world1/playerdata
 ln -s /minecraftly/playerdata /minecraftly/world2/playerdata
-mkdir /minecraftly/stats
 ln -s /minecraftly/stats /minecraftly/world1/stats
 ln -s /minecraftly/stats /minecraftly/world2/stats
 
