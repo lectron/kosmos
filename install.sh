@@ -71,10 +71,10 @@ screen -r b1 -X stuff 'end\n'
 cd /minecraftly/bungeecord2 && screen -dmS b2 java -jar BungeeCord.jar
 sleep 30
 screen -r b2 -X stuff 'end\n'
-cd /minecraftly/spigot1 && screen -dmS s1 java -Dcom.mojang.eula.agree=true -jar spigot.jar --world-dir /mnt/worlds --port 25567
+cd /minecraftly/spigot1 && screen -dmS s1 java -Dcom.mojang.eula.agree=true -jar spigot.jar --world-dir /minecraftly/worlds --port 25567
 sleep 30
 screen -r s1 -X stuff 'stop\n'
-cd /minecraftly/spigot2 && screen -dmS s2 java -Dcom.mojang.eula.agree=true -jar spigot.jar --world-dir /mnt/worlds --port 25568
+cd /minecraftly/spigot2 && screen -dmS s2 java -Dcom.mojang.eula.agree=true -jar spigot.jar --world-dir /minecraftly/worlds --port 25568
 sleep 30
 screen -r s2 -X stuff 'stop\n'
 
@@ -106,5 +106,5 @@ sed -i "s/connection-throttle: .*/connection-throttle: -1/" /minecraftly/spigot2
 #Start servers to play
 cd /minecraftly/bungeecord1 && screen -dmS b1 java -jar BungeeCord.jar
 cd /minecraftly/bungeecord2 && screen -dmS b2 java -jar BungeeCord.jar
-cd /minecraftly/spigot1 && screen -dmS s1 java -Dcom.mojang.eula.agree=true -jar spigot.jar --world-dir /mnt/worlds --port 25567
-cd /minecraftly/spigot2 && screen -dmS s2 java -Dcom.mojang.eula.agree=true -jar spigot.jar --world-dir /mnt/worlds --port 25568
+cd /minecraftly/spigot1 && screen -dmS s1 java -Dcom.mojang.eula.agree=true -jar spigot.jar --world-dir /minecraftly/worlds --port 25567
+cd /minecraftly/spigot2 && screen -dmS s2 java -Dcom.mojang.eula.agree=true -jar spigot.jar --world-dir /minecraftly/worlds --port 25568
