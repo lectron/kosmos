@@ -20,6 +20,13 @@
   
   I dedicated myself to cloud computing and passed my AWS Solutions Architect Certification exam in 2015. It helped construct my knowledge to build a simplier open source project that anyone can test, build, host their own network.
   
+## Parallel Space Partitioning:
+ In most MMORPG games like World of Warcraft or Minecraft, or Second Life, to scale and serve massive amount of concurrent players, parallel space partitioning needs to be applied.
+ 
+ Normally, space partitioning refers to the dividing of a game into multiple worlds, handled by each separated servers.
+
+ Minecraftly goes above and beyond that. We divide the game into multiple worlds as well, but assigned to each separated players, handled by any servers in the cluster. Luckily, the nature of the Minecraft as an open world game allows that to happen.
+ 
 ##Architecture
  Usually, in a traditional Minecraft server, player flow is like this:
  
