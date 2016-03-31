@@ -18,6 +18,7 @@
 ###############################################################################
 
 #Sudo as root
+sudo -i
 
 #Install screen to let multiple Minecraft sessions run in background
 apt-get install screen -y
