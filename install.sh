@@ -48,24 +48,24 @@ apt-get update -y
 apt-get install oracle-java8-set-default -y
 
 # Download some preconfigured files
-wget -P /minecraftly/bungeecord1 https://storage.googleapis.com/minecraftly/test/BungeeCord.jar
-wget -P /minecraftly/bungeecord2 https://storage.googleapis.com/minecraftly/test/BungeeCord.jar
-wget -P /minecraftly/bungeecord1/plugins https://storage.googleapis.com/minecraftly/test/RedisBungee.jar
-wget -P /minecraftly/bungeecord2/plugins https://storage.googleapis.com/minecraftly/test/RedisBungee.jar
-wget -P /minecraftly/bungeecord1/plugins https://storage.googleapis.com/minecraftly/test/MinecraftlyBungee.jar
-wget -P /minecraftly/bungeecord2/plugins https://storage.googleapis.com/minecraftly/test/MinecraftlyBungee.jar
-wget -P /minecraftly/bungeecord1/plugins/MinecraftlyBungee https://storage.googleapis.com/minecraftly/test/config.yml
-wget -P /minecraftly/bungeecord2/plugins/MinecraftlyBungee https://storage.googleapis.com/minecraftly/test/config.yml
-wget -P /minecraftly/bungeecord1/plugins/MinecraftlyBungee https://storage.googleapis.com/minecraftly/test/motd.yml
-wget -P /minecraftly/bungeecord2/plugins/MinecraftlyBungee https://storage.googleapis.com/minecraftly/test/motd.yml
-wget -P /minecraftly/spigot1 https://storage.googleapis.com/minecraftly/test/spigot.jar
-wget -P /minecraftly/spigot2 https://storage.googleapis.com/minecraftly/test/spigot.jar
-wget -P /minecraftly/spigot1/plugins https://storage.googleapis.com/minecraftly/test/Minecraftly.jar
-wget -P /minecraftly/spigot2/plugins https://storage.googleapis.com/minecraftly/test/Minecraftly.jar
-wget -P /minecraftly/spigot1/plugins https://storage.googleapis.com/minecraftly/test/ProtocolLib.jar
-wget -P /minecraftly/spigot2/plugins https://storage.googleapis.com/minecraftly/test/ProtocolLib.jar
-wget -P /minecraftly/spigot1/plugins https://storage.googleapis.com/minecraftly/test/Vault.jar
-wget -P /minecraftly/spigot2/plugins https://storage.googleapis.com/minecraftly/test/Vault.jar
+wget -P /minecraftly/bungeecord1 https://github.com/minecraftly/minecraftly/blob/master/BungeeCord.jar?raw=true
+wget -P /minecraftly/bungeecord2 https://github.com/minecraftly/minecraftly/blob/master/BungeeCord.jar?raw=true
+wget -P /minecraftly/bungeecord1/plugins https://github.com/minecraftly/minecraftly/blob/master/RedisBungee.jar?raw=true
+wget -P /minecraftly/bungeecord2/plugins https://github.com/minecraftly/minecraftly/blob/master/RedisBungee.jar?raw=true
+wget -P /minecraftly/bungeecord1/plugins https://github.com/minecraftly/minecraftly/blob/master/MinecraftlyBungee.jar?raw=true
+wget -P /minecraftly/bungeecord2/plugins https://github.com/minecraftly/minecraftly/blob/master/MinecraftlyBungee.jar?raw=true
+wget -P /minecraftly/bungeecord1/plugins/MinecraftlyBungee https://github.com/minecraftly/minecraftly/blob/master/config.yml?raw=true
+wget -P /minecraftly/bungeecord2/plugins/MinecraftlyBungee https://github.com/minecraftly/minecraftly/blob/master/config.yml?raw=true
+wget -P /minecraftly/bungeecord1/plugins/MinecraftlyBungee https://github.com/minecraftly/minecraftly/blob/master/motd.yml?raw=true?raw=true
+wget -P /minecraftly/bungeecord2/plugins/MinecraftlyBungee https://github.com/minecraftly/minecraftly/blob/master/motd.yml?raw=true
+wget -P /minecraftly/spigot1 https://github.com/minecraftly/minecraftly/blob/master/spigot.jar?raw=true
+wget -P /minecraftly/spigot2 https://github.com/minecraftly/minecraftly/blob/master/spigot.jar?raw=true
+wget -P /minecraftly/spigot1/plugins https://github.com/minecraftly/minecraftly/blob/master/Minecraftly.jar?raw=true
+wget -P /minecraftly/spigot2/plugins https://github.com/minecraftly/minecraftly/blob/master/Minecraftly.jar?raw=true
+wget -P /minecraftly/spigot1/plugins https://github.com/minecraftly/minecraftly/blob/master/ProtocolLib.jar?raw=true
+wget -P /minecraftly/spigot2/plugins https://github.com/minecraftly/minecraftly/blob/master/ProtocolLib.jar?raw=true
+wget -P /minecraftly/spigot1/plugins https://github.com/minecraftly/minecraftly/blob/master/Vault.jar?raw=true
+wget -P /minecraftly/spigot2/plugins https://github.com/minecraftly/minecraftly/blob/master/Vault.jar?raw=true
 
 # Start servers for the first time to generate files
 cd /minecraftly/bungeecord1 && screen -dmS b1 java -jar BungeeCord.jar
