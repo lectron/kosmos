@@ -26,9 +26,9 @@ sudo -i
 #
 # Quick command that runs this script
 #
-# wget -P /minecraftly https://raw.githubusercontent.com/minecraftly/minecraftly/master/install.sh
-# chmod 777 /minecraftly/install.sh
-# cd /minecraftly && sh install.sh
+# sudo wget -P /minecraftly https://raw.githubusercontent.com/minecraftly/minecraftly/master/install.sh
+# sudo chmod 777 /minecraftly/install.sh
+# cd /minecraftly && sudo sh install.sh
 #
 ###############################################################################
 
