@@ -103,6 +103,16 @@ sed -i "s/bungeecord: .*/bungeecord: true/" /minecraftly/spigot2/spigot.yml
 sed -i "s/connection-throttle: .*/connection-throttle: -1/" /minecraftly/spigot1/bukkit.yml
 sed -i "s/connection-throttle: .*/connection-throttle: -1/" /minecraftly/spigot2/bukkit.yml
 
+#Make some symbolic links so that both server share the same playerdata and achievement stats folders
+mkdir /minecraftly/playerdata
+mkdir -p /minecraftly/world1
+mkdir -p /minecraftly/world2
+ln -s /minecraftly/playerdata /minecraftly/world1/playerdata
+ln -s /minecraftly/playerdata /minecraftly/world2/playerdata
+mkdir /minecraftly/stats
+ln -s /minecraftly/stats /minecraftly/world1/stats
+ln -s /minecraftly/stats /minecraftly/world2/stats
+
 #Start servers to play
 cd /minecraftly/bungeecord1 && screen -dmS b1 java -jar BungeeCord.jar
 cd /minecraftly/bungeecord2 && screen -dmS b2 java -jar BungeeCord.jar
