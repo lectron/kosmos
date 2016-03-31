@@ -120,3 +120,5 @@ cd /minecraftly/bungeecord1 && screen -dmS b1 java -jar BungeeCord.jar
 cd /minecraftly/bungeecord2 && screen -dmS b2 java -jar BungeeCord.jar
 cd /minecraftly/spigot1 && screen -dmS s1 java -Dcom.mojang.eula.agree=true -jar spigot.jar --world-dir /minecraftly/worlds --port 25567
 cd /minecraftly/spigot2 && screen -dmS s2 java -Dcom.mojang.eula.agree=true -jar spigot.jar --world-dir /minecraftly/worlds --port 25568
+
+#Congratulations! You can now access your servers via your IP:25565 and IP:25566
