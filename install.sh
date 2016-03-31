@@ -22,16 +22,6 @@
 # Sudo as root
 sudo -i
 
-###############################################################################
-#
-# Quick command that runs this script
-#
-# sudo wget -P /minecraftly https://raw.githubusercontent.com/minecraftly/minecraftly/master/install.sh
-# sudo chmod 777 /minecraftly/install.sh
-# cd /minecraftly && sudo sh install.sh
-#
-###############################################################################
-
 # Install screen to let multiple Minecraft sessions run in background
 apt-get install screen -y
 
