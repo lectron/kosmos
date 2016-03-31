@@ -19,16 +19,16 @@
 #
 ###############################################################################
 
-#Sudo as root
+# Sudo as root
 sudo -i
 
-#Install screen to let multiple Minecraft sessions run in background
+# Install screen to let multiple Minecraft sessions run in background
 apt-get install screen -y
 
-#Install MySQL database server
-#username: "root", 
-#no password 
-#database name: "minecraftly"
+# Install MySQL database server
+# username: "root", 
+# no password 
+# database name: "minecraftly"
 export DEBIAN_FRONTEND=noninteractive
 echo "mysql-server-5.5 mysql-server/root_password password 123456" | debconf-set-selections
 echo "mysql-server-5.5 mysql-server/root_password_again password 123456" | debconf-set-selections
@@ -36,10 +36,10 @@ apt-get -y install mysql-server-5.5
 mysql -u root -p123456 -e "create database minecraftly;"
 mysqladmin -u root -p123456 password ''
 
-#Install Redis NoSQL server
+# Install Redis server
 apt-get install redis-server -y
 
-#Install latest Java version
+# Install latest Java version
 echo "deb http://ppa.launchpad.net/webupd8team/java/ubuntu trusty main" | tee /etc/apt/sources.list.d/webupd8team-java.list
 echo "deb-src http://ppa.launchpad.net/webupd8team/java/ubuntu trusty main" | tee -a /etc/apt/sources.list.d/webupd8team-java.list
 apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys EEA14886
@@ -47,7 +47,7 @@ echo oracle-java8-installer shared/accepted-oracle-license-v1-1 select true | su
 apt-get update -y
 apt-get install oracle-java8-set-default -y
 
-#Download some preconfigured files
+# Download some preconfigured files
 wget -P /minecraftly/bungeecord1 https://storage.googleapis.com/minecraftly/test/BungeeCord.jar
 wget -P /minecraftly/bungeecord2 https://storage.googleapis.com/minecraftly/test/BungeeCord.jar
 wget -P /minecraftly/bungeecord1/plugins https://storage.googleapis.com/minecraftly/test/RedisBungee.jar
@@ -67,7 +67,7 @@ wget -P /minecraftly/spigot2/plugins https://storage.googleapis.com/minecraftly/
 wget -P /minecraftly/spigot1/plugins https://storage.googleapis.com/minecraftly/test/Vault.jar
 wget -P /minecraftly/spigot2/plugins https://storage.googleapis.com/minecraftly/test/Vault.jar
 
-#Start servers for the first time to generate files
+# Start servers for the first time to generate files
 cd /minecraftly/bungeecord1 && screen -dmS b1 java -jar BungeeCord.jar
 sleep 30
 screen -r b1 -X stuff 'end\n'
@@ -81,7 +81,7 @@ cd /minecraftly/spigot2 && screen -dmS s2 java -Dcom.mojang.eula.agree=true -jar
 sleep 30
 screen -r s2 -X stuff 'stop\n'
 
-#Configure some files
+# Configure some files
 sed -i "s/ host: 0.0.0.0:.*/ host: 0.0.0.0:25565/" /minecraftly/bungeecord1/config.yml
 sed -i "s/ host: 0.0.0.0:.*/ host: 0.0.0.0:25566/" /minecraftly/bungeecord2/config.yml
 sed -i "s/ip_forward: .*/ip_forward: true/" /minecraftly/bungeecord1/config.yml
@@ -105,7 +105,7 @@ sed -i "s/bungeecord: .*/bungeecord: true/" /minecraftly/spigot2/spigot.yml
 sed -i "s/connection-throttle: .*/connection-throttle: -1/" /minecraftly/spigot1/bukkit.yml
 sed -i "s/connection-throttle: .*/connection-throttle: -1/" /minecraftly/spigot2/bukkit.yml
 
-#Make some symbolic links so that both server share the same playerdata and achievement stats folders
+# Make some symbolic links so that both server share the same playerdata and achievement stats folders
 mkdir -p /minecraftly/playerdata
 mkdir -p /minecraftly/stats
 mkdir -p /minecraftly/worlds/world1
@@ -115,10 +115,10 @@ ln -s /minecraftly/playerdata /minecraftly/worlds/world2/playerdata
 ln -s /minecraftly/stats /minecraftly/worlds/world1/stats
 ln -s /minecraftly/stats /minecraftly/worlds/world2/stats
 
-#Start servers to play
+# Start servers to play
 cd /minecraftly/bungeecord1 && screen -dmS b1 java -jar BungeeCord.jar
 cd /minecraftly/bungeecord2 && screen -dmS b2 java -jar BungeeCord.jar
 cd /minecraftly/spigot1 && screen -dmS s1 java -Dcom.mojang.eula.agree=true -jar spigot.jar --world-dir /minecraftly/worlds --port 25567
 cd /minecraftly/spigot2 && screen -dmS s2 java -Dcom.mojang.eula.agree=true -jar spigot.jar --world-dir /minecraftly/worlds --port 25568
 
-#Congratulations! You can now access your servers via your IP:25565 and IP:25566
+# Congratulations! You can now access your servers via your IP:25565 and IP:25566
