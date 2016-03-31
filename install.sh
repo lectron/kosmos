@@ -47,7 +47,7 @@ echo oracle-java8-installer shared/accepted-oracle-license-v1-1 select true | su
 apt-get update -y
 apt-get install oracle-java8-set-default -y
 
-#Make some directories & download some preconfigured files
+#Download some preconfigured files
 wget -P /minecraftly/bungeecord1 https://storage.googleapis.com/minecraftly/test/BungeeCord.jar
 wget -P /minecraftly/bungeecord2 https://storage.googleapis.com/minecraftly/test/BungeeCord.jar
 wget -P /minecraftly/bungeecord1/plugins https://storage.googleapis.com/minecraftly/test/RedisBungee.jar
