@@ -13,7 +13,9 @@
 # optimizing the server for performance boost is expected to be done outside 
 # the installed environment and is not something this script handles.
 #
-# Requirements: This script works with Debian 8 or higher.
+# This dev environment requires no NAS/NFS server, because it only runs on one machine
+#
+# Requirements: This script works with Debian 8 or higher. This dev
 #
 ###############################################################################
 
