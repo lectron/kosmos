@@ -106,12 +106,12 @@ sed -i "s/connection-throttle: .*/connection-throttle: -1/" /minecraftly/spigot2
 #Make some symbolic links so that both server share the same playerdata and achievement stats folders
 mkdir -p /minecraftly/playerdata
 mkdir -p /minecraftly/stats
-mkdir -p /minecraftly/world1
-mkdir -p /minecraftly/world2
-ln -s /minecraftly/playerdata /minecraftly/world1/playerdata
-ln -s /minecraftly/playerdata /minecraftly/world2/playerdata
-ln -s /minecraftly/stats /minecraftly/world1/stats
-ln -s /minecraftly/stats /minecraftly/world2/stats
+mkdir -p /minecraftly/worlds/world1
+mkdir -p /minecraftly/worlds/world2
+ln -s /minecraftly/playerdata /minecraftly/worlds/world1/playerdata
+ln -s /minecraftly/playerdata /minecraftly/worlds/world2/playerdata
+ln -s /minecraftly/stats /minecraftly/worlds/world1/stats
+ln -s /minecraftly/stats /minecraftly/worlds/world2/stats
 
 #Start servers to play
 cd /minecraftly/bungeecord1 && screen -dmS b1 java -jar BungeeCord.jar
