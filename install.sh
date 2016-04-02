@@ -58,14 +58,15 @@ wget -P /minecraftly/bungeecord1/plugins/MinecraftlyBungee https://raw.githubuse
 wget -P /minecraftly/bungeecord2/plugins/MinecraftlyBungee https://raw.githubusercontent.com/minecraftly/minecraftly/master/config.yml
 wget -P /minecraftly/bungeecord1/plugins/MinecraftlyBungee https://raw.githubusercontent.com/minecraftly/minecraftly/master/motd.yml
 wget -P /minecraftly/bungeecord2/plugins/MinecraftlyBungee https://raw.githubusercontent.com/minecraftly/minecraftly/master/motd.yml
-wget -P /minecraftly/spigot1 https://raw.githubusercontent.com/minecraftly/minecraftly/master/spigot.jar
-wget -P /minecraftly/spigot2 https://raw.githubusercontent.com/minecraftly/minecraftly/master/spigot.jar
 wget -P /minecraftly/spigot1/plugins https://raw.githubusercontent.com/minecraftly/minecraftly/master/Minecraftly.jar
 wget -P /minecraftly/spigot2/plugins https://raw.githubusercontent.com/minecraftly/minecraftly/master/Minecraftly.jar
 wget -P /minecraftly/spigot1/plugins https://raw.githubusercontent.com/minecraftly/minecraftly/master/ProtocolLib.jar
 wget -P /minecraftly/spigot2/plugins https://raw.githubusercontent.com/minecraftly/minecraftly/master/ProtocolLib.jar
 wget -P /minecraftly/spigot1/plugins https://raw.githubusercontent.com/minecraftly/minecraftly/master/Vault.jar
 wget -P /minecraftly/spigot2/plugins https://raw.githubusercontent.com/minecraftly/minecraftly/master/Vault.jar
+
+#Build spigot server file, version 699
+screen -dmS buildtools bash -c "rm -rf /minecraftly/buildtools && wget -P /minecraftly/buildtools https://hub.spigotmc.org/jenkins/job/BuildTools/lastSuccessfulBuild/artifact/target/BuildTools.jar && cd /minecraftly/buildtools && java -jar BuildTools.jar --rev 699"
 
 # Start servers for the first time to generate files
 cd /minecraftly/bungeecord1 && screen -dmS b1 java -jar BungeeCord.jar
