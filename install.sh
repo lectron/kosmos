@@ -119,6 +119,9 @@ ln -s /minecraftly/playerdata /minecraftly/worlds/world1/playerdata
 ln -s /minecraftly/playerdata /minecraftly/worlds/world2/playerdata
 ln -s /minecraftly/stats /minecraftly/worlds/world1/stats
 ln -s /minecraftly/stats /minecraftly/worlds/world2/stats
+rm -rf /minecraftly/worlds/world
+rm -rf /minecraftly/worlds/world_nether
+rm -rf /minecraftly/worlds/world_the_end
 
 # Start servers to play
 cd /minecraftly/bungeecord1 && screen -dmS b1 java -jar BungeeCord.jar
