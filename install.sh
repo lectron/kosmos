@@ -48,8 +48,8 @@ apt-get update -y
 apt-get install oracle-java8-set-default -y
 
 # Download some preconfigured files
-wget -P /minecraftly/bungeecord1 https://raw.githubusercontent.com/minecraftly/minecraftly/master/BungeeCord.jar
-wget -P /minecraftly/bungeecord2 https://raw.githubusercontent.com/minecraftly/minecraftly/master/BungeeCord.jar
+wget -P /minecraftly/bungeecord1 http://ci.md-5.net/job/BungeeCord/1119/artifact/bootstrap/target/BungeeCord.jar
+wget -P /minecraftly/bungeecord2 http://ci.md-5.net/job/BungeeCord/1119/artifact/bootstrap/target/BungeeCord.jar
 wget -P /minecraftly/bungeecord1/plugins https://raw.githubusercontent.com/minecraftly/minecraftly/master/RedisBungee.jar
 wget -P /minecraftly/bungeecord2/plugins https://raw.githubusercontent.com/minecraftly/minecraftly/master/RedisBungee.jar
 wget -P /minecraftly/bungeecord1/plugins https://raw.githubusercontent.com/minecraftly/minecraftly/master/MinecraftlyBungee.jar
