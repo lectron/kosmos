@@ -45,7 +45,7 @@ echo "deb-src http://ppa.launchpad.net/webupd8team/java/ubuntu trusty main" >> /
 apt-key adv --keyserver keyserver.ubuntu.com --recv-keys EEA14886
 echo oracle-java8-installer shared/accepted-oracle-license-v1-1 select true | sudo /usr/bin/debconf-set-selections
 apt-get update -y
-apt-get install oracle-java8-installer -y
+apt-get install oracle-java8-set-default -y
 
 # Download some preconfigured files
 wget -P /minecraftly/bungeecord1 http://ci.md-5.net/job/BungeeCord/1119/artifact/bootstrap/target/BungeeCord.jar
