@@ -62,8 +62,8 @@ wget -P /minecraftly/spigot1/plugins https://raw.githubusercontent.com/minecraft
 wget -P /minecraftly/spigot2/plugins https://raw.githubusercontent.com/minecraftly/minecraftly/master/Minecraftly.jar
 wget -P /minecraftly/spigot1/plugins https://raw.githubusercontent.com/minecraftly/minecraftly/master/ProtocolLib.jar
 wget -P /minecraftly/spigot2/plugins https://raw.githubusercontent.com/minecraftly/minecraftly/master/ProtocolLib.jar
-wget -P /minecraftly/spigot1/plugins https://raw.githubusercontent.com/minecraftly/minecraftly/master/Vault.jar
-wget -P /minecraftly/spigot2/plugins https://raw.githubusercontent.com/minecraftly/minecraftly/master/Vault.jar
+wget -P /minecraftly/spigot1/plugins http://dev.bukkit.org/media/files/894/359/Vault.jar
+wget -P /minecraftly/spigot2/plugins http://dev.bukkit.org/media/files/894/359/Vault.jar
 
 #Build paperspigot server file, version 1.8.8
 apt-get install git -y
