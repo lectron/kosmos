@@ -65,9 +65,10 @@ wget -P /minecraftly/spigot2/plugins https://raw.githubusercontent.com/minecraft
 wget -P /minecraftly/spigot1/plugins https://raw.githubusercontent.com/minecraftly/minecraftly/master/Vault.jar
 wget -P /minecraftly/spigot2/plugins https://raw.githubusercontent.com/minecraftly/minecraftly/master/Vault.jar
 
-#Build spigot server file, version 699
+#Build spigot server file, version 1.8.8
+sudo apt-get install git
 wget -P /minecraftly/buildtools https://hub.spigotmc.org/jenkins/job/BuildTools/lastSuccessfulBuild/artifact/target/BuildTools.jar
-cd /minecraftly/buildtools && java -jar BuildTools.jar --rev 699
+cd /minecraftly/buildtools && java -jar BuildTools.jar --rev 1.8.8
 
 # Start servers for the first time to generate files
 cd /minecraftly/bungeecord1 && screen -dmS b1 java -jar BungeeCord.jar
