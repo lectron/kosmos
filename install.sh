@@ -69,6 +69,8 @@ wget -P /minecraftly/spigot2/plugins https://raw.githubusercontent.com/minecraft
 sudo apt-get install git
 wget -P /minecraftly/buildtools https://hub.spigotmc.org/jenkins/job/BuildTools/lastSuccessfulBuild/artifact/target/BuildTools.jar
 cd /minecraftly/buildtools && java -jar BuildTools.jar --rev 1.8.8
+cp /minecraftly/buildtools/spigot-1.8.8.jar /minecraftly/spigot1/spigot.jar
+cp /minecraftly/buildtools/spigot-1.8.8.jar /minecraftly/spigot2/spigot.jar
 
 # Start servers for the first time to generate files
 cd /minecraftly/bungeecord1 && screen -dmS b1 java -jar BungeeCord.jar
