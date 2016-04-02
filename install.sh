@@ -69,8 +69,8 @@ wget -P /minecraftly/spigot2/plugins https://raw.githubusercontent.com/minecraft
 apt-get install git -y
 wget -P /minecraftly/papertools https://ci.destroystokyo.com/job/PaperSpigot-BuildTools/lastSuccessfulBuild/artifact/target/PaperTools.jar 
 cd /minecraftly/papertools && java -jar PaperTools.jar
-cp /minecraftly/papertools/spigot-1.8.8.jar /minecraftly/spigot1/spigot.jar
-cp /minecraftly/papertools/spigot-1.8.8.jar /minecraftly/spigot2/spigot.jar
+cp /minecraftly/papertools/paperspigot-1.8.8.jar /minecraftly/spigot1/spigot.jar
+cp /minecraftly/papertools/paperspigot-1.8.8.jar /minecraftly/spigot2/spigot.jar
 
 # Start servers for the first time to generate files
 cd /minecraftly/bungeecord1 && screen -dmS b1 java -jar BungeeCord.jar
