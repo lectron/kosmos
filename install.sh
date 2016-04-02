@@ -66,7 +66,7 @@ wget -P /minecraftly/spigot1/plugins https://raw.githubusercontent.com/minecraft
 wget -P /minecraftly/spigot2/plugins https://raw.githubusercontent.com/minecraftly/minecraftly/master/Vault.jar
 
 #Build paperspigot server file, version 1.8.8
-sudo apt-get install git
+apt-get install git -y
 wget -P /minecraftly/papertools https://ci.destroystokyo.com/job/PaperSpigot-BuildTools/lastSuccessfulBuild/artifact/target/PaperTools.jar 
 cd /minecraftly/papertools && java -jar PaperTools.jar
 cp /minecraftly/papertools/spigot-1.8.8.jar /minecraftly/spigot1/spigot.jar
