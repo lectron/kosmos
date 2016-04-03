@@ -47,11 +47,22 @@ echo oracle-java8-installer shared/accepted-oracle-license-v1-1 select true | su
 apt-get update -y
 apt-get install oracle-java8-set-default -y
 
+#Build paperspigot server file, version 1.8.8
+apt-get install git -y
+wget -P /minecraftly/papertools https://ci.destroystokyo.com/job/PaperSpigot-BuildTools/lastSuccessfulBuild/artifact/target/PaperTools.jar 
+cd /minecraftly/papertools && java -jar PaperTools.jar
+cp /minecraftly/papertools/paperspigot-1.8.8.jar /minecraftly/spigot1/spigot.jar
+cp /minecraftly/papertools/paperspigot-1.8.8.jar /minecraftly/spigot2/spigot.jar
+
 # Download some preconfigured files
+wget -P /minecraftly/spigot1/plugins http://ci.dmulloy2.net/job/ProtocolLib/224/artifact/target/ProtocolLib.jar
+wget -P /minecraftly/spigot2/plugins http://ci.dmulloy2.net/job/ProtocolLib/224/artifact/target/ProtocolLib.jar
+wget -P /minecraftly/spigot1/plugins http://dev.bukkit.org/media/files/894/359/Vault.jar
+wget -P /minecraftly/spigot2/plugins http://dev.bukkit.org/media/files/894/359/Vault.jar
 wget -P /minecraftly/bungeecord1 http://ci.md-5.net/job/BungeeCord/1119/artifact/bootstrap/target/BungeeCord.jar
 wget -P /minecraftly/bungeecord2 http://ci.md-5.net/job/BungeeCord/1119/artifact/bootstrap/target/BungeeCord.jar
-wget -P /minecraftly/bungeecord1/plugins https://raw.githubusercontent.com/minecraftly/minecraftly/master/RedisBungee.jar
-wget -P /minecraftly/bungeecord2/plugins https://raw.githubusercontent.com/minecraftly/minecraftly/master/RedisBungee.jar
+wget -P /minecraftly/bungeecord1/plugins http://ci.md-5.net/job/RedisBungee/534/artifact/target/RedisBungee-0.3.8-INTERIM.jar
+wget -P /minecraftly/bungeecord2/plugins http://ci.md-5.net/job/RedisBungee/534/artifact/target/RedisBungee-0.3.8-INTERIM.jar
 wget -P /minecraftly/bungeecord1/plugins https://raw.githubusercontent.com/minecraftly/minecraftly/master/MinecraftlyBungee.jar
 wget -P /minecraftly/bungeecord2/plugins https://raw.githubusercontent.com/minecraftly/minecraftly/master/MinecraftlyBungee.jar
 wget -P /minecraftly/bungeecord1/plugins/MinecraftlyBungee https://raw.githubusercontent.com/minecraftly/minecraftly/master/config.yml
@@ -60,17 +71,6 @@ wget -P /minecraftly/bungeecord1/plugins/MinecraftlyBungee https://raw.githubuse
 wget -P /minecraftly/bungeecord2/plugins/MinecraftlyBungee https://raw.githubusercontent.com/minecraftly/minecraftly/master/motd.yml
 wget -P /minecraftly/spigot1/plugins https://raw.githubusercontent.com/minecraftly/minecraftly/master/Minecraftly.jar
 wget -P /minecraftly/spigot2/plugins https://raw.githubusercontent.com/minecraftly/minecraftly/master/Minecraftly.jar
-wget -P /minecraftly/spigot1/plugins https://raw.githubusercontent.com/minecraftly/minecraftly/master/ProtocolLib.jar
-wget -P /minecraftly/spigot2/plugins https://raw.githubusercontent.com/minecraftly/minecraftly/master/ProtocolLib.jar
-wget -P /minecraftly/spigot1/plugins http://dev.bukkit.org/media/files/894/359/Vault.jar
-wget -P /minecraftly/spigot2/plugins http://dev.bukkit.org/media/files/894/359/Vault.jar
-
-#Build paperspigot server file, version 1.8.8
-apt-get install git -y
-wget -P /minecraftly/papertools https://ci.destroystokyo.com/job/PaperSpigot-BuildTools/lastSuccessfulBuild/artifact/target/PaperTools.jar 
-cd /minecraftly/papertools && java -jar PaperTools.jar
-cp /minecraftly/papertools/paperspigot-1.8.8.jar /minecraftly/spigot1/spigot.jar
-cp /minecraftly/papertools/paperspigot-1.8.8.jar /minecraftly/spigot2/spigot.jar
 
 # Start servers for the first time to generate files
 cd /minecraftly/bungeecord1 && screen -dmS b1 java -jar BungeeCord.jar
