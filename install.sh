@@ -40,12 +40,12 @@ mysqladmin -u root -p123456 password ''
 apt-get install redis-server -y
 
 # Install latest Java version
-echo "deb http://ppa.launchpad.net/webupd8team/java/ubuntu trusty main" >> /etc/apt/sources.list.d/java-8-debian.list
-echo "deb-src http://ppa.launchpad.net/webupd8team/java/ubuntu trusty main" >> /etc/apt/sources.list.d/java-8-debian.list
-apt-key adv --keyserver keyserver.ubuntu.com --recv-keys EEA14886
-echo oracle-java8-installer shared/accepted-oracle-license-v1-1 select true | sudo /usr/bin/debconf-set-selections
-apt-get update -y
-apt-get install oracle-java8-set-default -y
+wget --header "Cookie: oraclelicense=accept-securebackup-cookie" http://download.oracle.com/otn-pub/java/jdk/8u5-b13/jdk-8u5-linux-x64.tar.gz
+mkdir /opt/jdk
+tar -zxf jdk-8u5-linux-x64.tar.gz -C /opt/jdk
+ls /opt/jdk
+update-alternatives --install /usr/bin/java java /opt/jdk/jdk1.8.0_05/bin/java 100
+update-alternatives --install /usr/bin/javac javac /opt/jdk/jdk1.8.0_05/bin/javac 100
 
 #Build paperspigot server file, version 1.8.8
 apt-get install git -y
