@@ -51,8 +51,8 @@ update-alternatives --install /usr/bin/javac javac /opt/jdk/jdk1.8.0_05/bin/java
 apt-get install git -y
 wget -P /minecraftly/papertools https://ci.destroystokyo.com/job/PaperSpigot-BuildTools/lastSuccessfulBuild/artifact/target/PaperTools.jar 
 cd /minecraftly/papertools && java -jar PaperTools.jar
-cp /minecraftly/papertools/paperspigot-1.8.8.jar /minecraftly/spigot1/spigot.jar
-cp /minecraftly/papertools/paperspigot-1.8.8.jar /minecraftly/spigot2/spigot.jar
+cp -r /minecraftly/papertools/paperspigot-1.8.8.jar /minecraftly/spigot1/spigot.jar
+cp -r /minecraftly/papertools/paperspigot-1.8.8.jar /minecraftly/spigot2/spigot.jar
 
 # Download some preconfigured files
 wget -P /minecraftly/spigot1/plugins https://raw.githubusercontent.com/minecraftly/minecraftly/master/Minecraftly.jar
