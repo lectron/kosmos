@@ -27,6 +27,12 @@
 
  Minecraftly goes above and beyond that. We divide the game into multiple worlds as well, but assigned to each separated players, handled by any servers in the cluster. Luckily, the nature of the Minecraft as an open world game allows that to happen.
  
+ #Minecraftly is:
+ lean: lightweight, simple, accessible
+ portable: public, private, hybrid, multi cloud
+ extensible: modular, pluggable, hookable, composable
+ self-healing: auto-placement, auto-replication ready
+ 
 ##Architecture
  Usually, in a traditional Minecraft server, player flow is like this:
  
@@ -82,7 +88,7 @@ Players can interact with others normally, it's just that each player has their 
   Besides the free and open source version, we also offer a value added hosted service at [https://m.ly](https://m.ly). You can play with friends and don't have to setup server.
   
 ##Special Thanks To
-  Andrew, Keir, Tux, Michael, Devin, Snivell, Ben (redraskal) and many others who have been helping me over the years to make this happen.
+  Andrew, Keir (@ikeirnez), Tux (@minecrafter), Michael, Devin, Snivell, Ben (@redraskal), @portalBlocks and many others who have been helping me over the years to make this happen.
   
 ##To Do
 - [x] Create world with UUID format for each player with the same UUID
