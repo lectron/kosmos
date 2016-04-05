@@ -88,7 +88,7 @@ Players can interact with others normally, it's just that each player has their 
   Besides the free and open source version, we also offer a value added hosted service at [https://m.ly](https://m.ly). You can play with friends and don't have to setup server.
   
 ##Special Thanks To
-  Keir (@ikeirnez), Tux (@minecrafter), Ben (@redraskal), @portalBlock and many others who have been helping me over the years to make this happen.
+  Keir @ikeirnez, Tux @minecrafter, Ben @redraskal, @portalBlock and many others who have been helping me over the years to make this happen.
   
 ##To Do
 - [x] Create world with UUID format for each player with the same UUID
