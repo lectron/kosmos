@@ -1,3 +1,10 @@
+[![Travis Widget]][Travis] [![Coverage Status Widget]][Coverage Status]
+
+[Travis]: https://travis-ci.org/minecraftly/minecraftly
+[Travis Widget]: https://travis-ci.org/minecraftly/minecraftly.svg?branch=master
+[Coverage Status]: https://coveralls.io/r/minecraftly/minecraftly
+[Coverage Status Widget]: https://coveralls.io/repos/minecraftly/minecraftly/badge.svg
+
 #Welcome
 ---
   Please read everything carefully, as they tell you what this is all about, explain how to install the software, and what to do if something goes wrong. 
