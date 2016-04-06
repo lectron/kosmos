@@ -47,6 +47,7 @@ import java.io.File;
 import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.net.SocketException;
+import java.util.Arrays;
 import java.util.Map;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.FutureTask;
@@ -136,8 +137,9 @@ public class MclyCoreBungeePlugin extends Plugin implements MinecraftlyBungeeCor
         servers.put(computeUniqueId, getProxy().constructServerInfo(computeUniqueId, new InetSocketAddress("localhost", 1), null, false)); // put a placeholder in for now
 
         try {
-            BungeeUtilities.setListenerInfoField("defaultServer", computeUniqueId);
-            BungeeUtilities.setListenerInfoField("fallbackServer", computeUniqueId); // must be set so we don't get NPEs
+            //BungeeUtilities.setListenerInfoField("defaultServer", computeUniqueId);
+            //BungeeUtilities.setListenerInfoField("fallbackServer", computeUniqueId); // must be set so we don't get NPEs
+            BungeeUtilities.setListenerInfoField("serverPriority", Arrays.asList(computeUniqueId));
         } catch (NoSuchFieldException | IllegalAccessException e) {
             getLogger().log(Level.SEVERE, "Error whilst applying reflection for default server.", e);
             return;
