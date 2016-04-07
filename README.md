@@ -6,6 +6,7 @@
 [Coverage Status Widget]: https://coveralls.io/repos/minecraftly/minecraftly/badge.svg
 
 Want to make money fixing bugs for Minecraftly?
+
 [![GitHub Logo](https://d2bbtvgnhux6eq.cloudfront.net/assets/Bountysource-green-f2f437ed727ee2cacaee3f559c1907cb.png)](https://salt.bountysource.com/teams/minecraftly)
 
 #Welcome
@@ -100,10 +101,11 @@ Players can interact with others normally, it's just that each player has their 
 ##Special Thanks To
   Keir (@ikeirnez), Tux (@minecrafter), Ben (@redraskal), (@portalBlock) and many others who have been helping me over the years to make this happen.
   
-##To Do
-- [x] Create world with UUID format for each player with the same UUID
+##Product Roadmap
+- [x] Create world for each player who joins using a folder UUID
+- [x] Map subdomain of {uuid}.m.ly to the player server
 - [x] Multiple servers pointing to one folder that serves worlds
-- [ ] Let players mute, kick, ban and trust others in their own world
+- [ ] Let players whitelist, mute, kick, ban and trust others in their own world
 - [ ] Let players teleport to others via /tpa {username}, /tpahere {username}, /server {username} commands.
 
 #License
