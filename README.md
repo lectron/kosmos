@@ -7,7 +7,7 @@
 
 Want to make money fixing bugs for Minecraftly?
 
-[![GitHub Logo](https://d2bbtvgnhux6eq.cloudfront.net/assets/Bountysource-green-f2f437ed727ee2cacaee3f559c1907cb.png)](https://salt.bountysource.com/teams/minecraftly)
+[![GitHub Logo](https://d2bbtvgnhux6eq.cloudfront.net/assets/Bountysource-green-f2f437ed727ee2cacaee3f559c1907cb.png)](https://salt.bountysource.com/teams/minecraftly){:target="_blank"}
 
 #Welcome
 ---
