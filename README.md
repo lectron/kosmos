@@ -107,3 +107,5 @@ Players can interact with others normally, it's just that each player has their 
  Minecraftly is distributed under [GNU GPLv3](LICENSE) license.
  
  This is a "copyleft" license, which means if you publish the modified work as your own, you must open source it as well. It benefits the educational purpose of the software and helps everyone build better software that is scalable, loosely coupled, work on both traditional and cloud infrastructure without vendor lock-in.
+ 
+ The only term of using this software is that you expressively credit Minecraftly website as the creator of the software you are using on your server and website.
