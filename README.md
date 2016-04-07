@@ -5,6 +5,8 @@
 [Coverage Status]: https://coveralls.io/r/minecraftly/minecraftly
 [Coverage Status Widget]: https://coveralls.io/repos/minecraftly/minecraftly/badge.svg
 
+[Bountysource](https://salt.bountysource.com/teams/minecraftly)
+
 #Welcome
 ---
   Please read everything carefully, as they tell you what this is all about, explain how to install the software, and what to do if something goes wrong. 
