@@ -5,7 +5,8 @@
 [Coverage Status]: https://coveralls.io/r/minecraftly/minecraftly
 [Coverage Status Widget]: https://coveralls.io/repos/minecraftly/minecraftly/badge.svg
 
-[Bountysource](https://salt.bountysource.com/teams/minecraftly)
+Want to make money fixing bugs for Minecraftly?
+[![GitHub Logo](https://d2bbtvgnhux6eq.cloudfront.net/assets/Bountysource-green-f2f437ed727ee2cacaee3f559c1907cb.png)](https://salt.bountysource.com/teams/minecraftly)
 
 #Welcome
 ---
