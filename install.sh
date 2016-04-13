@@ -48,62 +48,62 @@ update-alternatives --install /usr/bin/java java /opt/jdk/jdk1.8.0_05/bin/java 1
 update-alternatives --install /usr/bin/javac javac /opt/jdk/jdk1.8.0_05/bin/javac 100
 
 # Download some preconfigured files
-wget -P /minecraftly/spigot1 https://ci.destroystokyo.com/job/PaperSpigot/443/artifact/Paperclip.jar
-wget -P /minecraftly/spigot2 https://ci.destroystokyo.com/job/PaperSpigot/443/artifact/Paperclip.jar
-wget -P /minecraftly/spigot1/plugins https://raw.githubusercontent.com/minecraftly/minecraftly/master/Minecraftly.jar
-wget -P /minecraftly/spigot2/plugins https://raw.githubusercontent.com/minecraftly/minecraftly/master/Minecraftly.jar
-wget -P /minecraftly/spigot1/plugins http://dev.bukkit.org/media/files/894/359/Vault.jar
-wget -P /minecraftly/spigot2/plugins http://dev.bukkit.org/media/files/894/359/Vault.jar
-wget -P /minecraftly/spigot1/plugins http://ci.dmulloy2.net/job/ProtocolLib/224/artifact/target/ProtocolLib.jar
-wget -P /minecraftly/spigot2/plugins http://ci.dmulloy2.net/job/ProtocolLib/224/artifact/target/ProtocolLib.jar
-wget -P /minecraftly/bungeecord1 http://ci.md-5.net/job/BungeeCord/1119/artifact/bootstrap/target/BungeeCord.jar
-wget -P /minecraftly/bungeecord2 http://ci.md-5.net/job/BungeeCord/1119/artifact/bootstrap/target/BungeeCord.jar
-wget -P /minecraftly/bungeecord1/plugins https://raw.githubusercontent.com/minecraftly/minecraftly/master/MinecraftlyBungee.jar
-wget -P /minecraftly/bungeecord2/plugins https://raw.githubusercontent.com/minecraftly/minecraftly/master/MinecraftlyBungee.jar
-wget -P /minecraftly/bungeecord1/plugins/MinecraftlyBungee https://raw.githubusercontent.com/minecraftly/minecraftly/master/config.yml
-wget -P /minecraftly/bungeecord2/plugins/MinecraftlyBungee https://raw.githubusercontent.com/minecraftly/minecraftly/master/config.yml
-wget -P /minecraftly/bungeecord1/plugins/MinecraftlyBungee https://raw.githubusercontent.com/minecraftly/minecraftly/master/motd.yml
-wget -P /minecraftly/bungeecord2/plugins/MinecraftlyBungee https://raw.githubusercontent.com/minecraftly/minecraftly/master/motd.yml
-wget -P /minecraftly/bungeecord1/plugins http://ci.md-5.net/job/RedisBungee/534/artifact/target/RedisBungee-0.3.8-INTERIM.jar
-wget -P /minecraftly/bungeecord2/plugins http://ci.md-5.net/job/RedisBungee/534/artifact/target/RedisBungee-0.3.8-INTERIM.jar
+wget -P /minecraftly/server1 https://ci.destroystokyo.com/job/PaperSpigot/443/artifact/Paperclip.jar
+wget -P /minecraftly/server2 https://ci.destroystokyo.com/job/PaperSpigot/443/artifact/Paperclip.jar
+wget -P /minecraftly/server1/plugins https://raw.githubusercontent.com/minecraftly/minecraftly/master/Minecraftly.jar
+wget -P /minecraftly/server2/plugins https://raw.githubusercontent.com/minecraftly/minecraftly/master/Minecraftly.jar
+wget -P /minecraftly/server1/plugins http://dev.bukkit.org/media/files/894/359/Vault.jar
+wget -P /minecraftly/server2/plugins http://dev.bukkit.org/media/files/894/359/Vault.jar
+wget -P /minecraftly/server1/plugins http://ci.dmulloy2.net/job/ProtocolLib/224/artifact/target/ProtocolLib.jar
+wget -P /minecraftly/server2/plugins http://ci.dmulloy2.net/job/ProtocolLib/224/artifact/target/ProtocolLib.jar
+wget -P /minecraftly/proxy1 http://ci.md-5.net/job/BungeeCord/1119/artifact/bootstrap/target/BungeeCord.jar
+wget -P /minecraftly/proxy2 http://ci.md-5.net/job/BungeeCord/1119/artifact/bootstrap/target/BungeeCord.jar
+wget -P /minecraftly/proxy1/plugins https://raw.githubusercontent.com/minecraftly/minecraftly/master/MinecraftlyBungee.jar
+wget -P /minecraftly/proxy2/plugins https://raw.githubusercontent.com/minecraftly/minecraftly/master/MinecraftlyBungee.jar
+wget -P /minecraftly/proxy1/plugins/MinecraftlyBungee https://raw.githubusercontent.com/minecraftly/minecraftly/master/config.yml
+wget -P /minecraftly/proxy2/plugins/MinecraftlyBungee https://raw.githubusercontent.com/minecraftly/minecraftly/master/config.yml
+wget -P /minecraftly/proxy1/plugins/MinecraftlyBungee https://raw.githubusercontent.com/minecraftly/minecraftly/master/motd.yml
+wget -P /minecraftly/proxy2/plugins/MinecraftlyBungee https://raw.githubusercontent.com/minecraftly/minecraftly/master/motd.yml
+wget -P /minecraftly/proxy1/plugins http://ci.md-5.net/job/RedisBungee/534/artifact/target/RedisBungee-0.3.8-INTERIM.jar
+wget -P /minecraftly/proxy2/plugins http://ci.md-5.net/job/RedisBungee/534/artifact/target/RedisBungee-0.3.8-INTERIM.jar
 
 # Start servers for the first time to generate files
-cd /minecraftly/bungeecord1 && screen -dmS b1 java -jar BungeeCord.jar
+cd /minecraftly/proxy1 && screen -dmS proxy1 java -jar BungeeCord.jar
 sleep 30
-screen -r b1 -X stuff 'end\n'
-cd /minecraftly/bungeecord2 && screen -dmS b2 java -jar BungeeCord.jar
+screen -r proxy1 -X stuff 'end\n'
+cd /minecraftly/proxy2 && screen -dmS proxy2 java -jar BungeeCord.jar
 sleep 30
-screen -r b2 -X stuff 'end\n'
-cd /minecraftly/spigot1 && screen -dmS s1 java -Dcom.mojang.eula.agree=true -jar Paperclip.jar --world-dir /minecraftly/worlds --port 25567
+screen -r proxy2 -X stuff 'end\n'
+cd /minecraftly/server1 && screen -dmS server1 java -Dcom.mojang.eula.agree=true -jar Paperclip.jar --world-dir /minecraftly/worlds --port 25567
 sleep 30
-screen -r s1 -X stuff 'stop\n'
-cd /minecraftly/spigot2 && screen -dmS s2 java -Dcom.mojang.eula.agree=true -jar Paperclip.jar --world-dir /minecraftly/worlds --port 25568
+screen -r server1 -X stuff 'stop\n'
+cd /minecraftly/server2 && screen -dmS server2 java -Dcom.mojang.eula.agree=true -jar Paperclip.jar --world-dir /minecraftly/worlds --port 25568
 sleep 30
-screen -r s2 -X stuff 'stop\n'
+screen -r server2 -X stuff 'stop\n'
 
 # Configure some files
-sed -i "s/ host: 0.0.0.0:.*/ host: 0.0.0.0:25565/" /minecraftly/bungeecord1/config.yml
-sed -i "s/ host: 0.0.0.0:.*/ host: 0.0.0.0:25566/" /minecraftly/bungeecord2/config.yml
-sed -i "s/ip_forward: .*/ip_forward: true/" /minecraftly/bungeecord1/config.yml
-sed -i "s/ip_forward: .*/ip_forward: true/" /minecraftly/bungeecord2/config.yml
-sed -i "s/motd: .*/motd: 'BungeeCord 1'/" /minecraftly/bungeecord1/config.yml
-sed -i "s/motd: .*/motd: 'BungeeCord 2'/" /minecraftly/bungeecord2/config.yml
-sed -i "s/md_5:/minecraftly:/" /minecraftly/bungeecord1/config.yml
-sed -i "s/md_5:/minecraftly:/" /minecraftly/bungeecord2/config.yml
-sed -i "s/heartbeatPort: .*/heartbeatPort: 25567/" /minecraftly/spigot1/plugins/Minecraftly/config.yml
-sed -i "s/heartbeatPort: .*/heartbeatPort: 25568/" /minecraftly/spigot2/plugins/Minecraftly/config.yml
-sed -i "s/address: localhost:.*/address: localhost:25567/" /minecraftly/bungeecord1/config.yml
-sed -i "s/address: localhost:.*/address: localhost:25568/" /minecraftly/bungeecord2/config.yml
-sed -i "s/server-id:.*/server-id: bungeecord1/" /minecraftly/bungeecord1/plugins/RedisBungee/config.yml
-sed -i "s/server-id:.*/server-id: bungeecord2/" /minecraftly/bungeecord2/plugins/RedisBungee/config.yml
-sed -i "s/level-name=.*/level-name=world1/" /minecraftly/spigot1/server.properties
-sed -i "s/level-name=.*/level-name=world2/" /minecraftly/spigot2/server.properties
-sed -i "s/online-mode=.*/online-mode=false/" /minecraftly/spigot1/server.properties
-sed -i "s/online-mode=.*/online-mode=false/" /minecraftly/spigot2/server.properties
-sed -i "s/bungeecord: .*/bungeecord: true/" /minecraftly/spigot1/spigot.yml
-sed -i "s/bungeecord: .*/bungeecord: true/" /minecraftly/spigot2/spigot.yml
-sed -i "s/connection-throttle: .*/connection-throttle: -1/" /minecraftly/spigot1/bukkit.yml
-sed -i "s/connection-throttle: .*/connection-throttle: -1/" /minecraftly/spigot2/bukkit.yml
+sed -i "s/ host: 0.0.0.0:.*/ host: 0.0.0.0:25565/" /minecraftly/proxy1/config.yml
+sed -i "s/ host: 0.0.0.0:.*/ host: 0.0.0.0:25566/" /minecraftly/proxy2/config.yml
+sed -i "s/ip_forward: .*/ip_forward: true/" /minecraftly/proxy1/config.yml
+sed -i "s/ip_forward: .*/ip_forward: true/" /minecraftly/proxy2/config.yml
+sed -i "s/motd: .*/motd: '1'/" /minecraftly/proxy1/config.yml
+sed -i "s/motd: .*/motd: '2'/" /minecraftly/proxy2/config.yml
+sed -i "s/md_5:/minecraftly:/" /minecraftly/proxy1/config.yml
+sed -i "s/md_5:/minecraftly:/" /minecraftly/proxy2/config.yml
+sed -i "s/address: localhost:.*/address: localhost:25567/" /minecraftly/proxy1/config.yml
+sed -i "s/address: localhost:.*/address: localhost:25568/" /minecraftly/proxy2/config.yml
+sed -i "s/heartbeatPort: .*/heartbeatPort: 25567/" /minecraftly/server1/plugins/Minecraftly/config.yml
+sed -i "s/heartbeatPort: .*/heartbeatPort: 25568/" /minecraftly/server2/plugins/Minecraftly/config.yml
+sed -i "s/server-id:.*/server-id: proxy1/" /minecraftly/proxy1/plugins/RedisBungee/config.yml
+sed -i "s/server-id:.*/server-id: proxy2/" /minecraftly/proxy2/plugins/RedisBungee/config.yml
+sed -i "s/level-name=.*/level-name=world1/" /minecraftly/server1/server.properties
+sed -i "s/level-name=.*/level-name=world2/" /minecraftly/server2/server.properties
+sed -i "s/online-mode=.*/online-mode=false/" /minecraftly/server/server.properties
+sed -i "s/online-mode=.*/online-mode=false/" /minecraftly/server2/server.properties
+sed -i "s/bungeecord: .*/bungeecord: true/" /minecraftly/server1/spigot.yml
+sed -i "s/bungeecord: .*/bungeecord: true/" /minecraftly/server2/spigot.yml
+sed -i "s/connection-throttle: .*/connection-throttle: -1/" /minecraftly/server1/bukkit.yml
+sed -i "s/connection-throttle: .*/connection-throttle: -1/" /minecraftly/server2/bukkit.yml
 
 # Make some symbolic links so that both server share the same playerdata and achievement stats folders
 mkdir -p /minecraftly/playerdata
@@ -119,9 +119,9 @@ rm -rf /minecraftly/worlds/world_nether
 rm -rf /minecraftly/worlds/world_the_end
 
 # Start servers to play
-cd /minecraftly/bungeecord1 && screen -dmS b1 java -jar BungeeCord.jar
-cd /minecraftly/bungeecord2 && screen -dmS b2 java -jar BungeeCord.jar
-cd /minecraftly/spigot1 && screen -dmS s1 java -Dcom.mojang.eula.agree=true -jar Paperclip.jar --world-dir /minecraftly/worlds --port 25567
-cd /minecraftly/spigot2 && screen -dmS s2 java -Dcom.mojang.eula.agree=true -jar Paperclip.jar --world-dir /minecraftly/worlds --port 25568
+cd /minecraftly/proxy1 && screen -dmS proxy1 java -jar BungeeCord.jar
+cd /minecraftly/proxy2 && screen -dmS proxy2 java -jar BungeeCord.jar
+cd /minecraftly/server1 && screen -dmS server1 java -Dcom.mojang.eula.agree=true -jar Paperclip.jar --world-dir /minecraftly/worlds --port 25567
+cd /minecraftly/server2 && screen -dmS server2 java -Dcom.mojang.eula.agree=true -jar Paperclip.jar --world-dir /minecraftly/worlds --port 25568
 
 # Congratulations! You can now access your servers via your IP:25565 and IP:25566
