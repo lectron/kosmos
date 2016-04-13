@@ -47,16 +47,9 @@ ls /opt/jdk
 update-alternatives --install /usr/bin/java java /opt/jdk/jdk1.8.0_05/bin/java 100
 update-alternatives --install /usr/bin/javac javac /opt/jdk/jdk1.8.0_05/bin/javac 100
 
-#Build paperspigot server file, version 1.8.8
-apt-get install git -y
-wget -P /minecraftly/papertools https://ci.destroystokyo.com/job/PaperSpigot-BuildTools/lastSuccessfulBuild/artifact/target/PaperTools.jar 
-cd /minecraftly/papertools && java -jar PaperTools.jar
-mkdir -p /minecraftly/spigot1
-mkdir -p /minecraftly/spigot2
-cp /minecraftly/papertools/paperspigot-1.8.8.jar /minecraftly/spigot1/spigot.jar
-cp /minecraftly/papertools/paperspigot-1.8.8.jar /minecraftly/spigot2/spigot.jar
-
 # Download some preconfigured files
+wget -P /minecraftly/spigot1 https://ci.destroystokyo.com/job/PaperSpigot/443/artifact/Paperclip.jar
+wget -P /minecraftly/spigot2 https://ci.destroystokyo.com/job/PaperSpigot/443/artifact/Paperclip.jar
 wget -P /minecraftly/spigot1/plugins https://raw.githubusercontent.com/minecraftly/minecraftly/master/Minecraftly.jar
 wget -P /minecraftly/spigot2/plugins https://raw.githubusercontent.com/minecraftly/minecraftly/master/Minecraftly.jar
 wget -P /minecraftly/spigot1/plugins http://dev.bukkit.org/media/files/894/359/Vault.jar
@@ -81,10 +74,10 @@ screen -r b1 -X stuff 'end\n'
 cd /minecraftly/bungeecord2 && screen -dmS b2 java -jar BungeeCord.jar
 sleep 30
 screen -r b2 -X stuff 'end\n'
-cd /minecraftly/spigot1 && screen -dmS s1 java -Dcom.mojang.eula.agree=true -jar spigot.jar --world-dir /minecraftly/worlds --port 25567
+cd /minecraftly/spigot1 && screen -dmS s1 java -Dcom.mojang.eula.agree=true -jar Paperclip.jar --world-dir /minecraftly/worlds --port 25567
 sleep 30
 screen -r s1 -X stuff 'stop\n'
-cd /minecraftly/spigot2 && screen -dmS s2 java -Dcom.mojang.eula.agree=true -jar spigot.jar --world-dir /minecraftly/worlds --port 25568
+cd /minecraftly/spigot2 && screen -dmS s2 java -Dcom.mojang.eula.agree=true -jar Paperclip.jar --world-dir /minecraftly/worlds --port 25568
 sleep 30
 screen -r s2 -X stuff 'stop\n'
 
@@ -128,7 +121,7 @@ rm -rf /minecraftly/worlds/world_the_end
 # Start servers to play
 cd /minecraftly/bungeecord1 && screen -dmS b1 java -jar BungeeCord.jar
 cd /minecraftly/bungeecord2 && screen -dmS b2 java -jar BungeeCord.jar
-cd /minecraftly/spigot1 && screen -dmS s1 java -Dcom.mojang.eula.agree=true -jar spigot.jar --world-dir /minecraftly/worlds --port 25567
-cd /minecraftly/spigot2 && screen -dmS s2 java -Dcom.mojang.eula.agree=true -jar spigot.jar --world-dir /minecraftly/worlds --port 25568
+cd /minecraftly/spigot1 && screen -dmS s1 java -Dcom.mojang.eula.agree=true -jar Paperclip.jar --world-dir /minecraftly/worlds --port 25567
+cd /minecraftly/spigot2 && screen -dmS s2 java -Dcom.mojang.eula.agree=true -jar Paperclip.jar --world-dir /minecraftly/worlds --port 25568
 
 # Congratulations! You can now access your servers via your IP:25565 and IP:25566
