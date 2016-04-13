@@ -98,7 +98,7 @@ sed -i "s/server-id:.*/server-id: proxy1/" /minecraftly/proxy1/plugins/RedisBung
 sed -i "s/server-id:.*/server-id: proxy2/" /minecraftly/proxy2/plugins/RedisBungee/config.yml
 sed -i "s/level-name=.*/level-name=world1/" /minecraftly/server1/server.properties
 sed -i "s/level-name=.*/level-name=world2/" /minecraftly/server2/server.properties
-sed -i "s/online-mode=.*/online-mode=false/" /minecraftly/server/server.properties
+sed -i "s/online-mode=.*/online-mode=false/" /minecraftly/server1/server.properties
 sed -i "s/online-mode=.*/online-mode=false/" /minecraftly/server2/server.properties
 sed -i "s/bungeecord: .*/bungeecord: true/" /minecraftly/server1/spigot.yml
 sed -i "s/bungeecord: .*/bungeecord: true/" /minecraftly/server2/spigot.yml
