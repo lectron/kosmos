@@ -99,9 +99,6 @@ Players can interact with others normally, it's just that each player has their 
 ##Managed Hosting
   Besides the free and open source version, we also offer a value added hosted service at [https://m.ly](https://m.ly). You can play with friends and don't have to setup server.
   
-##Special Thanks To
-  Keir (@ikeirnez), Tux (@minecrafter), Ben (@redraskal), (@portalBlock) and many others who have been helping me over the years to make this happen.
-  
 ##Product Roadmap
 - [x] Create world for each player who joins using a folder UUID
 - [x] Map subdomain of {uuid}.m.ly to the player server
@@ -109,7 +106,7 @@ Players can interact with others normally, it's just that each player has their 
 - [ ] Let players whitelist, mute, kick, ban and trust others in their own world
 - [ ] Let players teleport to others via /tpa {username}, /tpahere {username}, /server {username} commands.
 
-#License
+#Licensek
  Minecraftly is distributed under [GNU GPLv3](LICENSE) license.
  
  This is a "copyleft" license, which means if you publish the modified work as your own, you must open source it as well. It benefits the educational purpose of the software and helps everyone build better software that is scalable, loosely coupled, work on both traditional and cloud infrastructure without vendor lock-in.
