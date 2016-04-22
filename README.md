@@ -13,7 +13,7 @@
   
   Minecraftly can run on traditional Minecraft server setup, with local file system. The advantage is, it's able to run on one and multiple servers at the same time, sharing the same NFS, Redis, and MySQL servers as a way of communicating between servers.
   
-  We currently support the latest version of Minecraft. The version is always up to date.
+  We currently support Minecraft 1.8.8, help is needed to update to 1.9
   
 ##Features
 - Individual server per player.
