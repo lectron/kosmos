@@ -27,6 +27,19 @@ We help developers earn a salary from contributing to our open-source software.
   
   We currently support the latest version of Minecraft. The version is always up to date.
   
+##Features
+- Individual server per player.
+- Accessible via player username: (username).m.ly
+- If a player changes username, the server will map to that subdomain accordingly.
+- Same plugins as everyone else, good for leaderboards, ranks, etc...
+- Servers are always on, no need to "startup on demand", or "stop when inactive".
+- Players can have control of their server. The player is partially OP'd when they login to their server. They have access to:
+- 1. Kick, Ban, Mute others
+- 2. Whitelist their server
+- 3. Reset their world, while keeping their inventories.
+- Teleportation cross servers
+- No slots limit.
+  
 ##Why Open Source?
   I'm [Viet](https://twitter.com/vietdoge), a simple guy with love for cloud computing, the web, technologies, and Minecraft just like you. Ever since I first run a Minecraft server in 2012, I've always been looking for a way to scale Minecraft with high availability and fault tolerant. It took me years to think and build the first prototype after seeing that not many people in the community have a high availability mindset. I can't do it alone and need your contribution to make it better.
   
