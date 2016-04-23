@@ -1,4 +1,10 @@
-#Welcome
+#Welcome [![Travis Widget]][Travis] [![Coverage Status Widget]][Coverage Status]
+
+[Travis]: https://travis-ci.org/minecraftly/minecraftly
+[Travis Widget]: https://travis-ci.org/minecraftly/minecraftly.svg?branch=master
+[Coverage Status]: https://coveralls.io/r/minecraftly/minecraftly
+[Coverage Status Widget]: https://coveralls.io/repos/minecraftly/minecraftly/badge.svg?branch=master
+
 ---
   Please read everything carefully, as they tell you what this is all about, explain how to install the software, and what to do if something goes wrong. 
 
@@ -120,13 +126,6 @@ Players can interact with others normally, it's just that each player has their 
  This is a "copyleft" license, which means if you publish the modified work as your own, you must open source it as well. It benefits the educational purpose of the software and helps everyone build better software that is scalable, loosely coupled, work on both traditional and cloud infrastructure without vendor lock-in.
  
  The only term of using this software is that you expressively credit Minecraftly website as the creator of the software you are using on your server and website.
-
-[![Travis Widget]][Travis] [![Coverage Status Widget]][Coverage Status]
-
-[Travis]: https://travis-ci.org/minecraftly/minecraftly
-[Travis Widget]: https://travis-ci.org/minecraftly/minecraftly.svg?branch=master
-[Coverage Status]: https://coveralls.io/r/minecraftly/minecraftly
-[Coverage Status Widget]: https://coveralls.io/repos/minecraftly/minecraftly/badge.svg?branch=master
 
 #Want to make money fixing bugs for Minecraftly?
 We help developers earn a salary from contributing to our open-source software.
