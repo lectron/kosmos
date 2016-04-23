@@ -12,9 +12,14 @@
   We currently support Minecraft 1.8.8, help is needed to update to 1.9
   
 #How to describe Minecraftly
-1. Tumblr for Minecraft
-2. Wordpress Multisite for Minecraft
-3. A Minecraft server within a server
+- Tumblr for Minecraft
+- Wordpress Multisite for Minecraft
+- A Minecraft server within a server
+
+##What this plugin mainly does:
+- Creates a world folder for each player.
+- Map DNS subdomain name to each world accordingly in the format of (username).m.ly
+- Let players interact between worlds.
   
 ##Features
 - Individual server per player.
