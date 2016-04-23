@@ -1,0 +1,1 @@
+cd /minecraftly/proxy && screen -dmS proxy java -Xmx2048m -Xms512m -jar BungeeCord1119.jar
