@@ -18,8 +18,7 @@
 
 ##What this plugin mainly does:
 - Creates a world folder for each player.
-- Map DNS subdomain name to each world accordingly in the format of:
-- ... (Minecraft username).{top level domain}.[domain extension]
+- Map DNS subdomain name to each world accordingly in the format of: (Minecraft username).{top level domain}.[domain extension]
 - Let players interact between worlds.
   
 ##Features
