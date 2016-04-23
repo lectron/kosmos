@@ -6,6 +6,11 @@ jdk:
 script: mvn compile test
 install: true
 notifications:
+  irc: 
+    channels: 
+      - "irc.esper.net#minecraftly"
+    on_success: change
+    on_failure: always
   email:
     recipients:
       - "m@m.ly"
