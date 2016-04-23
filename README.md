@@ -11,6 +11,11 @@
   
   We currently support Minecraft 1.8.8, help is needed to update to 1.9
   
+#How to describe Minecraftly
+1. Tumblr for Minecraft
+2. Wordpress Multisite for Minecraft
+3. A Minecraft server within a server
+  
 ##Features
 - Individual server per player.
 - Accessible via player username: (username).m.ly
