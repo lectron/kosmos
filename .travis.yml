@@ -1,0 +1,13 @@
+language: java
+jdk:
+  - oraclejdk7
+  - openjdk7
+  - openjdk6
+script: mvn compile test
+install: true
+notifications:
+  email:
+    recipients:
+      - "m@m.ly"
+    on_success: change
+    on_failure: always
