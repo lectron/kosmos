@@ -1,0 +1,17 @@
+debug:
+  webPort: 8080
+  uniqueId: '-1'
+  heartbeatPort: 25567
+  ipAddress: ''
+database:
+  username: root
+  database: minecraftly
+  password: ''
+  host: 127.0.0.1
+  port: 3306
+jedis:
+  host: 127.0.0.1
+  port: 6379
+  password: ''
+chests:
+  maximumChests: 10

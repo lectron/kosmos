@@ -1,0 +1,70 @@
+module:
+  Playerworlds:
+    error:
+      cannotUseCommandHere: '&cYou cannot use that command here.'
+      notOwner: '&cYou are not the owner of this server.'
+      loadFailed: '&cWe were unable to load that server, please contact a member of
+        staff.'
+      cannotCreateOthersWorld: '&cYou cannot create a server on behalf of another
+        player.'
+    world:
+      mute:
+        target: '&cYou have been muted in the server of &6%s&c.'
+        sender: '&aThe player &6%s &ahas been muted in your server.'
+      kicked:
+        target: '&cYou were kicked from that players server.'
+        sender: '&aPlayer &6%s &asuccessfully kicked from server.'
+      error:
+        notFound: '&cPlayer not found in your server.'
+    reset:
+      areYouSure: |-
+        &cAre you sure you wish to do that? All your worlds will be reset.
+        &cUse &6/reset &cagain to reset.
+      worldIsBeingReset: '&cSorry, that world is currently being reset.'
+      error: '&cThere was an error whilst resetting your world(s).'
+    command:
+      owner:
+        notInWorld: '&cThat player is not in your server.'
+        success:
+          sender: '&aSuccessfully set trust mode of &6%s &ato &6%s&a.'
+          target: '&aYou are now &6%s &ain &6%s&a''s server.'
+        alreadyInGameMode: '&cThat player is already in &6%s &cmode.'
+        notOwner: '&cYou cannot do that here, this is not your server.'
+        attemptSelf: '&cYou cannot trust/un-trust yourself in your own server.'
+      spawn:
+        set:
+          error: '&cYou cannot set this servers spawn.'
+          success: '&aSet this servers spawn.'
+      home:
+        homeSet: '&aSet home location.'
+      back:
+        noBackLocations: '&cYou have nowhere to go back to.'
+    joinedWorld: ''
+    welcome:
+      guest: '&aWelcome to &6%s&a''s server, they will have to grant you permission
+        before you can modify blocks.'
+      owner: '&aWelcome, share your server with friends using the address &6%s.m.ly'
+    leftWorld: ''
+    loading:
+      owner: '&fLoading your server...'
+      stillLoading: '&bPlease wait...'
+      guest: '&bOne moment please...'
+    loaded:
+      message: '&bAlmost done...'
+      teleportCountdown: '&bTeleporting in &6%s &bseconds.'
+    portal:
+      noPermission: '&cThe owner of this server does not have permission to visit
+        %s.'
+  Fun:
+    command:
+      hat:
+        setHat: '&aSet your hat to &6%s&a.'
+        noItemInHand: '&cYou must be holding an item in your hand.'
+  readOnlyWorlds:
+    breakWarning: '&cThis world may not be modified.'
+core:
+  command:
+    minecraftly:
+      cleanup:
+        cleanupComplete: '&6%s &bunused language values were cleaned.'
+        cleanupCompleteBackup: '&bBackup file saved to: &6%s'

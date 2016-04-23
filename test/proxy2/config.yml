@@ -1,0 +1,46 @@
+ip_forward: true
+network_compression_threshold: 128
+stats: f121109c-bd6d-45c0-bc14-bf703a8e9374
+permissions:
+  default:
+  - bungeemail.use
+  - redismessage.msg
+  - redismessage.reply
+  - ultimatefriends.cmd
+  admin:
+  - bungeecord.command.end
+  - bungeeannouncer.admin
+  - bungeemail.sendall
+  - ultimatefriends.spy
+  - ultimatefriends.reload
+  - antibot.notify
+groups:
+  minecraftly:
+  - admin
+servers:
+  lobby:
+    motd: ''
+    address: dev.null:12345
+    restricted: false
+timeout: 30000
+listeners:
+- query_port: 25577
+  motd: "&bMinecraftly Cloud Platform - beta 0.3 \n&bServer address &f➤ &a(username).m.ly"
+  tab_list: GLOBAL_PING
+  query_enabled: false
+  forced_hosts:
+    lobby.dev.null: lobby
+  ping_passthrough: false
+  bind_local_address: true
+  host: 0.0.0.0:25565
+  max_players: 1
+  tab_size: 60
+  force_default_server: false
+  default_server: lobby
+  fallback_server: lobby
+player_limit: -1
+online_mode: true
+log_commands: false
+disabled_commands:
+- null
+connection_throttle: 4000
