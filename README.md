@@ -119,7 +119,7 @@ Players can interact with others normally, it's just that each player has their 
 
 [Travis]: https://travis-ci.org/minecraftly/minecraftly
 [Travis Widget]: https://travis-ci.org/minecraftly/minecraftly.svg?branch=master
-[![Coverage Status](https://coveralls.io/repos/github/minecraftly/minecraftly/badge.svg?branch=master)](https://coveralls.io/github/minecraftly/minecraftly?branch=master)
+[Coverage Status]: https://coveralls.io/r/minecraftly/minecraftly
 [Coverage Status Widget]: https://coveralls.io/repos/minecraftly/minecraftly/badge.svg?branch=master
 
 #Want to make money fixing bugs for Minecraftly?
