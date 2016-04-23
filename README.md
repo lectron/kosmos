@@ -18,7 +18,8 @@
 
 ##What this plugin mainly does:
 - Creates a world folder for each player.
-- Map DNS subdomain name to each world accordingly in the format of: (Minecraft username).{top level domain}.[domain extension]
+- Map DNS subdomain name to each world accordingly in the format of:
+  - (Minecraft username).{top level domain}.[domain extension]
 - Let players interact between worlds.
   
 ##Features
@@ -46,7 +47,7 @@
 
  Minecraftly goes above and beyond that. We divide the game into multiple worlds as well, but assigned to each separated players, handled by any servers in the cluster. Luckily, the nature of the Minecraft as an open world game allows that to happen.
  
- #Minecraftly is:
+##Minecraftly is:
  lean: lightweight, simple, accessible
  portable: public, private, hybrid, multi cloud
  extensible: modular, pluggable, hookable, composable
