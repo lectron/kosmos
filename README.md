@@ -46,9 +46,6 @@
     - You go to your home location
     - You can use this command when you are on any world
     - If using this command while playing in another world, check if the world's UUID is already loaded on any server
-- Back
-  - Command: /back
-  - You can go back to your death location on the world you are in.
 - Reset
   - Reset your world, world_nether, world_the_end, and dat file
   - Doesn't reset your playerdata or achievement stats
