@@ -8,7 +8,7 @@
 
 ---
 
-##How world creation & loading work
+##How world creation and loading work
 1. Player joins via {their_username}.{domain}.{tld}:
   - if joins for the first time, server creates the world
   - world has the folder format name {uuid}
