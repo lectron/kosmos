@@ -1,9 +1,4 @@
-#Welcome [![Travis Widget]][Travis] [![Coverage Status Widget]][Coverage Status]
-
-[Travis]: https://travis-ci.org/minecraftly/minecraftly
-[Travis Widget]: https://travis-ci.org/minecraftly/minecraftly.svg?branch=master
-[Coverage Status]: https://coveralls.io/r/minecraftly/minecraftly
-[Coverage Status Widget]: https://coveralls.io/repos/minecraftly/minecraftly/badge.svg?branch=master
+#Welcome
 
 ---
 
@@ -37,7 +32,7 @@
 - Wordpress Multisite for Minecraft
 - A Minecraft server within a server
 
-##What this plugin mainly does:
+##What this plugin mainly does
 - Creates a world folder for each player.
 - Map DNS subdomain name to each world accordingly in the format of:
   - (Minecraft username).{top level domain}.[domain extension]
@@ -135,14 +130,23 @@ Players can interact with others normally, it's just that each player has their 
 - [ ] Let players whitelist, mute, kick, ban and trust others in their own world
 - [ ] Let players teleport to others via /tpa {username}, /tpahere {username}, /server {username} commands.
 
-#License
+##License
  Minecraftly is distributed under [GNU GPLv3](LICENSE) license.
  
  This is a "copyleft" license, which means if you publish the modified work as your own, you must open source it as well. It benefits the educational purpose of the software and helps everyone build better software that is scalable, loosely coupled, work on both traditional and cloud infrastructure without vendor lock-in.
  
  The only term of using this software is that you expressively credit Minecraftly website as the creator of the software you are using on your server and website.
 
-#Want to make money fixing bugs for Minecraftly?
+##Want to make money fixing bugs for Minecraftly?
 We help developers earn a salary from contributing to our open-source software.
 
 [![GitHub Logo](https://d2bbtvgnhux6eq.cloudfront.net/assets/Bountysource-green-f2f437ed727ee2cacaee3f559c1907cb.png)](https://www.bountysource.com/teams/minecraftly)
+
+##Build Status
+
+[![Travis Widget]][Travis] [![Coverage Status Widget]][Coverage Status]
+
+[Travis]: https://travis-ci.org/minecraftly/minecraftly
+[Travis Widget]: https://travis-ci.org/minecraftly/minecraftly.svg?branch=master
+[Coverage Status]: https://coveralls.io/r/minecraftly/minecraftly
+[Coverage Status Widget]: https://coveralls.io/repos/minecraftly/minecraftly/badge.svg?branch=master
