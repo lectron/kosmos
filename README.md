@@ -13,65 +13,65 @@
   - [x] if joins for the first time, server creates the world
   - [x] world has the folder format name {uuid}
   - [x] it contains world contents like usual (world, world_nether, world_the_end, session.lock, etc...)
-  - [] only owner of the world can create the world
-  - [] other players can only load the world if available.
-  - [] worlds are stored in the pre defined folder /mnt/worlds/{uuid}
-  - [] ~/mnt folder is shared across all spigot servers
-  - [] works with {domain}.{tld} or simply the proxy IP address
-  - [] default game mode for world owner is SURVIVAL
+  - [ ] only owner of the world can create the world
+  - [ ] other players can only load the world if available.
+  - [ ] worlds are stored in the pre defined folder /mnt/worlds/{uuid}
+  - [ ] ~/mnt folder is shared across all spigot servers
+  - [ ] works with {domain}.{tld} or simply the proxy IP address
+  - [ ] default game mode for world owner is SURVIVAL
 - Player joins via {another_player_username}.m.ly
-  - proxy checks player's UUID
-  - check if the world's UUID is already loaded on any server
-  - proxy brings player to the server with world already loaded
-  - else, brings player to any server and load world via that server
-  - Default game mode for visitor of a world is ADVENTURE
+  - [ ] proxy checks player's UUID
+  - [ ] check if the world's UUID is already loaded on any server
+  - [ ] proxy brings player to the server with world already loaded
+  - [ ] else, brings player to any server and load world via that server
+  - [ ] Default game mode for visitor of a world is ADVENTURE
 - Trust a player to build in your world
-  - Owner of world can trust others to build
-  - The trusted player will have game mode changed from ADVENTURE to SURVIVAL for that world only.
-  - Trust command: /trust {username_you_want_to_trust}
-  - Trust list command: /trustlist
-  - Untrust command: untrust {username_you_want_to_untrust}
+  - [ ] Owner of world can trust others to build
+  - [ ] The trusted player will have game mode changed from ADVENTURE to SURVIVAL for that world only.
+  - [ ] Trust command: /trust {username_you_want_to_trust}
+  - [ ] Trust list command: /trustlist
+  - [ ] Untrust command: untrust {username_you_want_to_untrust}
 - Spawn point
-  - /setspawn: Set your world's spawn at your standing location in your world
-    - Everyone who joins your world for the first time, including you, will spawn here
-    - If you die, you will spawn back here if you don't set a home location
-    - If anyone else die in your world, they will spawn back here
-  - /spawn: Go back to your spawn point instantly
-    - Everyone, including you, in your world who types this command will teleport to the spawn point of your world.
+  - [ ] /setspawn: Set your world's spawn at your standing location in your world
+    [x] - Everyone who joins your world for the first time, including you, will spawn here
+    [ ] - If you die, you will spawn back here if you don't set a home location
+    [ ] - If anyone else die in your world, they will spawn back here
+  - [x] /spawn: Go back to your spawn point instantly
+    [x] - Everyone, including you, in your world who types this command will teleport to the spawn point of your world.
 - Home location
-  - /sethome: Set your home location at your standing location in your world
-    - Only you are able to set home in your world
-    - When you die, you will spawn back here
-  - /home
-    - You go to your home location
-    - You can use this command when you are on any world
-    - If using this command while playing in another world, check if the world's UUID is already loaded on any server
+  - [x] /sethome: Set your home location at your standing location in your world
+    - [x] Only you are able to set home in your world
+    - [ ] When you die, you will spawn back here
+  - [ ] /home
+    - [ ] You go to your home location
+    - [ ] You can use this command when you are on any world
+    - [ ] If using this command while playing in another world, check if the world's UUID is already loaded on any server
 - Reset
-  - Reset your world, world_nether, world_the_end, and dat file
-  - Doesn't reset your playerdata or achievement stats
-  - Command: /reset
-  - Type /reset again to confirm
-- Mute
-  - Mute annoying player from talking in your world
-  - /mute {username}
-  - /mutelist
-  - /unmute {username}
-- Kick
-  - Kick a player from playing in your world
-  - /kick {username}
-  - Upon being kicked, the player will be teleported back to their world
-- Whitelist
-  - Whitelist your world
-  - Turn on whitelist: /whitelist on
-  - Add players to your whitelist: /whitelist add {username}
-  - List the players who are in your whitelist: /whitelist list
-  - Turn off whitelist: /whitelist off
-- Ban
-  - Ban players from ever playing in your world
-  - Ban a player: /ban {username}
-  - Show your ban list: /banlist
-  - Unban a player: /unban {username}
-  - Upon being banned, the player will be teleported back to their world
+  - [ ] Reset your world, world_nether, world_the_end, and dat file
+  - [ ] Doesn't reset your playerdata or achievement stats
+  - [ ] Command: /reset
+  - [ ] Type /reset again to confirm
+- [ ] Mute
+  - [ ] Mute annoying player from talking in your world
+  - [ ] /mute {username}
+  - [ ] /mutelist
+  - [ ] /unmute {username}
+- [ ] Kick
+  - [ ] Kick a player from playing in your world
+  - [ ] /kick {username}
+  - [ ] Upon being kicked, the player will be teleported back to their world
+- [ ] Whitelist
+  - [ ] Whitelist your world
+  - [ ] Turn on whitelist: /whitelist on
+  - [ ] Add players to your whitelist: /whitelist add {username}
+  - [ ] List the players who are in your whitelist: /whitelist list
+  - [ ] Turn off whitelist: /whitelist off
+- [ ] Ban
+  - [ ] Ban players from ever playing in your world
+  - [ ] Ban a player: /ban {username}
+  - [ ] Show your ban list: /banlist
+  - [ ] Unban a player: /unban {username}
+  - [ ] Upon being banned, the player will be teleported back to their world
 
 ##How to describe Minecraftly
 - Tumblr for Minecraft
