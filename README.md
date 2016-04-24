@@ -20,8 +20,9 @@
   - [x] works with {domain}.{tld} or simply the proxy IP address
   - [x] default game mode for world owner is SURVIVAL
   - [x] Default game rule changes for all worlds:
-    - keepInventory: true
-    - mobGriefing: false
+    - [x] keepInventory: true
+    - [x] mobGriefing: false
+    - [ ] commandBlockOutput: false
 - Player joins via {another_player_username}.m.ly
   - [x] proxy checks player's UUID
   - [x] check if the world's UUID is already loaded on any server
@@ -80,14 +81,14 @@
   - [ ] Command: /server {username}
   - [ ] If world is whitelisted and you are not in that world's whitelist, don't teleport
   - [ ] If you are banned from that world, don't teleport
-- Separation of server message
-  - Server messages that are shown per server will now be shown per world to reduce spammy, irrelevant messages
-  - join message
-  - leave message
-  - quit message
-  - kick message
-  - death message
-  - achievements message
+- [ ] Separation of server message
+  - [ ] Server messages that are shown per server will now be shown per world to reduce spammy, irrelevant messages
+  - [ ] join message
+  - [ ] leave message
+  - [ ] quit message
+  - [ ] kick message
+  - [ ] death message
+  - [ ] achievements message
 
 ##How to describe Minecraftly
 - Tumblr for Minecraft
