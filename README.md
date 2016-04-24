@@ -18,13 +18,19 @@
   - worlds are stored in the pre defined folder /mnt/worlds/{uuid}
   - ~/mnt folder is shared across all spigot servers
   - works with {domain}.{tld} or simply the proxy IP address
+  - default game mode for world owner is SURVIVAL
 2. Player joins via {another_player_username}.m.ly
   - proxy checks player's UUID
   - check if the world's UUID is already loaded on any server
   - proxy brings player to the server with world already loaded
   - else, brings player to any server and load world via that server
-3. Teleportation
-  - 
+  - Default game mode for visitor of a world is ADVENTURE
+3. Trust a player to build in your world
+  - Owner of world can trust others to build
+  - The trusted player will have game mode changed from ADVENTURE to SURVIVAL for that world only.
+  - Trust command: /trust {username_you_want_to_trust}
+  - Trust list command: /trustlist
+  - Untrust command: untrust {username_you_want_to_untrust}
   
 ##How to describe Minecraftly
 - Tumblr for Minecraft
