@@ -31,6 +31,12 @@
   - Trust command: /trust {username_you_want_to_trust}
   - Trust list command: /trustlist
   - Untrust command: untrust {username_you_want_to_untrust}
+4. Spawn point
+  - /setspawn: Set your world's spawn at your standing location
+    - Everyone who joins your world for the first time, including you, will spawn here
+    - If you die, you will spawn back here if you don't set a home location
+    - If anyone else die in your world, they will spawn back here
+5. Home location
   
 ##How to describe Minecraftly
 - Tumblr for Minecraft
