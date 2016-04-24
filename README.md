@@ -29,6 +29,7 @@
   - [x] proxy brings player to the server with world already loaded
   - [x] else, brings player to any server and load world via that server
   - [x] Default game mode for visitor of a world is ADVENTURE
+    - [ ] Players with ADVENTURE mode can't open chests
 - Trust a player to build in your world
   - [x] Owner of world can trust others to build
   - [x] The trusted player will have game mode changed from ADVENTURE to SURVIVAL for that world only.
