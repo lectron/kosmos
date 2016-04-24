@@ -9,11 +9,11 @@
 ---
 
 ##How world creation, loading and management work
-- Player joins via {their_username}.{domain}.{tld}:
-  - [x] if joins for the first time, server creates the world
+[ ] Player joins via {their_username}.{domain}.{tld}:
+  [x] if joins for the first time, server creates the world
   - [x] world has the folder format name {uuid}
   - [x] it contains world contents like usual (world, world_nether, world_the_end, session.lock, etc...)
-  - [ ] only owner of the world can create the world
+  [ ] only owner of the world can create the world
   - [ ] other players can only load the world if available.
   - [ ] worlds are stored in the pre defined folder /mnt/worlds/{uuid}
   - [ ] ~/mnt folder is shared across all spigot servers
