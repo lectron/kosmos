@@ -1,15 +1,14 @@
 #Welcome
 
----
-
-##What is Minecraftly?
   Minecraftly is a free and open source (FOSS) Minecraft server plugin to create Minecraft servers automatically, with autoscaling compatibility, designed & produced from scratch by Viet Nguyen, with assistance from some developers and helpers from the internet. It aims towards creating an easy to run a distributed network, on any server, using traditional server system. Minecraftly Cloud Platform is now community-developed and will be remained free under GNU GPL license.
   
   Started out as a simple Minecraft game server like every other, I understood that Minecraft and open world games have limitation in connections. I saw that it needs something that can handle connections and allows Minecraft to scale incredibly far with limited resources. So I created Minecraftly Cloud Platform. It took over a year to develop the first prototype. It's now open source. I'm glad to share the technology with passionate people who want to contribute to the community, to change the world via cloud computing, and with everyone who wants to learn about high availability architecture.
   
   Minecraftly can run on traditional Minecraft server setup, or multiple server cluster. It works properly with Docker and Kubernetes. The advantage is, it's able to run on one and multiple servers at the same time, sharing the same NFS, Redis, and MySQL servers as a way of communicating between servers.
 
-#How world creation & loading work
+---
+
+##How world creation & loading work
 1. Player joins via {their_username}.{domain}.{tld}:
   - if joins for the first time, server creates the world
   - world has the folder format name {uuid}
@@ -27,7 +26,7 @@
 3. Teleportation
   - 
   
-#How to describe Minecraftly
+##How to describe Minecraftly
 - Tumblr for Minecraft
 - Wordpress Multisite for Minecraft
 - A Minecraft server within a server
@@ -56,7 +55,7 @@
   
   I dedicated myself to cloud computing and passed my AWS Solutions Architect Certification exam in 2015. It helped construct my knowledge to build a simplier open source project that anyone can test, build, host their own network.
   
-## Parallel Space Partitioning:
+##Parallel Space Partitioning:
  In most MMORPG games like World of Warcraft or Minecraft, or Second Life, to scale and serve massive amount of concurrent players, parallel space partitioning needs to be applied.
  
  Normally, space partitioning refers to the dividing of a game into multiple worlds, handled by each separated servers.
