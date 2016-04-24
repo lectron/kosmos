@@ -72,6 +72,11 @@
   - [ ] Show your ban list: /banlist
   - [ ] Unban a player: /unban {username}
   - [ ] Upon being banned, the player will be teleported back to their world
+- [ ] Teleport to a world
+  - [ ] Teleport yourself to any world of any player
+  - [ ] Command: /server {username}
+  - [ ] If world is whitelisted and you are not in that world's whitelist, don't teleport
+  - [ ] If you are banned from that world, don't teleport
 
 ##How to describe Minecraftly
 - Tumblr for Minecraft
