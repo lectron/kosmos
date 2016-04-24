@@ -77,12 +77,6 @@
 - Tumblr for Minecraft
 - Wordpress Multisite for Minecraft
 - A Minecraft server within a server
-
-##What this plugin mainly does
-- Creates a world folder for each player.
-- Map DNS subdomain name to each world accordingly in the format of:
-  - (Minecraft username).{top level domain}.[domain extension]
-- Let players interact between worlds.
   
 ##Features
 - Individual server per player.
@@ -108,13 +102,7 @@
  Normally, space partitioning refers to the dividing of a game into multiple worlds, handled by each separated servers.
 
  Minecraftly goes above and beyond that. We divide the game into multiple worlds as well, but assigned to each separated players, handled by any servers in the cluster. Luckily, the nature of the Minecraft as an open world game allows that to happen.
- 
-##Minecraftly is:
- lean: lightweight, simple, accessible
- portable: public, private, hybrid, multi cloud
- extensible: modular, pluggable, hookable, composable
- self-healing: auto-placement, auto-replication ready
- 
+
 ##Architecture
  Usually, in a traditional Minecraft server, player flow is like this:
  
