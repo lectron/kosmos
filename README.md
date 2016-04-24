@@ -8,14 +8,14 @@
 ---
 
 ##What is Minecraftly?
-  Minecraftly is a free and open source (FOSS) way to create Minecraft servers automatically, with autoscaling compatibility, designed & produced from scratch by Viet Nguyen, with assistance from some developers and helpers from the internet. It aims towards creating an easy to run a distributed network, on any server, using traditional server system. Minecraftly Cloud Platform is now community-developed and will be remained free under GNU GPL license.
+  Minecraftly is a free and open source (FOSS) Minecraft server plugin to create Minecraft servers automatically, with autoscaling compatibility, designed & produced from scratch by Viet Nguyen, with assistance from some developers and helpers from the internet. It aims towards creating an easy to run a distributed network, on any server, using traditional server system. Minecraftly Cloud Platform is now community-developed and will be remained free under GNU GPL license.
   
   Started out as a simple Minecraft game server like every other, I understood that Minecraft and open world games have limitation in connections. I saw that it needs something that can handle connections and allows Minecraft to scale incredibly far with limited resources. So I created Minecraftly Cloud Platform. It took over a year to develop the first prototype. It's now open source. I'm glad to share the technology with passionate people who want to contribute to the community, to change the world via cloud computing, and with everyone who wants to learn about high availability architecture.
   
-  Minecraftly can run on traditional Minecraft server setup, with local file system. The advantage is, it's able to run on one and multiple servers at the same time, sharing the same NFS, Redis, and MySQL servers as a way of communicating between servers.
+  Minecraftly can run on traditional Minecraft server setup, or multiple server cluster. It works properly with Docker and Kubernetes. The advantage is, it's able to run on one and multiple servers at the same time, sharing the same NFS, Redis, and MySQL servers as a way of communicating between servers.
 
-#HOW WORLD CREATION & LOADING WORK
-1. Player joins via {their_username}.{domain}.{tld} or {domain}.{tld} or simply IP address:
+#How world creation & loading work
+1. Player joins via {their_username}.{domain}.{tld}:
   - if joins for the first time, server creates the world
   - world has the folder format name {uuid}
   - it contains world contents like usual (world, world_nether, world_the_end, session.lock, etc...)
@@ -23,7 +23,13 @@
   - other players can only load the world if available.
   - worlds are stored in the pre defined folder /mnt/worlds/{uuid}
   - ~/mnt folder is shared across all spigot servers
+  - works with {domain}.{tld} or simply the proxy IP address
 2. Player joins via {another_player_username}.m.ly
+  - proxy checks player's UUID
+  - check if the world's UUID is already loaded on any server
+  - proxy brings player to the server with world already loaded
+  - else, brings player to any server and load world via that server
+3. Teleportation
   - 
   
 #How to describe Minecraftly
