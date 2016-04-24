@@ -10,15 +10,15 @@
 
 ##How world creation, loading and management work
 - Player joins via {their_username}.{domain}.{tld}:
-  - if joins for the first time, server creates the world
-  - world has the folder format name {uuid}
-  - it contains world contents like usual (world, world_nether, world_the_end, session.lock, etc...)
-  - only owner of the world can create the world
-  - other players can only load the world if available.
-  - worlds are stored in the pre defined folder /mnt/worlds/{uuid}
-  - ~/mnt folder is shared across all spigot servers
-  - works with {domain}.{tld} or simply the proxy IP address
-  - default game mode for world owner is SURVIVAL
+  - [x] if joins for the first time, server creates the world
+  - [x] world has the folder format name {uuid}
+  - [x] it contains world contents like usual (world, world_nether, world_the_end, session.lock, etc...)
+  - [] only owner of the world can create the world
+  - [] other players can only load the world if available.
+  - [] worlds are stored in the pre defined folder /mnt/worlds/{uuid}
+  - [] ~/mnt folder is shared across all spigot servers
+  - [] works with {domain}.{tld} or simply the proxy IP address
+  - [] default game mode for world owner is SURVIVAL
 - Player joins via {another_player_username}.m.ly
   - proxy checks player's UUID
   - check if the world's UUID is already loaded on any server
@@ -168,13 +168,6 @@ Players can interact with others normally, it's just that each player has their 
 
 ##Managed Hosting
   Besides the free and open source version, we also offer a value added hosted service at [https://m.ly](https://m.ly). You can play with friends and don't have to setup server.
-  
-##Product Roadmap
-- [x] Create world for each player who joins using a folder UUID
-- [x] Map subdomain of {uuid}.m.ly to the player server
-- [x] Multiple servers pointing to one folder that serves worlds
-- [ ] Let players whitelist, mute, kick, ban and trust others in their own world
-- [ ] Let players teleport to others via /tpa {username}, /tpahere {username}, /server {username} commands.
 
 ##License
  Minecraftly is distributed under [GNU GPLv3](LICENSE) license.
