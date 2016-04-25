@@ -124,13 +124,13 @@
 ---
 
 #MySQL database structure
- - servers (table)
-   - Showing which Spigot servers are currently running correctly
-   - This acts as BungeeCord's dynamic config to list the available servers
-   - IP and port columns will use Spigot's server.properties' server-ip and server-port values
-   - TPS column is for tick-per-second, updated from time to time.
-   - Bungee will only bring players to the server with highest TPS
-   - If after a while, server doesn't update TPS, it means server crashes, then the row gets removed
+servers (table)
+- Showing which Spigot servers are currently running correctly
+- This acts as BungeeCord's dynamic config to list the available servers
+- IP and port columns will use Spigot's server.properties' server-ip and server-port values
+- TPS column is for tick-per-second, updated from time to time.
+- Bungee will only bring players to the server with highest TPS
+- If after a while, server doesn't update TPS, it means server crashes, then the row gets removed
 
 | address | tps |
 | --- | --- |
