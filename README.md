@@ -138,7 +138,7 @@ servers (table)
 | 10.240.0.2:25567 | 13.54 |
 | 10.240.0.3:25568 | 18.32 |
 | ... | ... |
-
+ 
 
 
 world (table)
@@ -153,9 +153,9 @@ world (table)
 | 00f0ec76-03a1-4d68-b7de-2f30a054e864 | 10.240.0.2:25567 |
 | 00f6795c-8409-4efb-a5e8-ef94f51e68dc | 10.240.0.3:25568 |
 | ... | ... |
-
-
-
+ 
+ 
+ 
 uuid (table)
 - For UUID caching 
 - Because Mojang has an API limit of only 10 per minute.
@@ -166,9 +166,9 @@ uuid (table)
 | c088272e-a8ca-496c-91a2-b7394ffe879c | ImRainbowActive |
 | cf1f1ea8-4bc9-4cba-886c-33997403eb80 | AruAkise_ |
 | ... | ... | ... |
-
-
-
+ 
+ 
+ 
 player (table)
 - List all players online with their current server IP and port
 - For teleporting player to player correctly
@@ -180,9 +180,9 @@ player (table)
 | bc68ca39-8f3a-4eb4-a764-8526de7fb90b | 10.240.0.2:25567 |
 | bc384491-4cf7-4185-be07-9bdb5a8310d4 | 10.240.0.3:25568 |
 | ... | ... |
-
-
-
+ 
+ 
+ 
 mute (table)
 - List all players who are muted on each world
 
@@ -192,9 +192,9 @@ mute (table)
 | bc68ca39-8f3a-4eb4-a764-8526de7fb90b | bc384491-4cf7-4185-be07-9bdb5a8310d4 |
 | bc384491-4cf7-4185-be07-9bdb5a8310d4 | 0cc87f4b-6b4a-404f-b11d-db2e76a24243 |
 | ... | ... | ... |
-
-
-
+ 
+ 
+ 
 ban (table)
 - List all players who are banned on each world
 
@@ -204,9 +204,9 @@ ban (table)
 | bc68ca39-8f3a-4eb4-a764-8526de7fb90b | bc384491-4cf7-4185-be07-9bdb5a8310d4 |
 | bc384491-4cf7-4185-be07-9bdb5a8310d4 | 0cc87f4b-6b4a-404f-b11d-db2e76a24243 |
 | ... | ... | ... |
-
-
-
+ 
+ 
+ 
 back (table)
 - Previous death location for a player in a specific world
 - Logs only when player is dead in a world
@@ -217,9 +217,9 @@ back (table)
 | bc68ca39-8f3a-4eb4-a764-8526de7fb90b | bc384491-4cf7-4185-be07-9bdb5a8310d4 | 6573.0 | 78.0 | 231.0 | 56.0 | 75.9 |
 | bc384491-4cf7-4185-be07-9bdb5a8310d4 | 0cc87f4b-6b4a-404f-b11d-db2e76a24243 | 54654.0 | 54.0 | 6758.0 | 67.0 | 34.6 |
 | ... | ... | ... |
-
-
-
+ 
+ 
+ 
 logout (table)
 - Previously logged out location for a player in a specific world
 - It helps when players log back into the same world, they will be in their previous location
