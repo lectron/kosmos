@@ -126,7 +126,7 @@
 ---
 
 #MySQL database structure
-- world (table): Showing which world is currently loaded by which server. For bringing joining player to the right server without loading the world twice
+ - ### world (table): Showing which world is currently loaded by which server. For bringing joining player to the right server without loading the world twice
 
 | world  | ip | port |
 | --- | --- | ----- |
@@ -276,7 +276,9 @@ Players can interact with others normally, it's just that each player has their 
  
  The only term of using this software is that you expressively credit Minecraftly website as the creator of the software you are using on your server and website.
 
-##Want to make money fixing bugs for Minecraftly?
+##Bounty
+Want to make money fixing bugs for Minecraftly?
+
 We help developers earn a salary from contributing to our open-source software.
 
 [![GitHub Logo](https://d2bbtvgnhux6eq.cloudfront.net/assets/Bountysource-green-f2f437ed727ee2cacaee3f559c1907cb.png)](https://www.bountysource.com/teams/minecraftly)
