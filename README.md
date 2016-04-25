@@ -132,7 +132,7 @@
    - Bungee will only bring players to the server with highest TPS
    - If after a while, server doesn't update TPS, it means server crashes, then the row gets removed
 
-| ip & port | tps |
+| address | tps |
 | --- | --- |
 | 10.240.0.1:25566 | 19.97 |
 | 10.240.0.2:25567 | 13.54 |
@@ -145,7 +145,7 @@
    - This will prevent world being loaded twice on many different spigot servers
    - IP and port columns will use Spigot's server.properties' server-ip and server-port values
 
-| world  | ip & port |
+| world  | address |
 | --- | --- |
 | 00ceaed3-3715-49e9-b45f-0e01cf94f798 | 10.240.0.1:25566 |
 | 00f0ec76-03a1-4d68-b7de-2f30a054e864 | 10.240.0.2:25567 |
@@ -168,7 +168,7 @@
   - For teleporting player to player correctly
   - IP and port columns will use Spigot's server.properties' server-ip and server-port values
 
-| uuid  | ip & port |
+| uuid  | address |
 | --- | --- |
 | 0cc87f4b-6b4a-404f-b11d-db2e76a24243 | 10.240.0.1:25566 |
 | bc68ca39-8f3a-4eb4-a764-8526de7fb90b | 10.240.0.2:25567 |
