@@ -1,6 +1,6 @@
 #Welcome
 
-  Minecraftly is a free and open source (FOSS) Minecraft server plugin to create "Minecraft servers within servers" automagically. It is designed & produced from scratch by [Viet Nguyen](https://vi.et), with assistance from friends, developers and helpers from the internet. The software is ridiculously easy to run on a single server or in a distributed network. Minecraftly is now community-developed and will be remained free under [GNU GPLv3](LICENSE) license.
+  Minecraftly is a free and open source (FOSS) Minecraft server plugin to create "Minecraft servers within servers" automagically. It is designed & produced from scratch by [Viet Nguyen](https://vi.et), with assistance from friends, developers and helpers from treahe internet. The software is ridiculously easy to run on a single server or in a distributed network. Minecraftly is now community-developed and will be remained free under [GNU GPLv3](LICENSE) license.
   
   Minecraftly is compatible with most infrastructures, including but not limited to:
   - Single machine
@@ -247,29 +247,11 @@ Minecraftly is inspired an improved from many technologies, some of them were re
  
  Above is the old ways of handling players. It's too monolithic. Bottleneck usually happens when a single machine gets filled up with high amount of concurrent players.
  
- 
-How about the official Minecraft Realms by Mojang?
- 
- <img src="https://media.amazonwebservices.com/blog/2014/minecraft_realms_arch_2.png" width="100%"/>
- 
-Minecraft Realms is scalable but too complicated, and players are still separated from the others.
- 
 Now, let's visualize another way to distribute players, where server is seperated from world files. In Minecraftly, it's like this:
  
 <img src="https://m.ly/images/ykl5mnN.svg" width="100%"/>
 
-Players can interact with others normally, it's just that each player has their own world, accessible via their own public address.
-
----
-
-##How is it better than [Minecraft Realms](https://minecraft.net/realms)?
- Cloud computing doesn't need to be that complicated. It's complicated mainly because of intellectual properties. Since we're open source, we can make it as simple and as extendable as possible.
- 
- Here are some simple comparisons:
- * Minecraftly doesn't need Frontend, Manager, Controller, and Amazon S3 object storage
- * Minecraftly doesn't need move world from object storage back to local block storage, which means players can load world right away.
- * Minecraftly lets players jump from server to server in real time, embracing the feeling of having many people playing with you at the same time.
- * Minecraftly saves server cost more efficiently than Minecraft Realms. While Realms creates a separated server for each paid player which is costly, we use one server for many free and paid players, and still deliver better and more seamless performance.
+Each player has their own world that they control, accessible via their own public address. The beautiful thing is that all players can interact with others normally.
 
 ---
 
@@ -302,7 +284,9 @@ Players can interact with others normally, it's just that each player has their 
 ---
 
 ##Hosted Version
-  Besides the free and open source version, we also offer a value added hosted service at [https://m.ly](https://m.ly). You can play with friends and don't have to setup server.
+  Besides the free and open source version, we also offer a value added hosted service at [https://m.ly](https://m.ly). We reduce the steps of getting a Minecraft server into a single action. 
+  
+  You can play with friends and don't have to setup server. Just join, that's it. 
 
 ---
 
