@@ -118,16 +118,31 @@
 
 #MySQL database structure
 - world (table): Showing which world is currently loaded by which server. For bringing joining player to the right server without loading the world twice
+
 | world  | ip | port |
 | --- | --- | ----- |
 | 00ceaed3-3715-49e9-b45f-0e01cf94f798 | 10.240.0.1 | 25566 |
 | 00f0ec76-03a1-4d68-b7de-2f30a054e864 | 10.240.0.2 | 25567 |
 | 00f6795c-8409-4efb-a5e8-ef94f51e68dc | 10.240.0.3 | 25568 |
+| ... | ... | ... |
 
-uuid (table): For UUID caching
-  - uuid, username (columns)
-player (table): for checking online player location for teleporting request to the right player at the right server
-  - uuid, ip, port (columns)
+- uuid (table): For UUID caching
+
+| uuid  | username
+| --- | --- | ----- |
+| 0cc87f4b-6b4a-404f-b11d-db2e76a24243 | AsianGuy_Gamer |
+| c088272e-a8ca-496c-91a2-b7394ffe879c | ImRainbowActive |
+| cf1f1ea8-4bc9-4cba-886c-33997403eb80 | AruAkise_ |
+| ... | ... | ... |
+
+- player (table): for checking online player location for teleporting request to the right player at the right server
+
+| uuid  | ip | port |
+| --- | --- | ----- |
+| 0cc87f4b-6b4a-404f-b11d-db2e76a24243 | 10.240.0.1 | 25566 |
+| bc68ca39-8f3a-4eb4-a764-8526de7fb90b | 10.240.0.2 | 25567 |
+| bc384491-4cf7-4185-be07-9bdb5a8310d4 | 10.240.0.3 | 25568 |
+| ... | ... | ... |
 
 ---
 
