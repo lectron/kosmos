@@ -193,7 +193,8 @@
 
 - logout (table)
   - Previously logged out location for a player in a specific world
-  - Logs only when player logs out in a world
+  - It helps when players log back into the same world, they will be in their previous location
+  - Create entry only when player logs out in a world
 
 | uuid  | world | x | y | z | yaw | pitch |
 | --- | --- | --- | --- | --- | --- | --- |
