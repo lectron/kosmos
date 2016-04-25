@@ -119,11 +119,13 @@
 #MySQL database structure
 - minecraftly (schema)
   - world (table): Showing which world is currently loaded by which server. For bringing joining player to the right server without loading the world twice
-| world                                | ip            | port  |
-| ------------------------------------ |:-------------:| -----:|
-| 00ceaed3-3715-49e9-b45f-0e01cf94f798 | 10.240.0.1    | 25566 |
-| 00f0ec76-03a1-4d68-b7de-2f30a054e864 | 10.240.0.2    | 25567 |
-| 00f6795c-8409-4efb-a5e8-ef94f51e68dc | 10.240.0.3    | 25568 |
+
+| world  | ip | port |
+| --- | --- | ----- |
+| 00ceaed3-3715-49e9-b45f-0e01cf94f798 | 10.240.0.1 | 25566 |
+| 00f0ec76-03a1-4d68-b7de-2f30a054e864 | 10.240.0.2 | 25567 |
+| 00f6795c-8409-4efb-a5e8-ef94f51e68dc | 10.240.0.3 | 25568 |
+
   - uuid (table): For UUID caching
     - uuid, username (columns)
   - player (table): for checking online player location for teleporting request to the right player at the right server
