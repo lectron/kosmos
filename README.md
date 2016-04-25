@@ -1,10 +1,12 @@
 #Welcome
 
-  Minecraftly is a free and open source (FOSS) Minecraft server plugin to create Minecraft servers automatically, with autoscaling compatibility, designed & produced from scratch by Viet Nguyen, with assistance from some developers and helpers from the internet. It aims towards creating an easy to run a distributed network, on any server, using traditional server system. Minecraftly Cloud Platform is now community-developed and will be remained free under GNU GPL license.
+  Minecraftly is a free and open source (FOSS) Minecraft server plugin to create Minecraft servers automagically, with autoscaling compatibility. It is designed & produced from scratch by [Viet Nguyen](https://vi.et), with assistance from friends, developers and helpers from the internet. The software is ridiculously easy to run on a single server or in a distributed network. Minecraftly is now community-developed and will be remained free under GNU GPL license.
   
-  Started out as a simple Minecraft game server like every other, I understood that Minecraft and open world games have limitation in connections. I saw that it needs something that can handle connections and allows Minecraft to scale incredibly far with limited resources. So I created Minecraftly Cloud Platform. It took over a year to develop the first prototype. It's now open source. I'm glad to share the technology with passionate people who want to contribute to the community, to change the world via cloud computing, and with everyone who wants to learn about high availability architecture.
-  
-  Minecraftly can run on traditional Minecraft server setup, or multiple server cluster. It works properly with Docker and Kubernetes. The advantage is, it's able to run on one and multiple servers at the same time, sharing the same NFS, Redis, and MySQL servers as a way of communicating between servers.
+  Minecraftly is compatible with most infrastructures, including but not limited to:
+  - Single machine
+  - Multiple machine cluster
+  - Autoscaling infrastructure
+  - Containers (Docker, Kubernetes, Unikernel)
 
 ---
 
@@ -166,7 +168,9 @@
   
 ##Why Open Source?
   I'm [Viet](https://twitter.com/vietdoge), a simple guy with love for cloud computing, the web, technologies, and Minecraft just like you. Ever since I first run a Minecraft server in 2012, I've always been looking for a way to scale Minecraft with high availability and fault tolerant. It took me years to think and build the first prototype after seeing that not many people in the community have a high availability mindset. I can't do it alone and need your contribution to make it better.
-  
+
+  Started out as a simple Minecraft game server like every other, I understood that Minecraft and open world games have limitation in connections. I saw that it needs something that can handle connections and allows Minecraft to scale incredibly far with limited resources. So I created Minecraftly. It took over a year to develop the first prototype. It's now open source. I'm glad to share the technology with passionate people who want to contribute to the community, to change the world via cloud computing, and with everyone who wants to learn about high availability architecture.
+
   I dedicated myself to cloud computing and passed my AWS Solutions Architect Certification exam in 2015. It helped construct my knowledge to build a simplier open source project that anyone can test, build, host their own network.
   
 ##Parallel Space Partitioning:
