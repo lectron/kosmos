@@ -220,9 +220,21 @@ logout (table)
 
 ---
 
+##Config.yml
+```SnakeYAML
+database:
+  username: root
+  database: minecraftly
+  password: wPs9jEyEe0RD25OV
+  host: 104.154.71.206
+  port: 3306
+```
+
+---
+
 ##Spigot server config
 Here are a few things that need changes in the config of Spigot Minecraft server to make things work. Most of the configurations are very standard, just double check and make sure that "server-ip" and "server-port" are defined correctly.
-
+```yaml
 - server.properties
   - server-ip={the public or private server IP that is attached to your machine}
   - server-port={whatever port you want}
@@ -231,6 +243,7 @@ Here are a few things that need changes in the config of Spigot Minecraft server
   - connection-throttle: -1
 - spigot.yml
   - bungeecord: true
+```
 
 ---
 
