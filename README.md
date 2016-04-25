@@ -180,6 +180,27 @@
 | bc384491-4cf7-4185-be07-9bdb5a8310d4 | 0cc87f4b-6b4a-404f-b11d-db2e76a24243 |
 | ... | ... | ... |
 
+- back (table)
+  - Previous death location for a player in a specific world
+  - Logs only when player is dead in a world
+
+| uuid  | world | x | y | z | yaw | pitch |
+| --- | --- | --- | --- | --- | --- | --- |
+| 0cc87f4b-6b4a-404f-b11d-db2e76a24243 | bc68ca39-8f3a-4eb4-a764-8526de7fb90b | 128.0 | 67.0 | 4954.0 | 89.0 | -74.4 |
+| bc68ca39-8f3a-4eb4-a764-8526de7fb90b | bc384491-4cf7-4185-be07-9bdb5a8310d4 | 6573.0 | 78.0 | 231.0 | 56.0 | 75.9 |
+| bc384491-4cf7-4185-be07-9bdb5a8310d4 | 0cc87f4b-6b4a-404f-b11d-db2e76a24243 | 54654.0 | 54.0 | 6758.0 | 67.0 | 34.6 |
+| ... | ... | ... |
+
+- logout (table)
+  - Previously logged out location for a player in a specific world
+  - Logs only when player logs out in a world
+
+| uuid  | world | x | y | z | yaw | pitch |
+| --- | --- | --- | --- | --- | --- | --- |
+| 0cc87f4b-6b4a-404f-b11d-db2e76a24243 | bc68ca39-8f3a-4eb4-a764-8526de7fb90b | 128.0 | 67.0 | 4954.0 | 89.0 | -74.4 |
+| bc68ca39-8f3a-4eb4-a764-8526de7fb90b | bc384491-4cf7-4185-be07-9bdb5a8310d4 | 6573.0 | 78.0 | 231.0 | 56.0 | 75.9 |
+| bc384491-4cf7-4185-be07-9bdb5a8310d4 | 0cc87f4b-6b4a-404f-b11d-db2e76a24243 | 54654.0 | 54.0 | 6758.0 | 67.0 | 34.6 |
+| ... | ... | ... |
 
 ---
 
