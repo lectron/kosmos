@@ -82,6 +82,14 @@
   - [ ] Command: /server {username}
   - [ ] If world is whitelisted and you are not in that world's whitelist, don't teleport
   - [ ] If you are banned from that world, don't teleport
+-  [ ] Teleport to a player
+  - [ ] Teleport to any player
+  - [ ] Send teleport request so you can teleport to the other player: /tpa {username}
+  - [ ] Send teleport request so the other player teleport to you: /tpahere {username}
+  - [ ] Accept a teleport request: /tpaccept
+  - [ ] Deny a teleport request: /tpdeny
+  - [ ] If world is whitelisted and you are not in that world's whitelist, don't teleport
+  - [ ] If you are banned from that world, don't teleport
 - [ ] Separation of server message
   - [ ] Server messages that are shown per server will now be shown per world to reduce spammy, irrelevant messages
   - [ ] join message
