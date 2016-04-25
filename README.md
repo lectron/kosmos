@@ -164,6 +164,8 @@
 ---
 
 ##BungeeCord config
+Here are a few things that need changes in the config of BungeeCord proxy server
+
 - config.yml
   - ip_forward: true
   - servers:
@@ -175,9 +177,12 @@
 ---
 
 ##Spigot config
+Here are a few things that need changes in the config of Spigot Minecraft server
+
 - server.properties
   - server-ip={the public or private server IP that is attached to your machine}
   - server-port={whatever port you want}
+  - online-mode=false
 - bukkit.yml
   - connection-throttle: -1
 - spigot.yml
