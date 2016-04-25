@@ -105,14 +105,25 @@
   - [ ] Kick a player from playing in your world
   - [ ] /kick {username}
   - [ ] Upon being kicked, the player will be teleported back to their world
-- Reset
+- [ ] Reset
   - [x] Reset your world, world_nether, world_the_end, and dat file
   - [x] Doesn't reset your playerdata or achievement stats
   - [x] Command: /reset
   - [x] Type /reset again to confirm
-- Back
-  - Command: /back
+- [ ] Back
+  - [ ] Command: /back
   - You can go back to your death location on the world you are in.
+---
+
+#MySQL database structure
+- minecraftly (schema)
+  - world (table): Showing which world is currently loaded by which server. For bringing joining player to the right server without loading the world twice
+    - world, ip, port (columns)
+  - uuid (table): For UUID caching
+    - uuid, username (columns)
+  - player (table): for checking online player location for teleporting request to the right player at the right server
+    - uuid, ip, port (columns)
+---
 
 ##How to describe Minecraftly
 - Tumblr for Minecraft
