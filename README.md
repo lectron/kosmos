@@ -159,7 +159,9 @@
 - Tumblr for Minecraft
 - Wordpress Multisite for Minecraft
 - A Minecraft server within a server
-  
+
+---
+
 ##Uniqueness
 - Individual server per player.
 - Accessible via player username: (username).m.ly
@@ -174,6 +176,7 @@
 - No slots limit.
 
 ---
+
 ##Similar Technologies
 Minecraftly is inspired an improved from many technologies, some of them were released after Minecraftly but wasn't that complete.
 - [Multiverse](http://dev.bukkit.org/bukkit-plugins/multiverse-core/)
@@ -188,13 +191,17 @@ Minecraftly is inspired an improved from many technologies, some of them were re
   Started out as a simple Minecraft game server like every other, I understood that Minecraft and open world games have limitation in connections. I saw that it needs something that can handle connections and allows Minecraft to scale incredibly far with limited resources. So I created Minecraftly. It took over a year to develop the first prototype. It's now open source. I'm glad to share the technology with passionate people who want to contribute to the community, to change the world via cloud computing, and with everyone who wants to learn about high availability architecture.
 
   I dedicated myself to cloud computing and passed my AWS Solutions Architect Certification exam in 2015. It helped construct my knowledge to build a simplier open source project that anyone can test, build, host their own network.
-  
+
+---
+
 ##Parallel Space Partitioning:
  In most MMORPG games like World of Warcraft or Minecraft, or Second Life, to scale and serve massive amount of concurrent players, parallel space partitioning needs to be applied.
  
  Normally, space partitioning refers to the dividing of a game into multiple worlds, handled by each separated servers.
 
  Minecraftly goes above and beyond that. We divide the game into multiple worlds as well, but assigned to each separated players, handled by any servers in the cluster. Luckily, the nature of the Minecraft as an open world game allows that to happen.
+
+---
 
 ##Architecture
  Usually, in a traditional Minecraft server, player flow is like this:
@@ -216,6 +223,8 @@ Now, let's visualize another way to distribute players, where server is seperate
 
 Players can interact with others normally, it's just that each player has their own world, accessible via their own public address.
 
+---
+
 ##How is it better than [Minecraft Realms](https://minecraft.net/realms)?
  Cloud computing doesn't need to be that complicated. It's complicated mainly because of intellectual properties. Since we're open source, we can make it as simple and as extendable as possible.
  
@@ -224,18 +233,24 @@ Players can interact with others normally, it's just that each player has their 
  * Minecraftly doesn't need move world from object storage back to local block storage, which means players can load world right away.
  * Minecraftly lets players jump from server to server in real time, embracing the feeling of having many people playing with you at the same time.
  * Minecraftly saves server cost more efficiently than Minecraft Realms. While Realms creates a separated server for each paid player which is costly, we use one server for many free and paid players, and still deliver better and more seamless performance.
-  
+
+---
+
 ##Requirements
  * BungeeCord: serve as a proxy server (equivalent to Nginx or HAProxy in web hosting)
  * Spigot: serve as Minecraft server. Spigot is important because it has "--world-dir" flag at startup, which specifies the directory for all world maps.
  * MySQL server: Holding each server data like ban list, whitelist, etc..
  * Redis server: Holding sessions, healthchecks, lists of available servers data.
- 
+
+---
+
 ##Dependencies
  Dependencies are Java plugins, libraries, and classes that serve as prerequisites for Minecraftly plugins to run. As development goes, we aim to remove all dependencies, as much as possible, so the software isn't dependent on any external factor. That's how we build loosely coupled software.
  * RedisBungee plugin: Currently acts as a bridge between Minecraftly plugins and Redis server
  * Vault plugin: Acts as a bridge between Minecraftly and permissions plugins.
  * ProtocolLib plugin: It's dependent somehow. Will work to remove this dependency.
+
+---
 
 ##Contributing
  Thank you for your interest in Minecraftly. Contributing to Minecraftly is easy, just fork the project on GitHub, make your changes and submit a pull request to get your code merged. That's all there is to it.
@@ -247,8 +262,12 @@ Players can interact with others normally, it's just that each player has their 
  If you are new to open source and/or GitHub, or just aren't sure about some details in the contribution process, here's a tutorial to get you started:
 [How to Contribute to an Open Source Project on GitHub](https://egghead.io/series/how-to-contribute-to-an-open-source-project-on-github)
 
-##Managed Hosting
+---
+
+##Hosted Version
   Besides the free and open source version, we also offer a value added hosted service at [https://m.ly](https://m.ly). You can play with friends and don't have to setup server.
+
+---
 
 ##License
  Minecraftly is distributed under [GNU GPLv3](LICENSE) license.
@@ -261,6 +280,8 @@ Players can interact with others normally, it's just that each player has their 
 We help developers earn a salary from contributing to our open-source software.
 
 [![GitHub Logo](https://d2bbtvgnhux6eq.cloudfront.net/assets/Bountysource-green-f2f437ed727ee2cacaee3f559c1907cb.png)](https://www.bountysource.com/teams/minecraftly)
+
+---
 
 ##Build Status
 
