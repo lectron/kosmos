@@ -167,10 +167,11 @@
 - config.yml
   - ip_forward: true
   - servers:
-    lobby:
-      motd: 'A Minecraftly Server'
-      address: {your spigot server's IP address}:{your spigot server's port}
-      restricted: false
+    - lobby:
+      - motd: 'A Minecraftly Server'
+      - address: {your spigot server's IP address}:{your spigot server's port}
+      - restricted: false
+
 ---
 
 ##Spigot config
