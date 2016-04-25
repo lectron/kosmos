@@ -1,6 +1,6 @@
 #Welcome
 
-  Minecraftly is a free and open source (FOSS) Minecraft server plugin to create "Minecraft servers within servers" automagically. It is designed & produced from scratch by [Viet Nguyen](https://vi.et), with assistance from friends, developers and helpers from treahe internet. The software is ridiculously easy to run on a single server or in a distributed network. Minecraftly is now community-developed and will be remained free under [GNU GPLv3](LICENSE) license.
+  Minecraftly is a free and open source (FOSS) Minecraft server plugin to create "Minecraft servers within servers" automagically. It is designed & produced from scratch by [Viet Nguyen](https://vi.et), with assistance from friends, developers and helpers from treahe internet. Minecraftly is now community-developed and will be remained free under [GNU GPLv3](LICENSE) license.
   
   Minecraftly is compatible with most infrastructures, including but not limited to:
   - Single machine
@@ -32,7 +32,6 @@
   - [x] Default game rule changes for all worlds:
     - [x] keepInventory: true
     - [x] mobGriefing: false
-    - [ ] commandBlockOutput: false
 - Player joins via {another_player_username}.m.ly
   - [x] proxy checks player's UUID
   - [x] check if the world's UUID is already loaded on any server
@@ -129,7 +128,7 @@
    - Showing which world is currently loaded by which server.
    - If a world is already loaded on one server, subsequent player who joins via subdomain will go to correct server.
    - This will prevent world being loaded twice on many different spigot servers
-   - IP column will use server's private IP address
+   - IP and port columns will use Spigot's server.properties' server-ip and server-port values
 
 | world  | ip | port |
 | --- | --- | ----- |
@@ -152,6 +151,7 @@
 - player (table)
   - List all players online with their current server IP and port
   - For teleporting player to player correctly
+  - IP and port columns will use Spigot's server.properties' server-ip and server-port values
 
 | uuid  | ip | port |
 | --- | --- | ----- |
@@ -159,6 +159,27 @@
 | bc68ca39-8f3a-4eb4-a764-8526de7fb90b | 10.240.0.2 | 25567 |
 | bc384491-4cf7-4185-be07-9bdb5a8310d4 | 10.240.0.3 | 25568 |
 | ... | ... | ... |
+
+- mute (table)
+  - List all players who are muted on each world
+
+| uuid  | world |
+| --- | --- |
+| 0cc87f4b-6b4a-404f-b11d-db2e76a24243 | bc68ca39-8f3a-4eb4-a764-8526de7fb90b |
+| bc68ca39-8f3a-4eb4-a764-8526de7fb90b | bc384491-4cf7-4185-be07-9bdb5a8310d4 |
+| bc384491-4cf7-4185-be07-9bdb5a8310d4 | 0cc87f4b-6b4a-404f-b11d-db2e76a24243 |
+| ... | ... | ... |
+
+- ban (table)
+  - List all players who are banned on each world
+
+| uuid  | world |
+| --- | --- |
+| 0cc87f4b-6b4a-404f-b11d-db2e76a24243 | bc68ca39-8f3a-4eb4-a764-8526de7fb90b |
+| bc68ca39-8f3a-4eb4-a764-8526de7fb90b | bc384491-4cf7-4185-be07-9bdb5a8310d4 |
+| bc384491-4cf7-4185-be07-9bdb5a8310d4 | 0cc87f4b-6b4a-404f-b11d-db2e76a24243 |
+| ... | ... | ... |
+
 
 ---
 
@@ -296,7 +317,7 @@ Each player has their own world that they control, accessible via their own publ
  
  The only term of using this software is that you expressively credit Minecraftly website as the creator of the software you are using on your server and website.
 
-##Bounty
+##Bounty Program
 Want to make money fixing bugs for Minecraftly?
 
 We help developers earn a salary from contributing to our open-source software.
