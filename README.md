@@ -1,6 +1,6 @@
 #Welcome
 
-  Minecraftly is a free and open source (FOSS) Minecraft server plugin to create "Minecraft servers within servers" automagically. It is designed & produced from scratch by [Viet Nguyen](https://vi.et), with assistance from friends, developers and helpers from treahe internet. Minecraftly is now community-developed and will be remained free under [GNU GPLv3](LICENSE) license.
+  Minecraftly is a free and open source (FOSS) Minecraft server plugin to create "Minecraft servers within servers" automagically. It is designed & produced from scratch by [Viet Nguyen](https://vi.et), with assistance from friends, developers and helpers from the internet. Minecraftly is now community-developed and will be remained free under [GNU GPLv3](LICENSE) license.
   
   Minecraftly is compatible with most infrastructures, including but not limited to:
   - Single machine
@@ -139,11 +139,11 @@ servers (table)
 | 10.240.0.3:25568 | 18.32 |
 | ... | ... |
 
- - world (table)
-   - Showing which world is currently loaded by which server.
-   - If a world is already loaded on one server, subsequent player who joins via subdomain will go to correct server.
-   - This will prevent world being loaded twice on many different spigot servers
-   - IP and port columns will use Spigot's server.properties' server-ip and server-port values
+world (table)
+- Showing which world is currently loaded by which server.
+- If a world is already loaded on one server, subsequent player who joins via subdomain will go to correct server.
+- This will prevent world being loaded twice on many different spigot servers
+- IP and port columns will use Spigot's server.properties' server-ip and server-port values
 
 | world  | address |
 | --- | --- |
@@ -152,9 +152,9 @@ servers (table)
 | 00f6795c-8409-4efb-a5e8-ef94f51e68dc | 10.240.0.3:25568 |
 | ... | ... |
 
-- uuid (table)
-  - For UUID caching 
-  - Because Mojang has an API limit of only 10 per minute.
+uuid (table)
+- For UUID caching 
+- Because Mojang has an API limit of only 10 per minute.
 
 | uuid  | username
 | --- | --- | --- |
@@ -163,10 +163,10 @@ servers (table)
 | cf1f1ea8-4bc9-4cba-886c-33997403eb80 | AruAkise_ |
 | ... | ... | ... |
 
-- player (table)
-  - List all players online with their current server IP and port
-  - For teleporting player to player correctly
-  - IP and port columns will use Spigot's server.properties' server-ip and server-port values
+player (table)
+- List all players online with their current server IP and port
+- For teleporting player to player correctly
+- IP and port columns will use Spigot's server.properties' server-ip and server-port values
 
 | uuid  | address |
 | --- | --- |
@@ -175,8 +175,8 @@ servers (table)
 | bc384491-4cf7-4185-be07-9bdb5a8310d4 | 10.240.0.3:25568 |
 | ... | ... |
 
-- mute (table)
-  - List all players who are muted on each world
+mute (table)
+- List all players who are muted on each world
 
 | uuid  | world |
 | --- | --- |
@@ -185,8 +185,8 @@ servers (table)
 | bc384491-4cf7-4185-be07-9bdb5a8310d4 | 0cc87f4b-6b4a-404f-b11d-db2e76a24243 |
 | ... | ... | ... |
 
-- ban (table)
-  - List all players who are banned on each world
+ban (table)
+- List all players who are banned on each world
 
 | uuid  | world |
 | --- | --- |
@@ -195,9 +195,9 @@ servers (table)
 | bc384491-4cf7-4185-be07-9bdb5a8310d4 | 0cc87f4b-6b4a-404f-b11d-db2e76a24243 |
 | ... | ... | ... |
 
-- back (table)
-  - Previous death location for a player in a specific world
-  - Logs only when player is dead in a world
+back (table)
+- Previous death location for a player in a specific world
+- Logs only when player is dead in a world
 
 | uuid  | world | x | y | z | yaw | pitch |
 | --- | --- | --- | --- | --- | --- | --- |
@@ -206,10 +206,10 @@ servers (table)
 | bc384491-4cf7-4185-be07-9bdb5a8310d4 | 0cc87f4b-6b4a-404f-b11d-db2e76a24243 | 54654.0 | 54.0 | 6758.0 | 67.0 | 34.6 |
 | ... | ... | ... |
 
-- logout (table)
-  - Previously logged out location for a player in a specific world
-  - It helps when players log back into the same world, they will be in their previous location
-  - Create entry only when player logs out in a world
+logout (table)
+- Previously logged out location for a player in a specific world
+- It helps when players log back into the same world, they will be in their previous location
+- Create entry only when player logs out in a world
 
 | uuid  | world | x | y | z | yaw | pitch |
 | --- | --- | --- | --- | --- | --- | --- |
