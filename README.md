@@ -15,8 +15,10 @@
   - [x] it contains world contents like usual (world, world_nether, world_the_end, session.lock, etc...)
   - [x] only owner of the world can create the world
   - [x] other players can only load the world if available.
-  - [x] worlds are stored in the pre defined folder /worlds/{uuid}
-  - [x] ~/worlds folder is shared across all spigot servers
+  - [x] worlds are stored in the pre defined folder ~/mnt/worlds/{uuid}
+  - [x] ~/mnt/worlds folder is shared across all spigot servers
+  - [ ] player data will be in the common folder ~/mnt/playerdata, shared across all spigot servers
+  - [ ] achievement stats will be in the common folder ~/mnt/stats, shared across all spigot servers
   - [x] works with {domain}.{tld} or simply the proxy IP address
   - [x] default game mode for world owner is SURVIVAL
   - [x] Default game rule changes for all worlds:
@@ -36,6 +38,9 @@
   - [x] Trust command: /trust {username_you_want_to_trust}
   - [x] Trust list command: /trustlist
   - [x] Untrust command: untrust {username_you_want_to_untrust}
+- [ ] Location handling
+  - [ ] If player joins via IP address or normal {domain}.{tld} -> brings player to previous logout location on previous world
+  - [ ] If player joins explicitly via {subdomain}.{domain}.{tld} -> bring player to previous logout location of that specific world
 - Spawn point
   - [x] /setspawn: Set your world's spawn at your standing location in your world
     - [x] Everyone who joins your world for the first time, including you, will spawn here
@@ -51,20 +56,6 @@
     - [x] You go to your home location
     - [x] You can use this command when you are on any world
     - [x] If using this command while playing in another world, check if the world's UUID is already loaded on any server
-- Reset
-  - [x] Reset your world, world_nether, world_the_end, and dat file
-  - [x] Doesn't reset your playerdata or achievement stats
-  - [x] Command: /reset
-  - [x] Type /reset again to confirm
-- [ ] Mute
-  - [ ] Mute annoying player from talking in your world
-  - [ ] /mute {username}
-  - [ ] /mutelist
-  - [ ] /unmute {username}
-- [ ] Kick
-  - [ ] Kick a player from playing in your world
-  - [ ] /kick {username}
-  - [ ] Upon being kicked, the player will be teleported back to their world
 - [ ] Whitelist
   - [ ] Whitelist your world
   - [ ] Turn on whitelist: /whitelist on
@@ -77,12 +68,19 @@
   - [ ] Show your ban list: /banlist
   - [ ] Unban a player: /unban {username}
   - [ ] Upon being banned, the player will be teleported back to their world
+-  [ ] Teleport to a player
+  - [ ] Teleport to any player
+  - [ ] Send teleport request so you can teleport to the other player: /tpa {username}
+  - [ ] Send teleport request so the other player teleport to you: /tpahere {username}
+  - [ ] Accept a teleport request: /tpaccept
+  - [ ] Deny a teleport request: /tpdeny
+  - [ ] If world is whitelisted and you are not in that world's whitelist, don't teleport
+  - [ ] If you are banned from that world, don't teleport
 - [ ] Teleport to a world
   - [ ] Teleport yourself to any world of any player
   - [ ] Command: /server {username}
   - [ ] If world is whitelisted and you are not in that world's whitelist, don't teleport
-  - [ ] If you are banned from that world, don't teleport
--  [ ] Teleport to a player
+  - [ ] If you are banned from that world, don't telepor-  [ ] Teleport to a player
   - [ ] Teleport to any player
   - [ ] Send teleport request so you can teleport to the other player: /tpa {username}
   - [ ] Send teleport request so the other player teleport to you: /tpahere {username}
@@ -98,6 +96,23 @@
   - [ ] kick message
   - [ ] death message
   - [ ] achievements message
+- [ ] Mute
+  - [ ] Mute annoying player from talking in your world
+  - [ ] /mute {username}
+  - [ ] /mutelist
+  - [ ] /unmute {username}
+- [ ] Kick
+  - [ ] Kick a player from playing in your world
+  - [ ] /kick {username}
+  - [ ] Upon being kicked, the player will be teleported back to their world
+- Reset
+  - [x] Reset your world, world_nether, world_the_end, and dat file
+  - [x] Doesn't reset your playerdata or achievement stats
+  - [x] Command: /reset
+  - [x] Type /reset again to confirm
+- Back
+  - Command: /back
+  - You can go back to your death location on the world you are in.
 
 ##How to describe Minecraftly
 - Tumblr for Minecraft
