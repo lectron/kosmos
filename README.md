@@ -132,14 +132,12 @@ servers (table)
 - Bungee will only bring players to the server with highest TPS
 - If after a while, server doesn't update TPS, it means server crashes, then the row gets removed
 
-| address | tps |
-| --- | --- |
-| 10.240.0.1:25566 | 19.97 |
-| 10.240.0.2:25567 | 13.54 |
-| 10.240.0.3:25568 | 18.32 |
-| ... | ... |
- 
-
+  | address | tps |
+  | --- | --- |
+  | 10.240.0.1:25566 | 19.97 |
+  | 10.240.0.2:25567 | 13.54 |
+  | 10.240.0.3:25568 | 18.32 |
+  | ... | ... |
 
 world (table)
 - Showing which world is currently loaded by which server.
