@@ -126,7 +126,11 @@
 ---
 
 #MySQL database structure
- - ### world (table): Showing which world is currently loaded by which server. For bringing joining player to the right server without loading the world twice
+ - world (table)
+   - Showing which world is currently loaded by which server.
+   - If a world is already loaded on one server, subsequent player who joins via subdomain will go to correct server.
+   - This will prevent world being loaded twice on many different spigot servers
+   - IP column will use server's private IP address
 
 | world  | ip | port |
 | --- | --- | ----- |
@@ -135,7 +139,9 @@
 | 00f6795c-8409-4efb-a5e8-ef94f51e68dc | 10.240.0.3 | 25568 |
 | ... | ... | ... |
 
-- uuid (table): For UUID caching
+- uuid (table)
+  - For UUID caching 
+  - Because Mojang has an API limit of only 10 per minute.
 
 | uuid  | username
 | --- | --- | ----- |
@@ -144,7 +150,9 @@
 | cf1f1ea8-4bc9-4cba-886c-33997403eb80 | AruAkise_ |
 | ... | ... | ... |
 
-- player (table): for checking online player location for teleporting request to the right player at the right server
+- player (table)
+  - List all players online with their current server IP and port
+  - For teleporting player to player correctly
 
 | uuid  | ip | port |
 | --- | --- | ----- |
@@ -152,6 +160,29 @@
 | bc68ca39-8f3a-4eb4-a764-8526de7fb90b | 10.240.0.2 | 25567 |
 | bc384491-4cf7-4185-be07-9bdb5a8310d4 | 10.240.0.3 | 25568 |
 | ... | ... | ... |
+
+---
+
+##BungeeCord config
+- config.yml
+  - ip_forward: true
+  - servers:
+    lobby:
+      motd: 'A Minecraftly Server'
+      address: {your spigot server's IP address}:{your spigot server's port}
+      restricted: false
+---
+
+##Spigot config
+- server.properties
+  - server-ip={the public or private server IP that is attached to your machine}
+  - server-port={whatever port you want}
+- bukkit.yml
+  - connection-throttle: -1
+- spigot.yml
+  - bungeecord: true
+- eula.txt
+  - eula=true
 
 ---
 
