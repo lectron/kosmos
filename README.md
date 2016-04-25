@@ -221,12 +221,12 @@ logout (table)
 ---
 
 ##Config.yml
-```SnakeYAML
+```JvYaml
 database:
   username: root
   database: minecraftly
-  password: wPs9jEyEe0RD25OV
-  host: 104.154.71.206
+  password: ''
+  host: 127.0.0.1
   port: 3306
 ```
 
