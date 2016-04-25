@@ -223,13 +223,13 @@ logout (table)
 ##Minecraftly config
 Minecraftly proxy and server plugins' config is very simple. You only need to define a database credentials. That's it!
 
-```
+```yaml
 database:
-  username: root
-  database: minecraftly
-  password: ''
   host: 127.0.0.1
   port: 3306
+  database: minecraftly
+  username: root
+  password: ''
 ```
 
 ---
