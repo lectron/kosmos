@@ -220,16 +220,8 @@ logout (table)
 
 ---
 
-##BungeeCord config
-Here are a few things that need changes in the config of BungeeCord proxy server
-
-- config.yml
-  - ip_forward: true
-
----
-
-##Spigot config
-Here are a few things that need changes in the config of Spigot Minecraft server
+##Spigot server config
+Here are a few things that need changes in the config of Spigot Minecraft server to make things work. Most of the configurations are very standard, just double check and make sure that "server-ip" and "server-port" are defined correctly.
 
 - server.properties
   - server-ip={the public or private server IP that is attached to your machine}
@@ -239,8 +231,6 @@ Here are a few things that need changes in the config of Spigot Minecraft server
   - connection-throttle: -1
 - spigot.yml
   - bungeecord: true
-- eula.txt
-  - eula=true
 
 ---
 
