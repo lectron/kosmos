@@ -8,7 +8,7 @@
 
 ---
 
-##How world creation, loading and management work
+##Features
 - Player joins via {their_username}.{domain}.{tld}:
   - [x] if joins for the first time, server creates the world
   - [x] world has the folder format name {uuid}
@@ -151,7 +151,7 @@
 - Wordpress Multisite for Minecraft
 - A Minecraft server within a server
   
-##Features
+##Uniqueness
 - Individual server per player.
 - Accessible via player username: (username).m.ly
 - If a player changes username, the server will map to that subdomain accordingly.
