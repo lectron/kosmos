@@ -120,6 +120,8 @@
 - [ ] Back
   - [ ] Command: /back
   - [ ] You can go back to your death location on the world you are in.
+- [ ] List players currently playing on the world you are in
+  - [ ] Command: /list
 
 ---
 
