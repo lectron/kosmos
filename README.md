@@ -1,12 +1,19 @@
 #Welcome
 
-  Minecraftly is a free and open source (FOSS) Minecraft server plugin to create "Minecraft servers within servers" automagically. It is designed & produced from scratch by [Viet Nguyen](https://vi.et), with assistance from friends, developers and helpers from the internet. The software is ridiculously easy to run on a single server or in a distributed network. Minecraftly is now community-developed and will be remained free under GNU GPL license.
+  Minecraftly is a free and open source (FOSS) Minecraft server plugin to create "Minecraft servers within servers" automagically. It is designed & produced from scratch by [Viet Nguyen](https://vi.et), with assistance from friends, developers and helpers from the internet. The software is ridiculously easy to run on a single server or in a distributed network. Minecraftly is now community-developed and will be remained free under [GNU GPLv3](LICENSE) license.
   
   Minecraftly is compatible with most infrastructures, including but not limited to:
   - Single machine
   - Multiple machine cluster
-  - Autoscaling infrastructure (Google Cloud Platform, Amazon Web Services, Microsoft Azure, RackSpace, etc...)
-  - Containers (Docker, Kubernetes, Unikernel)
+  - Autoscaling infrastructure
+    - Google Cloud Platform
+    - Amazon Web Services
+    - Microsoft Azure
+    - RackSpace
+  - Containers
+    - Docker
+    - Kubernetes
+    - Unikernel
 
 ---
 
