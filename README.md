@@ -172,7 +172,16 @@
 - 3. Reset their world, while keeping their inventories.
 - Teleportation cross servers
 - No slots limit.
-  
+
+---
+##Similar Technologies
+Minecraftly is inspired an improved from many technologies, some of them were released after Minecraftly but wasn't that complete.
+- [Multiverse](http://dev.bukkit.org/bukkit-plugins/multiverse-core/)
+- [Docker + Minecraft = Dockercraft](https://github.com/docker/dockercraft)
+- [Google's Containerized Minecraft Roulette](http://www.blog.juliaferraioli.com/2015/11/containerized-minecraft-roulette.html)
+
+---
+
 ##Why Open Source?
   I'm [Viet](https://twitter.com/vietdoge), a simple guy with love for cloud computing, the web, technologies, and Minecraft just like you. Ever since I first run a Minecraft server in 2012, I've always been looking for a way to scale Minecraft with high availability and fault tolerant. It took me years to think and build the first prototype after seeing that not many people in the community have a high availability mindset. I can't do it alone and need your contribution to make it better.
 
