@@ -220,8 +220,10 @@ logout (table)
 
 ---
 
-##Config.yml
-```JvYaml
+##Minecraftly config
+Minecraftly proxy and server plugins' config is very simple. You only need to define a database credentials. That's it!
+
+```
 database:
   username: root
   database: minecraftly
@@ -234,15 +236,22 @@ database:
 
 ##Spigot server config
 Here are a few things that need changes in the config of Spigot Minecraft server to make things work. Most of the configurations are very standard, just double check and make sure that "server-ip" and "server-port" are defined correctly.
-```yaml
+
 - server.properties
-  - server-ip={the public or private server IP that is attached to your machine}
-  - server-port={whatever port you want}
-  - online-mode=false
+```yaml
+  server-ip={the public or private server IP that is attached to your machine}
+  server-port={whatever port you want}
+  online-mode=false
+```
+
 - bukkit.yml
-  - connection-throttle: -1
+```yaml
+  connection-throttle: -1
+```
+
 - spigot.yml
-  - bungeecord: true
+```yaml
+  bungeecord: true
 ```
 
 ---
