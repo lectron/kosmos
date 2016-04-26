@@ -258,6 +258,28 @@ Here are a few things that need changes in the config of Spigot Minecraft server
 
 ---
 
+##How to build Minecraftly plugin on Jenkins
+This guide presumes that you got Jenkins server installed
+Simply create a new Maven project with the following configurations:
+
+- Maven project name
+  - minecraftly
+
+- Branches to build
+  - Branch Specifier (blank for 'any'): master
+
+- Source Code Management
+  - Choose "Git"
+  - Repository URL: https://github.com/minecraftly/minecraftly.git
+
+- Build
+  - Root POM: pom.xml
+  - Goals and options: clean package
+  
+- Post-build Actions
+  - Click "Add Post-build action" -> Archive the artifacts
+  - Files to archive: target/minecraftly.jar
+
 ##How to describe Minecraftly
 - Tumblr for Minecraft
 - Wordpress Multisite for Minecraft
