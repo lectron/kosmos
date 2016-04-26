@@ -259,8 +259,7 @@ Here are a few things that need changes in the config of Spigot Minecraft server
 ---
 
 ##Compiling
-
-Minecraftly is distributed as a maven project. To compile it and install it in your local Maven repository:
+Minecraftly is distributed as a [Maven](http://maven.apache.org/) project. To compile it and install it in your local Maven repository:
 
 git clone https://github.com/minecraftly/minecraftly.git
 cd minecraftly
