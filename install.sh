@@ -50,16 +50,16 @@ update-alternatives --install /usr/bin/javac javac /opt/jdk/jdk1.8.0_05/bin/java
 # Download some preconfigured files
 wget -P /minecraftly/server1 https://ci.destroystokyo.com/job/PaperSpigot/443/artifact/Paperclip.jar
 wget -P /minecraftly/server2 https://ci.destroystokyo.com/job/PaperSpigot/443/artifact/Paperclip.jar
-wget -P /minecraftly/server1/plugins https://ci.m.ly/job/Minecraftly/lastSuccessfulBuild/artifact/Minecraftly.jar
-wget -P /minecraftly/server2/plugins https://ci.m.ly/job/Minecraftly/lastSuccessfulBuild/artifact/Minecraftly.jar
+wget -P /minecraftly/server1/plugins https://ci.m.ly/job/Minecraftly/lastSuccessfulBuild/artifact/core-bukkit/build/libs/Minecraftly-1.0-SNAPSHOT.jar
+wget -P /minecraftly/server2/plugins https://ci.m.ly/job/Minecraftly/lastSuccessfulBuild/artifact/core-bukkit/build/libs/Minecraftly-1.0-SNAPSHOT.jar
 wget -P /minecraftly/server1/plugins http://dev.bukkit.org/media/files/894/359/Vault.jar
 wget -P /minecraftly/server2/plugins http://dev.bukkit.org/media/files/894/359/Vault.jar
 wget -P /minecraftly/server1/plugins http://ci.dmulloy2.net/job/ProtocolLib/224/artifact/target/ProtocolLib.jar
 wget -P /minecraftly/server2/plugins http://ci.dmulloy2.net/job/ProtocolLib/224/artifact/target/ProtocolLib.jar
 wget -P /minecraftly/proxy1 http://ci.md-5.net/job/BungeeCord/1119/artifact/bootstrap/target/BungeeCord.jar
 wget -P /minecraftly/proxy2 http://ci.md-5.net/job/BungeeCord/1119/artifact/bootstrap/target/BungeeCord.jar
-wget -P /minecraftly/proxy1/plugins https://ci.m.ly/job/Minecraftly/lastSuccessfulBuild/artifact/MinecraftlyBungee.jar
-wget -P /minecraftly/proxy2/plugins https://ci.m.ly/job/Minecraftly/lastSuccessfulBuild/artifact/MinecraftlyBungee.jar
+wget -P /minecraftly/proxy1/plugins https://ci.m.ly/job/Minecraftly/lastSuccessfulBuild/artifact/core-bungee/build/libs/MinecraftlyBungee-1.0-SNAPSHOT.jar
+wget -P /minecraftly/proxy2/plugins https://ci.m.ly/job/Minecraftly/lastSuccessfulBuild/artifact/core-bungee/build/libs/MinecraftlyBungee-1.0-SNAPSHOT.jar
 wget -P /minecraftly/proxy1/plugins/MinecraftlyBungee https://raw.githubusercontent.com/minecraftly/minecraftly/master/config.yml
 wget -P /minecraftly/proxy2/plugins/MinecraftlyBungee https://raw.githubusercontent.com/minecraftly/minecraftly/master/config.yml
 wget -P /minecraftly/proxy1/plugins/MinecraftlyBungee https://raw.githubusercontent.com/minecraftly/minecraftly/master/motd.yml
