@@ -1,4 +1,7 @@
 [![Downloads](http://i.imgur.com/MNr6OTb.png)](https://ci.m.ly/job/Minecraftly)
+
+---
+
 #Welcome
 
   Minecraftly is a free and open source (FOSS) Minecraft server plugin to create "Minecraft servers within servers" automagically. It is designed & produced from scratch by [Viet Nguyen](https://vi.et), with assistance from friends, developers and helpers from the internet. Minecraftly is now community-developed and will be remained free under [GNU GPLv3](LICENSE) license.
