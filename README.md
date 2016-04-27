@@ -1,4 +1,9 @@
-[![Downloads](http://i.imgur.com/MNr6OTb.png)](https://ci.m.ly/job/Minecraftly)
+[![Downloads](http://i.imgur.com/MNr6OTb.png)](https://ci.m.ly/job/Minecraftly) [![Travis Widget]][Travis] [![Coverage Status Widget]][Coverage Status]
+
+[Travis]: https://travis-ci.org/minecraftly/minecraftly
+[Travis Widget]: https://travis-ci.org/minecraftly/minecraftly.svg?branch=master
+[Coverage Status]: https://coveralls.io/r/minecraftly/minecraftly
+[Coverage Status Widget]: https://coveralls.io/repos/minecraftly/minecraftly/badge.svg?branch=master
 
 ---
 
@@ -408,14 +413,3 @@ Want to make money fixing bugs for Minecraftly?
 We help developers earn a salary from contributing to our open-source software.
 
 [![GitHub Logo](https://d2bbtvgnhux6eq.cloudfront.net/assets/Bountysource-green-f2f437ed727ee2cacaee3f559c1907cb.png)](https://www.bountysource.com/teams/minecraftly)
-
----
-
-##Build Status
-
-[![Travis Widget]][Travis] [![Coverage Status Widget]][Coverage Status]
-
-[Travis]: https://travis-ci.org/minecraftly/minecraftly
-[Travis Widget]: https://travis-ci.org/minecraftly/minecraftly.svg?branch=master
-[Coverage Status]: https://coveralls.io/r/minecraftly/minecraftly
-[Coverage Status Widget]: https://coveralls.io/repos/minecraftly/minecraftly/badge.svg?branch=master
