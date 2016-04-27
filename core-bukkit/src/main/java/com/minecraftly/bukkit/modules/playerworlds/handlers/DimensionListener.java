@@ -24,8 +24,8 @@ import org.bukkit.permissions.PermissionDefault;
  */
 public class DimensionListener implements Listener {
 
-    private static final Permission PERMISSION_NETHER = new Permission("minecraftly.dimension.nether", PermissionDefault.EVERYONE);
-    private static final Permission PERMISSION_THE_END = new Permission("minecraftly.dimension.end", PermissionDefault.EVERYONE);
+    private static final Permission PERMISSION_NETHER = new Permission("minecraftly.dimension.nether", PermissionDefault.OP);
+    private static final Permission PERMISSION_THE_END = new Permission("minecraftly.dimension.end", PermissionDefault.OP);
 
     private final ModulePlayerWorlds module;
     private net.milkbowl.vault.permission.Permission permission;
