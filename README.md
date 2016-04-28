@@ -266,6 +266,8 @@ Here are a few things that need changes in the config of Spigot Minecraft server
 Minecraftly is distributed as a [Maven](http://maven.apache.org/) project. To compile it and install it in your local Maven repository:
 
 ```git
+apt-get install git -y
+apt-get install maven -y
 git clone https://github.com/minecraftly/minecraftly.git
 cd minecraftly
 mvn clean install
@@ -275,9 +277,9 @@ mvn clean install
 
 ##Build Minecraftly plugin on Jenkins
 This guide presumes that you got Jenkins server installed
-Simply create a new Maven project with the following configurations:
+Simply create a new Freestyle project with the following configurations:
 
-- Maven project name
+- Freestyle project name
   - minecraftly
 
 - Branches to build
@@ -288,8 +290,7 @@ Simply create a new Maven project with the following configurations:
   - Repository URL: https://github.com/minecraftly/minecraftly.git
 
 - Build
-  - Root POM: pom.xml
-  - Goals and options: clean install
+  - Execute shell command: mvn clean install
   
 - Post-build Actions
   - Click "Add Post-build action" -> Archive the artifacts
