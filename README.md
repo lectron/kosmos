@@ -9,14 +9,8 @@
   Minecraftly is compatible with most infrastructures, including but not limited to:
   - Single machine
   - Multiple machine cluster
-  - Autoscaling cloud infrastructure
-    - Google Cloud Platform
-    - Amazon Web Services
-    - Microsoft Azure
-    - RackSpace
+  - Cloud computing infrastructure
   - Containers
-    - Docker
-    - Kubernetes
 
 ---
 
