@@ -294,7 +294,7 @@ Simply create a new Freestyle project with the following configurations:
   
 - Post-build Actions
   - Click "Add Post-build action" -> Archive the artifacts
-  - Files to archive: target/minecraftly.jar
+  - Files to archive: **/*.jar
 
 ---
 
