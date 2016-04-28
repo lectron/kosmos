@@ -1,1 +1,0 @@
-cd /test/proxy && screen -dmS proxy1 java -jar BungeeCord1119.jar
