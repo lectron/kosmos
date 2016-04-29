@@ -256,6 +256,16 @@ Here are a few things that need changes in the config of Spigot Minecraft server
 
 ---
 
+##Spigot Startup Script
+
+Startup script for startup must have "--world-dir /{folder location of the place you want to save all your world}", so that all spigot servers can share the same collection of worlds.
+
+```powershell
+java -jar spigot.jar --world-dir /minecraft/worlds
+```
+
+---
+
 ##Compiling
 Minecraftly is distributed as a [Maven](http://maven.apache.org/) project. To compile it and install it in your local Maven repository:
 
