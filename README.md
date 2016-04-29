@@ -6,7 +6,7 @@
 
   Minecraftly is a free and open source (FOSS) Minecraft server plugin to create "Minecraft servers within servers" automagically. It is designed & produced from scratch by [Viet Nguyen](https://vi.et), with assistance from friends, developers and helpers from the internet. Minecraftly is now community-developed and will be remained free under [GNU GPLv3](LICENSE) license.
   
-  Minecraftly is compatible with most infrastructures, including but not limited to:
+  Minecraftly is compatible with most infrastructures, including but not limited to:w
   - Single machine
   - Multiple machine cluster
   - Cloud computing infrastructure
@@ -258,7 +258,9 @@ Here are a few things that need changes in the config of Spigot Minecraft server
 
 ##Spigot Startup Script
 
-Startup script for startup must have "--world-dir /{folder location of the place you want to save all your world}", so that all spigot servers can share the same collection of worlds.
+Startup script for startup must have the "--world-dir /{folder location}" [start-up parameter](https://www.spigotmc.org/wiki/start-up-parameters/), so that all spigot servers can share the same collection of worlds.
+
+For example:
 
 ```powershell
 java -jar spigot.jar --world-dir /minecraft/worlds
