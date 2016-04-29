@@ -10,7 +10,7 @@ repositories {
 }
 
 dependencies {
-    compile project(path: ':core', configuration: 'shadow')
+    compile project(path: ':core-old', configuration: 'shadow')
     compile group: 'net.md-5', name: 'bungeecord-api', version: '1.8-SNAPSHOT'
     compile group: 'net.ellune', name: 'exhaust-bungee', version: parent.ext.exhaustVersion
     compile group: 'com.ikeirnez.pluginmessageframework', name: 'pmf-bungeecord', version: parent.ext.pmfVersion
@@ -19,7 +19,7 @@ dependencies {
 
 shadowJar {
     dependencies {
-        include(dependency(':core'))
+        include(dependency(':core-old'))
         include(dependency('net.ellune:exhaust-bungee'))
         include(dependency('com.ikeirnez.pluginmessageframework:pmf-bungeecord'))
     }
