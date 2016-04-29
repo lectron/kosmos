@@ -1,5 +1,5 @@
 rootProject.name = 'minecraftly'
 
-include 'core'
-include 'core-bukkit'
-include 'core-bungee'
+include 'core-old'
+include 'core-bukkit-old'
+include 'core-bungee-old'
