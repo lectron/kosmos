@@ -14,7 +14,7 @@
 
 ---
 
-##Features
+##Concepts
 - Player joins via {their_username}.{domain}.{tld}:
   - [x] if joins for the first time, server creates the world
   - [x] world has the folder format name {uuid}
