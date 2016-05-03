@@ -121,7 +121,10 @@
 - [ ] List players currently playing on the world you are in
   - [ ] Command: /list
 - [ ] Tablist
-  - [ ] Tablist will show everyone on the world you are currently on
+  - [ ] Tablist will show everyone on the world you are currently on'
+- [ ] CNAME
+  - [ ] Peole can use their custom domain to map into official {their_username}.{domain}.{tld}
+  - Example: myminecraftserver.com can set a CNAME record to vietnguyen.m.ly & everyone who joins myminecraftserver.com will go to player vietnguyen's world right away.
 
 ---
 
