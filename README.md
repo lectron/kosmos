@@ -120,6 +120,8 @@
   - [ ] You can go back to your death location on the world you are in.
 - [ ] List players currently playing on the world you are in
   - [ ] Command: /list
+- [ ] Tablist
+  - [ ] Tablist will show everyone on the world you are currently on
 
 ---
 
@@ -370,7 +372,7 @@ Each player has their own world that they control, accessible via their own publ
 ##Requirements
  * BungeeCord: serve as a proxy server (equivalent to Nginx or HAProxy in web hosting)
  * Spigot: serve as Minecraft server. Spigot is important because it has "--world-dir" flag at startup, which specifies the directory for all world maps.
- * MySQL server: Necessary database...
+ * MySQL server: Necessary database.
 
 ---
 
