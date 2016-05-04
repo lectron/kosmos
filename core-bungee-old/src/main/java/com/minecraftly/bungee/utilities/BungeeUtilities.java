@@ -70,7 +70,7 @@ public class BungeeUtilities {
         return results.size() > 0 ? results.iterator().next() : null;
     }
 
-    public static void setListenerInfoField(String fieldName, Object value) throws NoSuchFieldException {
+    public static void setListenerInfoField(String fieldName, Object value) throws NoSuchFieldException, IllegalAccessException {
         for (ListenerInfo listenerInfo : ProxyServer.getInstance().getConfig().getListeners()) {
             Field field = ListenerInfo.class.getDeclaredField(fieldName);
             field.setAccessible(true);
