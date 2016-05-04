@@ -70,15 +70,6 @@ public class BungeeUtilities {
         return results.size() > 0 ? results.iterator().next() : null;
     }
 
-    public static void setListenerInfoField(String fieldName, Object value) throws NoSuchFieldException, IllegalAccessException {
-        for (ListenerInfo listenerInfo : ProxyServer.getInstance().getConfig().getListeners()) {
-            Field field = ListenerInfo.class.getDeclaredField(fieldName);
-            field.setAccessible(true);
-            Utilities.removeFinal(field);
-            field.set(listenerInfo, value);
-        }
-    }
-
     public static void copyDefaultsFromJarFile(Configuration configuration, String defaultFileName, ConfigurationProvider configurationProvider, File configFile) {
         copyDefaultsFromJarFile(configuration, configurationProvider.load(bungeePlugin.getResourceAsStream(defaultFileName)), configurationProvider, configFile);
     }
