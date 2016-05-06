@@ -1,6 +1,0 @@
-name: @project.cleanName@
-version: @project.version@
-main: @project.group@.MclyCoreBukkitPlugin
-author: Minecraftly Network
-load: STARTUP
-depend: [Vault, ProtocolLib]
