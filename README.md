@@ -21,10 +21,10 @@
   - [x] it contains world contents like usual (world, world_nether, world_the_end, session.lock, etc...)
   - [x] only owner of the world can create the world
   - [x] other players can only load the world if available.
-  - [x] worlds are stored in the pre defined folder ~/mnt/worlds/{uuid}
-  - [x] ~/mnt/worlds folder is shared across all spigot servers
-  - [ ] player data will be in the common folder ~/mnt/playerdata, shared across all spigot servers
-  - [ ] achievement stats will be in the common folder ~/mnt/stats, shared across all spigot servers
+  - [x] worlds are stored in the pre defined folder ~/minecraft/worlds/{uuid}
+  - [x] ~/minecraft/worlds folder is shared across all spigot servers
+  - [ ] player data will be in the common folder ~/minecraft/playerdata, shared across all spigot servers
+  - [ ] achievement stats will be in the common folder ~/minecraft/stats, shared across all spigot servers
   - [x] works with {domain}.{tld} or simply the proxy IP address
   - [x] default game mode for world owner is SURVIVAL
   - [x] Default game rule changes for all worlds:
@@ -121,7 +121,7 @@
 - [ ] List players currently playing on the world you are in
   - [ ] Command: /list
 - [ ] Tablist
-  - [ ] Tablist will show everyone on the world you are currently on'
+  - [ ] Tablist will show a random 80 players currently online on all servers.
 - [ ] CNAME
   - [ ] Peole can use their custom domain to map into official {their_username}.{domain}.{tld}
   - Example: myminecraftserver.com can set a CNAME record to vietnguyen.m.ly & everyone who joins myminecraftserver.com will go to player vietnguyen's world right away.
