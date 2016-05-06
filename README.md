@@ -11,6 +11,8 @@
   - Multiple machine cluster
   - Cloud computing infrastructure
   - Containers
+  
+  The plugin uses Redis, but it should not be dependant on RedisBungee plugin. 
 
 ---
 
@@ -128,22 +130,26 @@
 
 ---
 
-#MySQL database structure
+#Redis key-value store database structure
+Redis key-value store is for use of proxy plugin, because it needs super fast query and response, even when the latency between servers is over 200ms.
 servers (table)
 - Showing which Spigot servers are currently running correctly
 - This acts as BungeeCord's dynamic config to list the available servers
+- It helps handling join event via BungeeCord after sessions login, not subsequent join from server to server.
 - IP and port columns will use Spigot's server.properties' server-ip and server-port values
-- TPS column is for tick-per-second, updated from time to time.
-- Bungee will only bring players to the server with highest TPS
-- If after a while, server doesn't update TPS, it means server crashes, then the row gets removed
+- "players" column shows number of players currently online inside that Spigot server.
+- BungeeCord server will base on this to bring players to the Spigot server with least number of players currently online.
 
- | address | tps |
+ | address | players |
  | --- | --- |
- | 10.240.0.1:25566 | 19.97 |
- | 10.240.0.2:25567 | 13.54 |
- | 10.240.0.3:25568 | 18.32 |
+ | 10.240.0.1:25566 | 43 |
+ | 10.240.0.2:25567 | 7 |
+ | 10.240.0.3:25568 | 56 |
  | ... | ... |
 
+---
+
+#MySQL database structure
 world (table)
 - Showing which world is currently loaded by which server.
 - If a world is already loaded on one server, subsequent player who joins via subdomain will go to correct server.
