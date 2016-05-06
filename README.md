@@ -132,36 +132,6 @@
 
 #Redis key-value store database structure
 Redis key-value store is for use of proxy plugin, because it needs super fast query and response, even when the latency between servers is over 200ms.
-servers (table)
-- Showing which Spigot servers are currently running correctly
-- This acts as BungeeCord's dynamic config to list the available servers
-- It helps handling join event via BungeeCord after sessions login, not subsequent join from server to server.
-- IP and port columns will use Spigot's server.properties' server-ip and server-port values
-- "players" column shows number of players currently online inside that Spigot server.
-- BungeeCord server will base on this to bring players to the Spigot server with least number of players currently online.
-
- | address | players |
- | --- | --- |
- | 10.240.0.1:25566 | 43 |
- | 10.240.0.2:25567 | 7 |
- | 10.240.0.3:25568 | 56 |
- | ... | ... |
-
----
-
-#MySQL database structure
-world (table)
-- Showing which world is currently loaded by which server.
-- If a world is already loaded on one server, subsequent player who joins via subdomain will go to correct server.
-- This will prevent world being loaded twice on many different spigot servers
-- IP and port columns will use Spigot's server.properties' server-ip and server-port values
-
- | world  | address |
- | --- | --- |
- | 00ceaed3-3715-49e9-b45f-0e01cf94f798 | 10.240.0.1:25566 |
- | 00f0ec76-03a1-4d68-b7de-2f30a054e864 | 10.240.0.2:25567 |
- | 00f6795c-8409-4efb-a5e8-ef94f51e68dc | 10.240.0.3:25568 |
- | ... | ... |
 
 uuid (table)
 - For UUID caching 
@@ -174,6 +144,35 @@ uuid (table)
  | cf1f1ea8-4bc9-4cba-886c-33997403eb80 | AruAkise_ |
  | ... | ... | ... |
 
+server (table)
+- Showing which Spigot servers are currently running correctly
+- This acts as BungeeCord's dynamic config to list the available servers
+- It helps handling join event via BungeeCord after sessions login, not subsequent join from server to server.
+- IP and port columns will use Spigot's server.properties' server-ip and server-port values
+- "players" column shows number of players currently online inside that Spigot server.
+- BungeeCord server will base on this to bring players to the Spigot server with least number of players currently online.
+- This feature will be ignore if a player is joining a specific world with specific players currently online on that world, instead it will use "world" table to route players correctly instead.
+
+ | address | players |
+ | --- | --- |
+ | 10.240.0.1:25566 | 43 |
+ | 10.240.0.2:25567 | 7 |
+ | 10.240.0.3:25568 | 56 |
+ | ... | ... |
+
+world (table)
+- Showing which world is currently loaded by which server.
+- If a world is already/currently loaded on one server, subsequent player who joins via subdomain will go to correct server.
+- This will prevent world being loaded twice on many different spigot servers
+- IP and port columns will use Spigot's server.properties' server-ip and server-port values
+
+ | world  | address |
+ | --- | --- |
+ | 00ceaed3-3715-49e9-b45f-0e01cf94f798 | 10.240.0.1:25566 |
+ | 00f0ec76-03a1-4d68-b7de-2f30a054e864 | 10.240.0.2:25567 |
+ | 00f6795c-8409-4efb-a5e8-ef94f51e68dc | 10.240.0.3:25568 |
+ | ... | ... |
+
 player (table)
 - List all players online with their current server IP and port
 - For teleporting player to player correctly
@@ -185,6 +184,10 @@ player (table)
  | bc68ca39-8f3a-4eb4-a764-8526de7fb90b | 10.240.0.2:25567 |
  | bc384491-4cf7-4185-be07-9bdb5a8310d4 | 10.240.0.3:25568 |
  | ... | ... |
+
+---
+
+#MySQL database structure
 
 mute (table)
 - List all players who are muted on each world
@@ -235,7 +238,11 @@ logout (table)
 Minecraftly proxy and server plugins' config is very simple. You only need to define a database credentials. That's it!
 
 ```yaml
-database:
+redis:
+  host: 127.0.0.1
+  port: 6379
+  password: ''
+mysql:
   host: 127.0.0.1
   port: 3306
   database: minecraftly
