@@ -1,1 +1,0 @@
-This jar does not violate the DMCA against CraftBukkit as it does not ship the Minecraft Server. It distributes a patch file, that the jar will then download Minecraft Vanilla server for you, and apply the patches to it.
