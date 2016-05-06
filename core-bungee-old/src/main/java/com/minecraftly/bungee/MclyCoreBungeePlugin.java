@@ -137,7 +137,7 @@ public class MclyCoreBungeePlugin extends Plugin implements MinecraftlyBungeeCor
 
         try {
             BungeeUtilities.setListenerInfoField("defaultServer", computeUniqueId);
-            BungeeUtilities.setListenerInfoField("defaultServer", computeUniqueId); // must be set so we don't get NPEs
+            BungeeUtilities.setListenerInfoField("fallbackServer", computeUniqueId); // must be set so we don't get NPEs
         } catch (NoSuchFieldException | IllegalAccessException e) {
             getLogger().log(Level.SEVERE, "Error whilst applying reflection for default server.", e);
             return;
