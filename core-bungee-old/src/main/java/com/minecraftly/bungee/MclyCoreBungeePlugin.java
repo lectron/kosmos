@@ -136,8 +136,8 @@ public class MclyCoreBungeePlugin extends Plugin implements MinecraftlyBungeeCor
         servers.put(computeUniqueId, getProxy().constructServerInfo(computeUniqueId, new InetSocketAddress("localhost", 1), null, false)); // put a placeholder in for now
 
         try {
-            BungeeUtilities.setListenerInfoField("serverPriority", computeUniqueId);
-            BungeeUtilities.setListenerInfoField("serverPriority", computeUniqueId); // must be set so we don't get NPEs
+            BungeeUtilities.setListenerInfoField("defaultServer", computeUniqueId);
+            BungeeUtilities.setListenerInfoField("defaultServer", computeUniqueId); // must be set so we don't get NPEs
         } catch (NoSuchFieldException | IllegalAccessException e) {
             getLogger().log(Level.SEVERE, "Error whilst applying reflection for default server.", e);
             return;
