@@ -11,8 +11,6 @@
   - Multiple machine cluster
   - Cloud computing infrastructure
   - Containers
-  
-  The plugin uses Redis, but it should not be dependant on RedisBungee plugin. 
 
 ---
 
@@ -131,10 +129,10 @@
 ---
 
 #Redis key-value store database structure
-Redis key-value store is for use of proxy plugin, because it needs super fast query and response, even when the latency between servers is over 200ms.
+Redis key-value store is for use for queueing, bringing players to the right place at the right time, whether it's join, teleport, or other related events.
 
 uuid (table)
-- For UUID caching 
+- For UUID caching
 - Because Mojang has an API limit of only 10 per minute.
 
  | uuid  | username
@@ -143,6 +141,19 @@ uuid (table)
  | c088272e-a8ca-496c-91a2-b7394ffe879c | ImRainbowActive |
  | cf1f1ea8-4bc9-4cba-886c-33997403eb80 | AruAkise_ |
  | ... | ... | ... |
+
+world (table)
+- Showing which world is currently loaded by which server.
+- If a world is already/currently loaded on one server, subsequent player who joins via subdomain will go to correct server.
+- This will prevent world being loaded twice on many different spigot servers
+- IP and port columns will use Spigot's server.properties' server-ip and server-port values
+
+ | world  | address |
+ | --- | --- |
+ | 00ceaed3-3715-49e9-b45f-0e01cf94f798 | 10.240.0.1:25566 |
+ | 00f0ec76-03a1-4d68-b7de-2f30a054e864 | 10.240.0.2:25567 |
+ | 00f6795c-8409-4efb-a5e8-ef94f51e68dc | 10.240.0.3:25568 |
+ | ... | ... |
 
 server (table)
 - Showing which Spigot servers are currently running correctly
@@ -158,19 +169,6 @@ server (table)
  | 10.240.0.1:25566 | 43 |
  | 10.240.0.2:25567 | 7 |
  | 10.240.0.3:25568 | 56 |
- | ... | ... |
-
-world (table)
-- Showing which world is currently loaded by which server.
-- If a world is already/currently loaded on one server, subsequent player who joins via subdomain will go to correct server.
-- This will prevent world being loaded twice on many different spigot servers
-- IP and port columns will use Spigot's server.properties' server-ip and server-port values
-
- | world  | address |
- | --- | --- |
- | 00ceaed3-3715-49e9-b45f-0e01cf94f798 | 10.240.0.1:25566 |
- | 00f0ec76-03a1-4d68-b7de-2f30a054e864 | 10.240.0.2:25567 |
- | 00f6795c-8409-4efb-a5e8-ef94f51e68dc | 10.240.0.3:25568 |
  | ... | ... |
 
 player (table)
