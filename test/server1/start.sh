@@ -1,0 +1,1 @@
+cd /minecraftly/server && screen -dmS server java -Xmx5120m -Xms2048m -jar paperspigot-1.8.8.jar --world-dir /mnt/worlds
