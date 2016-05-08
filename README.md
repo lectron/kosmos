@@ -1,4 +1,4 @@
-[![Downloads](http://i.imgur.com/MNr6OTb.png)](https://ci.m.ly/job/Minecraftly)
+[![Downloads](http://i.imgur.com/MNr6OTb.png)](https://ci.minecraftly.com/job/Minecraftly)
 
 ---
 
