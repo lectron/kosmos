@@ -415,6 +415,8 @@ Each player has their own world that they control, accessible via their own publ
  This is a "copyleft" license, which means if you publish the modified work as your own, you must open source it as well. It benefits the educational purpose of the software and helps everyone build better software that is scalable, loosely coupled, work on both traditional and cloud infrastructure without vendor lock-in.
  
  The only term of using this software is that you expressively credit Minecraftly website as the creator of the software you are using on your server and website.
+ 
+ We welcome everyone to install and develop on top of Minecraftly for non-commercial use. However, we expressively ask that you don't use it for commercial use. Thank you.
 
 ##Bounty Program
 Want to make money fixing bugs for Minecraftly?
