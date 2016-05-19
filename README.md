@@ -416,7 +416,7 @@ Each player has their own world that they control, accessible via their own publ
  
  The only term of using this software is that you expressively credit Minecraftly website as the creator of the software you are using on your server and website.
  
- We welcome everyone to install and develop on top of Minecraftly for non-commercial use. However, we expressively ask that you don't use it for commercial use. Thank you.
+ We welcome everyone to install and develop on top of Minecraftly free of charge for non-commercial use. If you wish to use it for commercial use, please email viet@minecraftly.com to license it.
 
 ##Bounty Program
 Want to make money fixing bugs for Minecraftly?
