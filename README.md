@@ -1,3 +1,4 @@
+[![Stories in Ready](https://badge.waffle.io/minecraftly/minecraftly.png?label=ready&title=Ready)](https://waffle.io/minecraftly/minecraftly)
 [![Downloads](http://i.imgur.com/MNr6OTb.png)](https://ci.minecraftly.com/job/Minecraftly)
 
 ---
