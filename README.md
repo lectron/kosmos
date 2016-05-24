@@ -1,5 +1,4 @@
 [![Stories in Ready](https://badge.waffle.io/minecraftly/minecraftly.png?label=ready&title=Ready)](https://waffle.io/minecraftly/minecraftly)
-[![Downloads](http://i.imgur.com/MNr6OTb.png)](https://ci.minecraftly.com/job/Minecraftly)
 
 ---
 
@@ -425,3 +424,8 @@ Want to make money fixing bugs for Minecraftly?
 We help developers earn a salary from contributing to our open-source software.
 
 [![GitHub Logo](https://d2bbtvgnhux6eq.cloudfront.net/assets/Bountysource-green-f2f437ed727ee2cacaee3f559c1907cb.png)](https://www.bountysource.com/teams/minecraftly)
+
+---
+##Download  compiled jar
+
+[![Downloads](http://i.imgur.com/MNr6OTb.png)](https://ci.minecraftly.com/job/Minecraftly)
