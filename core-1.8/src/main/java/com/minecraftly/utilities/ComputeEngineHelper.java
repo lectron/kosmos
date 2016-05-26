@@ -21,7 +21,7 @@ public class ComputeEngineHelper {
      * @throws IOException
      */
     public static String queryUniqueId() throws IOException {
-        return queryComputeAPI("http://ipinfo.io/ip");
+        return queryComputeAPI("http://169.254.169.254/latest/meta-data/hostname");
     }
 
     /**
@@ -32,7 +32,7 @@ public class ComputeEngineHelper {
      * @throws IOException
      */
     public static String queryIpAddress() throws IOException {
-        return queryComputeAPI("http://ipinfo.io/ip");
+        return queryComputeAPI("http://169.254.169.254/latest/meta-data/hostname");
     }
 
     /**
