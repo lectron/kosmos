@@ -2,6 +2,9 @@
 
 ---
 
+#Note
+  **This is the V1 branch of Minecraftly and it is soon to be, or is, depreciated. Please switch to the master branch for the latest version!**
+
 #Welcome
 
   Minecraftly is a free and open source (FOSS) Minecraft server-side plugin to automatically create and handle worlds and interactions between multiple infinite Minecraft worlds across multiple server instances, using the least amount of code, CPU, RAM, and configurations as possible. It is designed & produced from scratch by [Viet Nguyen](https://vi.et), with assistance from friends, developers and helpers from the internet. Minecraftly is now community-developed and will be remained free under [GNU GPLv3](LICENSE) license.
