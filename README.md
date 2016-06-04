@@ -1,4 +1,4 @@
-[![Stories in Ready](https://badge.waffle.io/minecraftly/minecraftly.png?label=ready&title=Ready)](https://waffle.io/minecraftly/minecraftly)
+"Think of this technology as Wordpress Multisite for Minecraft"
 
 ---
 
