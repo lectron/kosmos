@@ -1,4 +1,4 @@
-"Think of this technology as Wordpress Multisite for Minecraft"
+Think of this technology as Medium for Minecraft
 
 ---
 
@@ -419,13 +419,8 @@ Each player has their own world that they control, accessible via their own publ
  We welcome everyone to install and develop on top of Minecraftly free of charge for non-commercial use. If you wish to use it for commercial use, please email viet@minecraftly.com to license it.
 
 ##Bounty Program
-Want to make money fixing bugs for Minecraftly?
+Want to make money fixing bugs for Minecraftly open source softwares?
 
-We help developers earn a salary from contributing to our open-source software.
+We help developers earn a salary from contributing to our open-source software. So, be awesome and contribute your skillz!
 
 [![GitHub Logo](https://d2bbtvgnhux6eq.cloudfront.net/assets/Bountysource-green-f2f437ed727ee2cacaee3f559c1907cb.png)](https://www.bountysource.com/teams/minecraftly)
-
----
-##Download  compiled jar
-
-[![Downloads](http://i.imgur.com/MNr6OTb.png)](https://ci.minecraftly.com/job/Minecraftly)
