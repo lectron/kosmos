@@ -86,7 +86,7 @@ public class GlobalUserData extends SingletonUserData implements Consumer<Player
 
         if (yamlConfiguration.contains("enderInventory")) {
             Inventory enderInventory = player.getEnderChest();
-            ConfigurationSection enderInventorySection = yamlConfiguration.getConfigurationSection("playerInventory");
+            ConfigurationSection enderInventorySection = yamlConfiguration.getConfigurationSection("enderInventory");
             for (int i = 0; i < enderInventory.getSize(); i++) {
                 String intString = String.valueOf(i);
                 ItemStack itemStack = enderInventorySection.contains(intString) ? enderInventorySection.getItemStack(intString) : null;
