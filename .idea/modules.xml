@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/Bukkit/Bukkit.iml" filepath="$PROJECT_DIR$/Bukkit/Bukkit.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Bungee/Bungee.iml" filepath="$PROJECT_DIR$/Bungee/Bungee.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Core/Core.iml" filepath="$PROJECT_DIR$/Core/Core.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Minecraftly/Minecraftly.iml" filepath="$PROJECT_DIR$/Minecraftly/Minecraftly.iml" />
+      <module fileurl="file://$PROJECT_DIR$/MinecraftlyParent.iml" filepath="$PROJECT_DIR$/MinecraftlyParent.iml" />
+    </modules>
+  </component>
+</project>

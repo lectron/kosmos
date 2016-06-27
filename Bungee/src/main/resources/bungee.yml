@@ -1,0 +1,4 @@
+name: Minecraftly
+version: ${pom.version}-BUNGEE
+author: Cory Redmond
+main: com.minecraftly.bungee.MinecraftlyBungeePlugin

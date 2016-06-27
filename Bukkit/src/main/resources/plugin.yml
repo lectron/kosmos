@@ -1,0 +1,6 @@
+name: Minecraftly
+version: ${pom.version}-BUKKIT
+author: Cory Redmond
+main: com.minecraftly.bukkit.MinecraftlyBukkitPlugin
+description: Minecraft cloud platform.
+load: STARTUP

@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns="http://maven.apache.org/POM/4.0.0"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<parent>
+		<artifactId>minecraftly-parent</artifactId>
+		<groupId>com.minecraftly</groupId>
+		<version>2.0.0-SNAPSHOT</version>
+	</parent>
+	<modelVersion>4.0.0</modelVersion>
+
+	<artifactId>minecraftly</artifactId>
+
+	<build>
+
+		<finalName>Minecraftly</finalName>
+
+		<defaultGoal>clean install</defaultGoal>
+
+		<plugins>
+			<plugin>
+				<inherited>true</inherited>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>2.5.1</version>
+				<configuration>
+					<source>${versions.java}</source>
+					<target>${versions.java}</target>
+					<encoding>UTF-8</encoding>
+					<showWarnings>true</showWarnings>
+					<showDeprecation>true</showDeprecation>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-shade-plugin</artifactId>
+				<version>2.3</version>
+				<executions>
+					<execution>
+						<phase>package</phase>
+						<goals>
+							<goal>shade</goal>
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+					<createDependencyReducedPom>false</createDependencyReducedPom>
+					<relocations>
+						<relocation>
+							<pattern>org.apache.commons.lang</pattern>
+							<shadedPattern>com.minecraftly.shaded.org.apache.commons.lang</shadedPattern>
+						</relocation>
+						<relocation>
+							<pattern>org.apache.commons.pool2</pattern>
+							<shadedPattern>com.minecraftly.shaded.org.apache.commons.pool2</shadedPattern>
+						</relocation>
+						<relocation>
+							<pattern>com.google.gson</pattern>
+							<shadedPattern>com.minecraftly.shaded.com.google.gson</shadedPattern>
+						</relocation>
+						<relocation>
+							<pattern>redis.clients</pattern>
+							<shadedPattern>com.minecraftly.shaded.redis.clients</shadedPattern>
+						</relocation>
+					</relocations>
+				</configuration>
+			</plugin>
+		</plugins>
+
+	</build>
+
+	<dependencies>
+
+		<!-- Internal -->
+		<dependency>
+			<groupId>com.minecraftly</groupId>
+			<artifactId>minecraftly-core</artifactId>
+			<version>${pom.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.minecraftly</groupId>
+			<artifactId>minecraftly-bungee</artifactId>
+			<version>${pom.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.minecraftly</groupId>
+			<artifactId>minecraftly-bukkit</artifactId>
+			<version>${pom.version}</version>
+		</dependency>
+
+	</dependencies>
+
+</project>
