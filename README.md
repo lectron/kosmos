@@ -3,7 +3,7 @@ Think of this technology as Medium for Minecraft
 ---
 
 #Note
-  **This is the V1 branch of Minecraftly and it is soon to be, or is, depreciated. Please switch to the master branch for the latest version!**
+  **This is the V1 branch of Minecraftly and it is soon to be, or is, depreciated. Please switch to the master branch for the latest release version!**
 
 #Welcome
 
