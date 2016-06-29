@@ -119,24 +119,30 @@ public abstract class MinecraftlyCore<P> implements Closeable {
 	 */
 	private HeartbeatTask heartBeatTask;
 
-	public MinecraftlyCore( @NonNull Logger logger, @NonNull File minecraftlyDataFolder, @NonNull P originObject, int port ) {
+	public MinecraftlyCore( @NonNull Logger parentLogger, @NonNull File minecraftlyDataFolder, @NonNull P originObject, int port ) {
 
-		this.logger = logger;
+		this.logger = new MinecraftlyLogger( this, parentLogger );
 		this.minecraftlyDataFolder = minecraftlyDataFolder;
 		this.originObject = originObject;
 		this.port = port;
 
+		// Get the IP address for this machine.
+		logger.log( Level.FINE, "Getting my IP address..." );
 		String myIpAddress;
 		try {
 			myIpAddress = MinecraftlyUtil.downloadText( "http://ipinfo.io/ip" );
 			if ( myIpAddress != null ) myIpAddress = myIpAddress.trim();
+			logger.log( Level.INFO, "My IP address: " + myIpAddress );
 		} catch ( IOException e ) {
 			myIpAddress = "";
 			logger.log( Level.WARNING, "Unable to get my IP Address via ipinfo.io! Our identity may be corrupt!", e );
 		}
 		this.myIpAddress = myIpAddress;
 
+		// Static access to core.
 		core = this;
+
+		logger.log( Level.FINE, "Core initialised. Waiting for load.." );
 
 	}
 
@@ -164,12 +170,15 @@ public abstract class MinecraftlyCore<P> implements Closeable {
 	 */
 	public final void load() throws Exception {
 
+		logger.log( Level.INFO, "Loading Minecraftly Core..." );
+
 		// Configuration loading.
 		if ( config == null ) {
 			config = MinecraftlyConfiguration.load( new File( minecraftlyDataFolder, "config.json" ), this );
 		}
 
 		// Jedis loading and pool configuration.
+		logger.log( Level.INFO, "Loading redis..." );
 		MinecraftlyRedisConfiguration redisConfig = config.getRedisConfig();
 
 		JedisPoolConfig poolConfig = new JedisPoolConfig();
@@ -186,6 +195,7 @@ public abstract class MinecraftlyCore<P> implements Closeable {
 				jedisPool = new JedisPool( poolConfig, redisConfig.getIp(), redisConfig.getPort(), redisConfig.getTimeOut(), redisConfig.getPassword() );
 			}
 		}
+		logger.log( Level.INFO, "Redis loaded!" );
 
 		// Create the core managers.
 		this.worldManager = new WorldManager( this );
@@ -193,13 +203,18 @@ public abstract class MinecraftlyCore<P> implements Closeable {
 		this.playerManager = new PlayerManager( this );
 
 		// Run the tasks.
-		runTask( new SubscribeTask( this ) );
+		logger.log( Level.INFO, "Starting tasks.." );
 
 		this.heartBeatTask = new HeartbeatTask( this );
 		runTask( heartBeatTask );
+		runTask( new SubscribeTask( this ) );
+
+		logger.log( Level.INFO, "Tasks started!" );
 
 		// Broadcast a successful load.
 		callEvent( new LoadCompleteEvent() );
+
+		logger.log( Level.INFO, "Minecraftly Core loaded!" );
 
 	}
 
@@ -245,17 +260,17 @@ public abstract class MinecraftlyCore<P> implements Closeable {
 	@Override
 	public final void close() throws IOException {
 
-		System.out.println( "0 Close called" );
+		logger.log( Level.INFO, "Minecraftly shutting down.." );
 
 		// We don't have much of a choice but to kick everyone here.
 		ServerType serverType = getServerType();
-		System.out.println( "1 ServerType: " + serverType );
+		logger.log( Level.FINE, "1 ServerType: " + serverType );
 		if ( serverType == ServerType.BUNGEE || serverType == ServerType.CONTROLLER ) {
 
-			System.out.println( "2 Unsubscribing." );
+			logger.log( Level.FINE, "2 Unsubscribing." );
 			getMessageListener().unsubscribe();
 
-			System.out.println( "3 Closing jedis." );
+			logger.log( Level.FINE, "3 Closing jedis." );
 			if ( jedisPool != null ) {
 				if ( !jedisPool.isClosed() ) jedisPool.destroy();
 				jedisPool = null;
@@ -270,7 +285,7 @@ public abstract class MinecraftlyCore<P> implements Closeable {
 		 * Here we're going to wait and see if we can move the players before the server dies.
 		 * If after 30 seconds they're not moved gracefully, they'll be kicked.
 		 */
-		System.out.println( "2 Broadcast death." );
+		logger.log( Level.FINE, "Broadcasting death." );
 		try ( Jedis jedis = getJedis() ) {
 			jedis.publish( RedisKeys.IDENTIFY.toString(), "SERVER\000" + identify() + "\000DYING" );
 		} catch ( NoJedisException e ) {
@@ -294,18 +309,19 @@ public abstract class MinecraftlyCore<P> implements Closeable {
 		} ) );
 		*/
 
-		System.out.println( "3 Unsubscribing." );
+		logger.log( Level.FINE, "Unsubscribing the Jedis message listener.." );
 		getMessageListener().unsubscribe();
 
 		close1();
 
-		System.out.println( "4 Closing jedis." );
+		logger.log( Level.INFO, "Closing jedis.." );
 		if ( jedisPool != null ) {
 			jedisPool.destroy();
 			jedisPool = null;
 		}
 
 		core = null;
+		logger.log( Level.INFO, "Minecraftly core closed!" );
 
 	}
 

@@ -13,7 +13,6 @@ import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import redis.clients.jedis.Jedis;
 
-import javax.xml.ws.WebServiceException;
 import java.io.Closeable;
 import java.util.Arrays;
 import java.util.Collection;
@@ -31,6 +30,10 @@ public class HeartbeatTask extends RunnableData implements Closeable {
 
 	@NonNull
 	private final MinecraftlyCore core;
+
+	/**
+	 * A jedis instance to use with the heartbeats.
+	 */
 	Jedis jedis = null;
 
 	@Override
@@ -83,7 +86,7 @@ public class HeartbeatTask extends RunnableData implements Closeable {
 	}
 
 	@Override
-	public void close() throws WebServiceException {
+	public void close() {
 		if ( jedis != null ) {
 			jedis.close();
 			jedis = null;

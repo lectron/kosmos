@@ -34,7 +34,7 @@ import java.util.regex.Pattern;
 public class MinecraftlyConfiguration {
 
 	@Getter
-	private static Gson gson = null;
+	private static Gson gson = getDefaultGsonBuilder().create();
 
 	/**
 	 * Redis configuration.
@@ -97,7 +97,7 @@ public class MinecraftlyConfiguration {
 		// TODO yaml loading.
 
 		// Make sure any extra parts are being parsed and loaded.
-		gson = core.processGsonBuilder( new GsonBuilder().setPrettyPrinting().registerTypeAdapter( InetSocketAddress.class, InetSocketAddressAdapter.INSTANCE ) ).create();
+		gson = core.processGsonBuilder( getDefaultGsonBuilder() ).create();
 
 		MinecraftlyConfiguration configuration;
 
@@ -157,6 +157,13 @@ public class MinecraftlyConfiguration {
 
 		return configuration;
 
+	}
+
+	/**
+	 * The default GSON builder..
+	 */
+	private static GsonBuilder getDefaultGsonBuilder() {
+		return new GsonBuilder().setPrettyPrinting().registerTypeAdapter( InetSocketAddress.class, InetSocketAddressAdapter.INSTANCE );
 	}
 
 	/**
