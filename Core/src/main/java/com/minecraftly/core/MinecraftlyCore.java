@@ -309,19 +309,10 @@ public abstract class MinecraftlyCore<P> implements Closeable {
 		} ) );
 		*/
 
-		logger.log( Level.FINE, "Unsubscribing the Jedis message listener.." );
-		getMessageListener().unsubscribe();
+		logger.log( Level.FINE, "Close call completed, waiting for close1." );
+
 
 		close1();
-
-		logger.log( Level.INFO, "Closing jedis.." );
-		if ( jedisPool != null ) {
-			jedisPool.destroy();
-			jedisPool = null;
-		}
-
-		core = null;
-		logger.log( Level.INFO, "Minecraftly core closed!" );
 
 	}
 
@@ -332,12 +323,13 @@ public abstract class MinecraftlyCore<P> implements Closeable {
 	 */
 	protected final void close1() {
 
-		System.out.println( "0 Close1 called" );
+		getLogger().log( Level.INFO, "Shutting down..." );
 		shutdown();
 
 		try ( Jedis jedis = getJedis() ) {
+
 			if ( worldManager != null ) {
-				System.out.println( "0.1 Worldmanager != null, clearing." );
+				getLogger().log( Level.INFO, "Closing the world manager." );
 				try {
 					worldManager.removeAll( jedis, identify() );
 				} catch ( ProcessingException e ) {
@@ -346,18 +338,29 @@ public abstract class MinecraftlyCore<P> implements Closeable {
 			}
 
 			if ( serverManager != null ) {
-				System.out.println( "0.1 servermanager != null, clearing." );
+				getLogger().log( Level.INFO, "Closing the server manager." );
 				try {
 					serverManager.removeAll( jedis, identify() );
 				} catch ( ProcessingException e ) {
 					getLogger().log( Level.SEVERE, "Error removing myself?", e );
 				}
 			}
+
 		} catch ( NoJedisException e ) {
 			e.printStackTrace();
 		}
 
-		System.out.println( "2 Close1 complete." );
+		logger.log( Level.FINE, "Unsubscribing the Jedis message listener.." );
+		getMessageListener().unsubscribe();
+
+		logger.log( Level.INFO, "Closing jedis.." );
+		if ( jedisPool != null ) {
+			jedisPool.destroy();
+			jedisPool = null;
+		}
+
+		core = null;
+		logger.log( Level.INFO, "Minecraftly core closed!" );
 
 	}
 
