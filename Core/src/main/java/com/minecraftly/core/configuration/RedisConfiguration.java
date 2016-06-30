@@ -15,17 +15,17 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-public class MinecraftlyRedisConfiguration {
+public class RedisConfiguration {
 
 	/**
 	 * The IP/Hostname to connect to.
 	 */
-	private String ip = "127.0.0.1";
+	private String ip = null;
 
 	/**
 	 * The port to connect to.
 	 */
-	private int port = 6379;
+	private int port = -1;
 
 	/**
 	 * The password for redis, null for none.
@@ -35,11 +35,11 @@ public class MinecraftlyRedisConfiguration {
 	/**
 	 * The timeout for redis.
 	 */
-	private int timeOut = 100;
+	private int timeOut = -1;
 
 	/**
 	 * The max redis cons for the pool.
 	 */
-	private int maxNumPools = 6;
+	private int maxNumPools = -1;
 
 }

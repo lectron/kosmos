@@ -5,7 +5,6 @@
 
 package com.minecraftly.core.configuration;
 
-import com.minecraftly.core.DefaultServerAction;
 import com.minecraftly.core.MinecraftlyCore;
 import com.minecraftly.core.event.MCLYEvent;
 import com.minecraftly.core.runnables.RunnableData;
@@ -49,7 +48,7 @@ public class ConfigurationExample {
 			}
 		};
 
-		MinecraftlyRedisConfiguration redisConfiguration = new MinecraftlyRedisConfiguration();
+		/*RedisConfiguration redisConfiguration = new RedisConfiguration();
 		redisConfiguration.setIp( "redis.ip.address" );
 		redisConfiguration.setPassword( "Password123" );
 		redisConfiguration.setMaxNumPools( 5 );
@@ -60,9 +59,13 @@ public class ConfigurationExample {
 		conf.setMyAddress( new IPAddressConfiguration( "127.0.0.1", 555 ) );
 		conf.setRedisConfig( redisConfiguration );
 		conf.setDefaultActionIfNoServer( DefaultServerAction.OWN );
-		conf.setDomainNameRegex( "^(\\w{1,16})\\.(.*)\\.(\\w{2,18})$" );
+		conf.setDomainNameRegex( "^(\\w{1,16})\\.(.*)\\.(\\w{2,18})$" );*/
 
-		conf.save( new File( "config.json" ), core );
+		MinecraftlyConfiguration conf = MinecraftlyConfiguration.load( new File( "config.json" ), core );
+
+		System.out.println( conf.toString() );
+
+		//conf.save( new File( "config.json" ), core );
 
 	}
 

@@ -8,7 +8,7 @@ package com.minecraftly.core;
 import com.google.gson.GsonBuilder;
 import com.minecraftly.core.configuration.IPAddressConfiguration;
 import com.minecraftly.core.configuration.MinecraftlyConfiguration;
-import com.minecraftly.core.configuration.MinecraftlyRedisConfiguration;
+import com.minecraftly.core.configuration.RedisConfiguration;
 import com.minecraftly.core.event.MCLYEvent;
 import com.minecraftly.core.event.events.LoadCompleteEvent;
 import com.minecraftly.core.manager.exceptions.NoJedisException;
@@ -179,7 +179,7 @@ public abstract class MinecraftlyCore<P> implements Closeable {
 
 		// Jedis loading and pool configuration.
 		logger.log( Level.INFO, "Loading redis..." );
-		MinecraftlyRedisConfiguration redisConfig = config.getRedisConfig();
+		RedisConfiguration redisConfig = config.getRedisConfig();
 
 		JedisPoolConfig poolConfig = new JedisPoolConfig();
 		poolConfig.setJmxEnabled( false );

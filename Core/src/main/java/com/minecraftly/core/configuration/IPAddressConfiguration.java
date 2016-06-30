@@ -19,7 +19,14 @@ import lombok.RequiredArgsConstructor;
 @Data
 public class IPAddressConfiguration {
 
-	private final String ipAddress;
-	private int port = 25565;
+	/**
+	 * The IP address of the server
+	 */
+	private String ipAddress = null;
+
+	/**
+	 * The port of the server.
+	 */
+	private int port = -1;
 
 }

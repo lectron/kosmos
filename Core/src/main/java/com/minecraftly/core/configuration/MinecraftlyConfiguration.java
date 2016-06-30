@@ -9,17 +9,16 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.minecraftly.core.DefaultServerAction;
 import com.minecraftly.core.MinecraftlyCore;
+import com.minecraftly.core.MinecraftlyUtil;
 import com.minecraftly.core.configuration.gson.adapters.InetSocketAddressAdapter;
 import lombok.*;
-import org.apache.commons.lang.exception.ExceptionUtils;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.net.InetSocketAddress;
-import java.net.URL;
-import java.util.Scanner;
+import java.util.logging.Level;
 import java.util.regex.Pattern;
 
 /**
@@ -29,7 +28,6 @@ import java.util.regex.Pattern;
  */
 @Data
 @AllArgsConstructor
-@RequiredArgsConstructor
 @NoArgsConstructor
 public class MinecraftlyConfiguration {
 
@@ -39,8 +37,7 @@ public class MinecraftlyConfiguration {
 	/**
 	 * Redis configuration.
 	 */
-	@NonNull
-	private MinecraftlyRedisConfiguration redisConfig;
+	private RedisConfiguration redisConfig = null;
 
 	/**
 	 * Allow overriding of the server address.
@@ -50,12 +47,12 @@ public class MinecraftlyConfiguration {
 	/**
 	 * The regex for matching the username in the domain name.
 	 */
-	private String domainNameRegex = "^(\\w{1,16})\\.(.*)\\.(\\w{2,18})$";
+	private String domainNameRegex;
 
 	/**
 	 * Allows for a default action if there is no existing server.
 	 */
-	private DefaultServerAction defaultActionIfNoServer = DefaultServerAction.OWN;
+	private DefaultServerAction defaultActionIfNoServer = null;
 
 	/**
 	 * Allows loading the configuration from a remote/static/shared location.
@@ -65,6 +62,7 @@ public class MinecraftlyConfiguration {
 	/**
 	 * Runtime generated pattern from <link>MinecraftlyConfiguration#getDomainNamePattern()</link>
 	 */
+	@Setter( AccessLevel.PRIVATE )
 	private transient Pattern domainNamePattern = null;
 
 	/**
@@ -74,11 +72,23 @@ public class MinecraftlyConfiguration {
 	 */
 	public static MinecraftlyConfiguration getDefaultConfiguration() {
 
-		MinecraftlyRedisConfiguration redisConfiguration = new MinecraftlyRedisConfiguration();
+		RedisConfiguration redisConfiguration = new RedisConfiguration();
 		redisConfiguration.setPassword( "Password123" );
+		redisConfiguration.setIp( "127.0.0.1" );
+		redisConfiguration.setPort( 6379 );
+		redisConfiguration.setMaxNumPools( 6 );
+		redisConfiguration.setTimeOut( 100 );
+
+		IPAddressConfiguration ipAddressConfiguration = new IPAddressConfiguration();
+		ipAddressConfiguration.setIpAddress( "127.0.0.1" );
+		ipAddressConfiguration.setPort( 25565 );
 
 		MinecraftlyConfiguration configuration = new MinecraftlyConfiguration();
 		configuration.setRedisConfig( redisConfiguration );
+		configuration.setMyAddress( ipAddressConfiguration );
+		configuration.setDefaultActionIfNoServer( DefaultServerAction.OWN );
+		configuration.setConfigLocation( null );
+		configuration.setDomainNameRegex( "^(\\w{1,16})\\.(.*)\\.(\\w{2,18})$" );
 
 		return configuration;
 
@@ -86,13 +96,54 @@ public class MinecraftlyConfiguration {
 
 	/**
 	 * Load the configuration from a file.
+	 * @param file The file to load from.
+	 * @param core The core instance.
+	 * @return The configuration loaded from the file.
+	 */
+	public static MinecraftlyConfiguration load( @NonNull File file, @NonNull MinecraftlyCore core ) {
+
+		try {
+			return load( MinecraftlyUtil.readText( file ), core );
+		} catch ( FileNotFoundException e ) {
+
+			/*
+			 * Mkdirs makes the file a dir as well,
+			 * and calling getParentFile sometimes may result in NPE.
+			 * Dirty fix.. :/
+			 */
+			if( !file.exists() ) {
+				boolean made = file.mkdirs() && file.delete();
+				if ( !made )
+					core.getLogger().warning( "Something went wrong when we were creating the file, it may already exist.." );
+			}
+
+
+			MinecraftlyConfiguration defaultConfig = getDefaultConfiguration();
+			try ( FileWriter fw = new FileWriter( file ) ) {
+				fw.write( gson.toJson( getDefaultConfiguration() ) );
+			} catch ( IOException e1 ) {
+				core.getLogger().severe( "Unable to save default the configuration!" );
+			}
+
+			core.getLogger().warning( "Saved the default configuration, please edit this to your liking and restart the server!" );
+
+			return defaultConfig;
+
+		} catch ( IOException e1 ) {
+			core.getLogger().severe( "Unable to save/load the configuration!" );
+			throw new RuntimeException( "Error making configuration!", e1 );
+		}
+
+	}
+
+	/**
+	 * Load the configuration from a file.
 	 *
-	 * @param file The file of which to load.
+	 * @param json The json string.
 	 * @param core The core instance.
 	 * @return A new instance of {@link MinecraftlyConfiguration}
 	 */
-	@SuppressWarnings( "ResultOfMethodCallIgnored" )
-	public static MinecraftlyConfiguration load( @NonNull File file, @NonNull MinecraftlyCore core ) {
+	public static MinecraftlyConfiguration load( @NonNull String json, @NonNull MinecraftlyCore core ) {
 
 		// TODO yaml loading.
 
@@ -102,54 +153,38 @@ public class MinecraftlyConfiguration {
 		MinecraftlyConfiguration configuration;
 
 		// Load the configuration.
-		try {
-			core.getLogger().info( "Loading Minecraftly configuration." );
-			configuration = gson.fromJson( new Scanner( file ).useDelimiter( "\\A" ).next(), MinecraftlyConfiguration.class );
-		} catch ( FileNotFoundException e ) {
+		core.getLogger().info( "Loading Minecraftly configuration." );
+		configuration = gson.fromJson( json, MinecraftlyConfiguration.class );
 
-			// Create it if it doesn't exist.
-			try {
-
-				/*
-				 * Mkdirs makes the file a dir as well,
-				 * and calling getParentFile sometimes may result in NPE.
-				 * Dirty fix.. :/
-				 */
-				file.mkdirs();
-				file.delete();
-				file.createNewFile();
-
-				configuration = getDefaultConfiguration();
-
-				try ( FileWriter fw = new FileWriter( file ) ) {
-					fw.write( gson.toJson( configuration ) );
-				}
-
-				core.getLogger().warning( "Saved the default configuration, please edit this to your liking and restart the server!" );
-
-			} catch ( IOException e1 ) {
-				ExceptionUtils.setCause( e1, e );
-				core.getLogger().severe( "Unable to save the default configuration!" );
-				throw new RuntimeException( "Error making default configuration!", e1 );
-			}
-
-		}
-
-		// TODO recurse 15 hops.
 		// Loads the config from a location, if one is specified.
 		if ( configuration.getConfigLocation() != null && !configuration.getConfigLocation().isEmpty() ) {
 
-			try {
+			String nextUrl = configuration.getConfigLocation();
 
-				String json = new Scanner( new URL( configuration.getConfigLocation() ).openStream() ).useDelimiter( "\\A" ).next();
-				configuration = gson.fromJson( json, MinecraftlyConfiguration.class );
+			for( int hop = 1; hop < 16; hop++ ) {
 
-				core.getLogger().info( "Minecraftly configuration loaded via \"" + configuration.getConfigLocation() + "\"." );
+				try {
 
-			} catch ( IOException e ) {
-				core.getLogger().warning( "Unable to load configuration via \"" + configuration.getConfigLocation() + "\"." );
-				throw new RuntimeException( "Unable to load configuration via URL..", e );
+					if( nextUrl == null ) break;
+
+					MinecraftlyConfiguration hopConfig = gson.fromJson( MinecraftlyUtil.downloadText( nextUrl.trim() ), MinecraftlyConfiguration.class);
+					if( hopConfig == null ) break;
+
+					core.getLogger().info( "Minecraftly config [" + hop + "] loaded via \"" + nextUrl.trim() + "\"." );
+
+					hopConfig.applyTo( configuration );
+					nextUrl = hopConfig.getConfigLocation();
+
+				} catch ( Exception e ) {
+					core.getLogger().log( Level.WARNING, "Unable to load configuration [" + hop + "] via \"" + configuration.getConfigLocation() + "\".", e );
+					nextUrl = null;
+					break;
+				}
+
 			}
+
+			if( nextUrl != null )
+				core.getLogger().log( Level.WARNING, "There was more configurations to load but the max hops was reached!" );
 
 		} else {
 			core.getLogger().info( "Minecraftly configuration loaded!" );
@@ -164,6 +199,58 @@ public class MinecraftlyConfiguration {
 	 */
 	private static GsonBuilder getDefaultGsonBuilder() {
 		return new GsonBuilder().setPrettyPrinting().registerTypeAdapter( InetSocketAddress.class, InetSocketAddressAdapter.INSTANCE );
+	}
+
+	/**
+	 * Implement the masterConfig into this instance.
+	 * @param masterConfig The upper configuration to be implemented.
+	 */
+	public void applyTo( MinecraftlyConfiguration masterConfig ) {
+
+		// Is there really not a better way to do this?
+
+		// Apply the address configuration.
+		if( getMyAddress() != null ) {
+
+			IPAddressConfiguration ipAddressConfiguration = masterConfig.getMyAddress();
+			if( ipAddressConfiguration == null ) masterConfig.setMyAddress( ipAddressConfiguration = new IPAddressConfiguration() );
+
+			if( ipAddressConfiguration.getIpAddress() == null || ipAddressConfiguration.getIpAddress().isEmpty() )
+				ipAddressConfiguration.setIpAddress( getMyAddress().getIpAddress() );
+
+			if( ipAddressConfiguration.getPort() <= 0 )
+				ipAddressConfiguration.setPort( getMyAddress().getPort() );
+
+		}
+
+		if( getRedisConfig() != null ) {
+
+			RedisConfiguration redisConfiguration = masterConfig.getRedisConfig();
+			if( redisConfiguration == null ) masterConfig.setRedisConfig( redisConfiguration = new RedisConfiguration() );
+
+			if( redisConfiguration.getIp() == null || redisConfiguration.getIp().isEmpty() )
+				redisConfiguration.setIp( getRedisConfig().getIp() );
+
+			if( redisConfiguration.getPassword() == null )
+				redisConfiguration.setPassword( getRedisConfig().getPassword() );
+
+			if( redisConfiguration.getPort() <= 0 )
+				redisConfiguration.setPort( getRedisConfig().getPort() );
+
+			if( redisConfiguration.getTimeOut() <= 0 )
+				redisConfiguration.setTimeOut( getRedisConfig().getTimeOut() );
+
+			if( redisConfiguration.getMaxNumPools() <= 0 )
+				redisConfiguration.setMaxNumPools( getRedisConfig().getMaxNumPools() );
+
+		}
+
+		if( masterConfig.getDomainNameRegex() == null || masterConfig.getDomainNameRegex().isEmpty() )
+			masterConfig.setDomainNameRegex( getDomainNameRegex() );
+
+		if( masterConfig.getDefaultActionIfNoServer() == null )
+			masterConfig.setDefaultActionIfNoServer( getDefaultActionIfNoServer() );
+
 	}
 
 	/**
