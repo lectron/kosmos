@@ -7,7 +7,6 @@ package com.minecraftly.core.manager.redis;
 
 import com.minecraftly.core.MinecraftlyCore;
 import com.minecraftly.core.RedisKeys;
-import com.minecraftly.core.manager.exceptions.NoJedisException;
 import com.minecraftly.core.manager.exceptions.ProcessingException;
 import lombok.AllArgsConstructor;
 import lombok.NonNull;
@@ -79,7 +78,15 @@ public class WorldManager {
 		}
 	}
 
-	public String loadWorld( @NonNull Jedis jedis, @NonNull UUID playerUuid ) throws NoJedisException, ProcessingException {
+	/**
+	 * Loads the world desired.
+	 *
+	 * @param jedis A jedis instance to use.
+	 * @param playerUuid THe UUID of the world to load.
+	 * @return The serverId of which it will be loaded on.
+	 * @throws ProcessingException if an exception occurs.
+	 */
+	public String loadWorld( @NonNull Jedis jedis, @NonNull UUID playerUuid ) throws ProcessingException {
 
 		String serverId = null;
 		try {
