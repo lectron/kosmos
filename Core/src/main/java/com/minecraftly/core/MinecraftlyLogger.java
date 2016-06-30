@@ -28,7 +28,7 @@ public class MinecraftlyLogger extends Logger {
 	/**
 	 * Method to construct a logger for Minecraftly's Core.
 	 *
-	 * @param core Minecraftly instance this shall belong to.
+	 * @param core         Minecraftly instance this shall belong to.
 	 * @param parentLogger The parent logger.
 	 * @throws MissingResourceException if the resourceBundleName is non-null and
 	 *                                  no corresponding resource can be found.
@@ -43,6 +43,7 @@ public class MinecraftlyLogger extends Logger {
 
 	/**
 	 * Toggle on and off debugging.
+	 *
 	 * @param debug the state.
 	 * @return true if the setting was applied successfully.
 	 */
@@ -50,7 +51,7 @@ public class MinecraftlyLogger extends Logger {
 		this.debug = debug;
 
 		File debugFile = new File( core.getMinecraftlyDataFolder(), ".debugging" );
-		if( debug ) {
+		if ( debug ) {
 			try {
 				return debugFile.createNewFile();
 			} catch ( IOException e ) {
@@ -68,34 +69,35 @@ public class MinecraftlyLogger extends Logger {
 
 	/**
 	 * Make debug messages print to info.
+	 *
 	 * @param record the record to log.
 	 */
 	@Override
 	public void log( LogRecord record ) {
 
-		if( isDebug() && record.getLevel().intValue() < 800 ) {
+		if ( isDebug() && record.getLevel().intValue() < 800 ) {
 			record.setMessage( "[D|" + record.getLevel() + "] " + record.getMessage() );
 			record.setLevel( Level.INFO );
 		}
 
-		if (!isLoggable(record.getLevel())) {
+		if ( !isLoggable( record.getLevel() ) ) {
 			return;
 		}
 
 		Filter theFilter = getFilter();
-		if (theFilter != null && !theFilter.isLoggable(record)) {
+		if ( theFilter != null && !theFilter.isLoggable( record ) ) {
 			return;
 		}
 
 		Logger logger = this;
-		while (logger != null) {
+		while ( logger != null ) {
 
-			for (Handler handler : logger.getHandlers()) {
-				handler.publish(record);
+			for ( Handler handler : logger.getHandlers() ) {
+				handler.publish( record );
 			}
 
 
-			if (!logger.getUseParentHandlers()) {
+			if ( !logger.getUseParentHandlers() ) {
 				break;
 			}
 

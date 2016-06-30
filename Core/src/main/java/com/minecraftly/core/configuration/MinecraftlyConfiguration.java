@@ -96,6 +96,7 @@ public class MinecraftlyConfiguration {
 
 	/**
 	 * Load the configuration from a file.
+	 *
 	 * @param file The file to load from.
 	 * @param core The core instance.
 	 * @return The configuration loaded from the file.
@@ -111,7 +112,7 @@ public class MinecraftlyConfiguration {
 			 * and calling getParentFile sometimes may result in NPE.
 			 * Dirty fix.. :/
 			 */
-			if( !file.exists() ) {
+			if ( !file.exists() ) {
 				boolean made = file.mkdirs() && file.delete();
 				if ( !made )
 					core.getLogger().warning( "Something went wrong when we were creating the file, it may already exist.." );
@@ -160,15 +161,25 @@ public class MinecraftlyConfiguration {
 		if ( configuration.getConfigLocation() != null && !configuration.getConfigLocation().isEmpty() ) {
 
 			String nextUrl = configuration.getConfigLocation();
+			int maxHops = 16;
 
-			for( int hop = 1; hop < 16; hop++ ) {
+			// Allow more than 15 hops, not recommended.
+			try {
+				String maxHopsString = System.getProperty( "minecraftly.configuration.MaxHops" );
+				if ( maxHopsString != null ) maxHops = Integer.parseInt( maxHopsString ) + 1;
+			} catch ( Exception ignored ) {
+				// Ignored.
+			}
+
+			// Iterates through the locations until max hops or null location.
+			for ( int hop = 1; hop < maxHops; hop++ ) {
 
 				try {
 
-					if( nextUrl == null ) break;
+					if ( nextUrl == null ) break;
 
-					MinecraftlyConfiguration hopConfig = gson.fromJson( MinecraftlyUtil.downloadText( nextUrl.trim() ), MinecraftlyConfiguration.class);
-					if( hopConfig == null ) break;
+					MinecraftlyConfiguration hopConfig = gson.fromJson( MinecraftlyUtil.downloadText( nextUrl.trim() ), MinecraftlyConfiguration.class );
+					if ( hopConfig == null ) break;
 
 					core.getLogger().info( "Minecraftly config [" + hop + "] loaded via \"" + nextUrl.trim() + "\"." );
 
@@ -183,7 +194,7 @@ public class MinecraftlyConfiguration {
 
 			}
 
-			if( nextUrl != null )
+			if ( nextUrl != null )
 				core.getLogger().log( Level.WARNING, "There was more configurations to load but the max hops was reached!" );
 
 		} else {
@@ -202,53 +213,58 @@ public class MinecraftlyConfiguration {
 	}
 
 	/**
-	 * Implement the masterConfig into this instance.
-	 * @param masterConfig The upper configuration to be implemented.
+	 * Apply this instance to the masterConfig.
+	 *
+	 * @param masterConfig The upper configuration to be applied to.
 	 */
 	public void applyTo( MinecraftlyConfiguration masterConfig ) {
 
 		// Is there really not a better way to do this?
 
 		// Apply the address configuration.
-		if( getMyAddress() != null ) {
+		if ( getMyAddress() != null ) {
 
 			IPAddressConfiguration ipAddressConfiguration = masterConfig.getMyAddress();
-			if( ipAddressConfiguration == null ) masterConfig.setMyAddress( ipAddressConfiguration = new IPAddressConfiguration() );
+			if ( ipAddressConfiguration == null )
+				masterConfig.setMyAddress( ipAddressConfiguration = new IPAddressConfiguration() );
 
-			if( ipAddressConfiguration.getIpAddress() == null || ipAddressConfiguration.getIpAddress().isEmpty() )
+			if ( ipAddressConfiguration.getIpAddress() == null || ipAddressConfiguration.getIpAddress().isEmpty() )
 				ipAddressConfiguration.setIpAddress( getMyAddress().getIpAddress() );
 
-			if( ipAddressConfiguration.getPort() <= 0 )
+			if ( ipAddressConfiguration.getPort() <= 0 )
 				ipAddressConfiguration.setPort( getMyAddress().getPort() );
 
 		}
 
-		if( getRedisConfig() != null ) {
+		// Apply the redis configuration.
+		if ( getRedisConfig() != null ) {
 
 			RedisConfiguration redisConfiguration = masterConfig.getRedisConfig();
-			if( redisConfiguration == null ) masterConfig.setRedisConfig( redisConfiguration = new RedisConfiguration() );
+			if ( redisConfiguration == null )
+				masterConfig.setRedisConfig( redisConfiguration = new RedisConfiguration() );
 
-			if( redisConfiguration.getIp() == null || redisConfiguration.getIp().isEmpty() )
+			if ( redisConfiguration.getIp() == null || redisConfiguration.getIp().isEmpty() )
 				redisConfiguration.setIp( getRedisConfig().getIp() );
 
-			if( redisConfiguration.getPassword() == null )
+			if ( redisConfiguration.getPassword() == null )
 				redisConfiguration.setPassword( getRedisConfig().getPassword() );
 
-			if( redisConfiguration.getPort() <= 0 )
+			if ( redisConfiguration.getPort() <= 0 )
 				redisConfiguration.setPort( getRedisConfig().getPort() );
 
-			if( redisConfiguration.getTimeOut() <= 0 )
+			if ( redisConfiguration.getTimeOut() <= 0 )
 				redisConfiguration.setTimeOut( getRedisConfig().getTimeOut() );
 
-			if( redisConfiguration.getMaxNumPools() <= 0 )
+			if ( redisConfiguration.getMaxNumPools() <= 0 )
 				redisConfiguration.setMaxNumPools( getRedisConfig().getMaxNumPools() );
 
 		}
 
-		if( masterConfig.getDomainNameRegex() == null || masterConfig.getDomainNameRegex().isEmpty() )
+		// Misc applications.
+		if ( masterConfig.getDomainNameRegex() == null || masterConfig.getDomainNameRegex().isEmpty() )
 			masterConfig.setDomainNameRegex( getDomainNameRegex() );
 
-		if( masterConfig.getDefaultActionIfNoServer() == null )
+		if ( masterConfig.getDefaultActionIfNoServer() == null )
 			masterConfig.setDefaultActionIfNoServer( getDefaultActionIfNoServer() );
 
 	}
