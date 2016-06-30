@@ -26,6 +26,7 @@ import redis.clients.jedis.Jedis;
 
 import java.util.Collection;
 import java.util.UUID;
+import java.util.logging.Level;
 
 /**
  * @author Cory Redmond <ace@ac3-servers.eu>
@@ -141,8 +142,9 @@ public class MinecraftlyBukkitCore extends MinecraftlyCore<MinecraftlyBukkitPlug
 	public void playerJoined( UUID uniqueId ) {
 		try ( Jedis jedis = getJedis() ) {
 			getServerManager().incrServerPlayerCount( jedis, identify(), 1 );
+			getPlayerManager().setServer( jedis, uniqueId, identify() );
 		} catch ( NoJedisException | ProcessingException e ) {
-			e.printStackTrace();
+			getLogger().log( Level.WARNING, "There was an error when " + uniqueId + " joined..", e );
 		}
 	}
 
@@ -150,8 +152,9 @@ public class MinecraftlyBukkitCore extends MinecraftlyCore<MinecraftlyBukkitPlug
 	public void playerExited( UUID uniqueId ) {
 		try ( Jedis jedis = getJedis() ) {
 			getServerManager().incrServerPlayerCount( jedis, identify(), -1 );
+			getPlayerManager().setServer( jedis, uniqueId, identify() );
 		} catch ( NoJedisException | ProcessingException e ) {
-			e.printStackTrace();
+			getLogger().log( Level.WARNING, "There was an error when " + uniqueId + " joined..", e );
 		}
 	}
 

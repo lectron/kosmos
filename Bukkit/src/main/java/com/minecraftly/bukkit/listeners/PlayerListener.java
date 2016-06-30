@@ -136,13 +136,11 @@ public class PlayerListener implements Listener {
 		// We really want to clear the join message.. TODO make it per world?
 		event.setJoinMessage( null );
 
-		// Call the player joined on core for whatever core wants to do.
-		core.playerJoined( event.getPlayer().getUniqueId() );
-
 		try {
 
 			// Async loading of relevant world ID using {@link ReconnectionHandler}
 			core.getOriginObject().getServer().getScheduler().runTaskAsynchronously( core.getOriginObject(), () -> {
+
 				final UUID playerUuid = core.getReconnectionHandler().getWorldOf( event.getPlayer().getUniqueId() );
 
 				// Sync world loading via Bukkit api.
@@ -169,6 +167,9 @@ public class PlayerListener implements Listener {
 					return null;
 
 				} );
+
+				// Call the player joined on core for whatever core wants to do.
+				core.playerJoined( event.getPlayer().getUniqueId() );
 
 			} );
 
@@ -204,8 +205,11 @@ public class PlayerListener implements Listener {
 		core.getOriginObject().getServer().getScheduler().runTaskLater( core.getOriginObject(), () -> playerLeftWorld( world ), 10L );
 
 		//core.getInventoryHandler().doPlayerUnload( event.getPlayer() );
+
 		// Call core playerExit for whatever core wants it to.
-		core.playerExited( event.getPlayer().getUniqueId() );
+		core.getOriginObject().getServer().getScheduler().runTaskAsynchronously( core.getOriginObject(), () -> {
+			core.playerExited( event.getPlayer().getUniqueId() );
+		} );
 
 	}
 
