@@ -34,7 +34,7 @@ public class UUIDManager {
 	 */
 	public boolean hasUuid( @NonNull Jedis jedis, @NonNull String playerName ) throws ProcessingException {
 		try {
-			return jedis.hexists( RedisKeys.PLAYER_REPO.toString(), playerName );
+			return jedis.hexists( RedisKeys.UUID_REPO.toString(), playerName );
 		} catch ( Exception ex ) {
 			throw new ProcessingException( "There was an error checking if \"" + playerName + "\" has a UUID!", ex );
 		}
@@ -49,7 +49,7 @@ public class UUIDManager {
 	 */
 	public UUID getUuid( @NonNull Jedis jedis, @NonNull String playerName ) throws ProcessingException {
 		try {
-			return UUID.fromString( jedis.hget( RedisKeys.PLAYER_REPO.toString(), playerName.toLowerCase() ) );
+			return UUID.fromString( jedis.hget( RedisKeys.UUID_REPO.toString(), playerName.toLowerCase() ) );
 		} catch ( Exception ex ) {
 			throw new ProcessingException( "There was an error getting the UUID of \"" + playerName + "\"!", ex );
 		}
@@ -66,9 +66,9 @@ public class UUIDManager {
 		try {
 
 			if ( uuid != null ) {
-				jedis.hset( RedisKeys.PLAYER_REPO.toString(), playerName.toLowerCase(), uuid.toString() );
+				jedis.hset( RedisKeys.UUID_REPO.toString(), playerName.toLowerCase(), uuid.toString() );
 			} else {
-				jedis.hdel( RedisKeys.PLAYER_REPO.toString(), playerName.toLowerCase() );
+				jedis.hdel( RedisKeys.UUID_REPO.toString(), playerName.toLowerCase() );
 			}
 
 		} catch ( Exception ex ) {
@@ -81,7 +81,7 @@ public class UUIDManager {
 	 */
 	public long getSize( @NonNull Jedis jedis ) {
 		try {
-			return jedis.hlen( RedisKeys.PLAYER_REPO.toString() );
+			return jedis.hlen( RedisKeys.UUID_REPO.toString() );
 		} catch ( Exception ex ) {
 			return -1;
 		}

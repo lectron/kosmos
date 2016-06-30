@@ -32,7 +32,7 @@ public enum RedisKeys {
 	/**
 	 * USER_REPO is a repository of username-uuid links. Mostly used for the domain name.
 	 */
-	PLAYER_REPO;
+	UUID_REPO;
 
 	private static Collection<String> valueList;
 
