@@ -32,7 +32,9 @@ public class ServerManager {
 	 * @param serverId The id of the server to search for.
 	 * @return true if the server exists.
 	 * @throws ProcessingException if an exception occurs.
+	 * @deprecated do the check yourself, if {@link ServerManager#getServer(Jedis, String)} >= 0.
 	 */
+	@Deprecated
 	public boolean hasServer( @NonNull Jedis jedis, @NonNull String serverId ) throws ProcessingException {
 		return getServer( jedis, serverId ) >= 0;
 	}
