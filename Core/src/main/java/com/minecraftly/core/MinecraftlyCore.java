@@ -14,7 +14,7 @@ import com.minecraftly.core.event.events.LoadCompleteEvent;
 import com.minecraftly.core.manager.exceptions.NoJedisException;
 import com.minecraftly.core.manager.exceptions.ProcessingException;
 import com.minecraftly.core.manager.messagelistener.RedisMessageListener;
-import com.minecraftly.core.manager.redis.PlayerManager;
+import com.minecraftly.core.manager.redis.UUIDManager;
 import com.minecraftly.core.manager.redis.ServerManager;
 import com.minecraftly.core.manager.redis.WorldManager;
 import com.minecraftly.core.runnables.HeartbeatTask;
@@ -94,7 +94,7 @@ public abstract class MinecraftlyCore<P> implements Closeable {
 	 * The manager of player&lt;-&gt;uuid relationships.
 	 */
 	@Getter
-	private PlayerManager playerManager;
+	private UUIDManager UUIDManager;
 
 	/**
 	 * The configuration for the server.
@@ -200,7 +200,7 @@ public abstract class MinecraftlyCore<P> implements Closeable {
 		// Create the core managers.
 		this.worldManager = new WorldManager( this );
 		this.serverManager = new ServerManager( this );
-		this.playerManager = new PlayerManager( this );
+		this.UUIDManager = new UUIDManager( this );
 
 		// Run the tasks.
 		logger.log( Level.INFO, "Starting tasks.." );

@@ -20,7 +20,7 @@ import java.util.UUID;
  * @author Cory Redmond <ace@ac3-servers.eu>
  */
 @AllArgsConstructor
-public class PlayerManager {
+public class UUIDManager {
 
 	@NonNull
 	private final MinecraftlyCore core;

@@ -122,8 +122,8 @@ public class ReconnectionHandler {
 				String joinUsername = matcher.group( 1 );
 
 				try {
-					if ( core.getPlayerManager().hasUuid( jedis, joinUsername ) ) {
-						uuidToJoin = core.getPlayerManager().getUuid( jedis, joinUsername );
+					if ( core.getUUIDManager().hasUuid( jedis, joinUsername ) ) {
+						uuidToJoin = core.getUUIDManager().getUuid( jedis, joinUsername );
 					}
 				} catch ( ProcessingException e ) {
 					// TODO translations?

@@ -51,7 +51,7 @@ public class ReconnectionHandler extends AbstractReconnectHandler {
 
 			// First of all, get the information we need! TODO make this last.
 			try {
-				core.getPlayerManager().setUuid( jedis, player.getName(), player.getUniqueId() );
+				core.getUUIDManager().setUuid( jedis, player.getName(), player.getUniqueId() );
 			} catch ( ProcessingException e ) {
 				e.printStackTrace();
 			}
@@ -63,9 +63,9 @@ public class ReconnectionHandler extends AbstractReconnectHandler {
 
 				// Get the UUID from the name if it exists.
 				try {
-					if ( core.getPlayerManager().hasUuid( jedis, joinUsername ) ) {
+					if ( core.getUUIDManager().hasUuid( jedis, joinUsername ) ) {
 						System.out.println( "0.3 | has UUID: " + joinUsername );
-						uuidToJoin = core.getPlayerManager().getUuid( jedis, joinUsername );
+						uuidToJoin = core.getUUIDManager().getUuid( jedis, joinUsername );
 						System.out.println( "0.4 | UUID: " + uuidToJoin );
 					}
 				} catch ( ProcessingException e ) {
