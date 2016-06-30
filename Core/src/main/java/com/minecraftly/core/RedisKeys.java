@@ -30,9 +30,14 @@ public enum RedisKeys {
 	WORLD_REPO,
 
 	/**
-	 * USER_REPO is a repository of username-uuid links. Mostly used for the domain name.
+	 * UUID_REPO is a repository of username-uuid links. Mostly used for the domain name.
 	 */
-	UUID_REPO;
+	UUID_REPO,
+
+	/**
+	 * PLAYER_REPO is a repository or UUID-ServerID links, to track players across the network.
+	 */
+	PLAYER_REPO;
 
 	private static Collection<String> valueList;
 
