@@ -5,6 +5,7 @@
 
 package com.minecraftly.bukkit;
 
+import com.minecraftly.bukkit.commands.DebugCommand;
 import com.minecraftly.bukkit.listeners.PlayerListener;
 import com.minecraftly.core.manager.exceptions.NoJedisException;
 import com.minecraftly.core.manager.exceptions.ProcessingException;
@@ -44,6 +45,8 @@ public class MinecraftlyBukkitPlugin extends JavaPlugin {
 		}
 
 		getServer().getPluginManager().registerEvents( new PlayerListener( core ), this );
+
+		getCommand( "mdebug" ).setExecutor( new DebugCommand( core )  );
 
 	}
 

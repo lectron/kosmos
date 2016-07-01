@@ -5,6 +5,7 @@
 
 package com.minecraftly.bungee;
 
+import com.minecraftly.bungee.commands.DebugCommand;
 import com.minecraftly.bungee.connection.ReconnectionHandler;
 import net.md_5.bungee.api.plugin.Plugin;
 
@@ -32,6 +33,9 @@ public class MinecraftlyBungeePlugin extends Plugin {
 		} catch ( Exception e ) {
 			e.printStackTrace();
 		}
+
+		getProxy().getPluginManager().registerCommand( this, new DebugCommand( core ) );
+
 	}
 
 	@Override

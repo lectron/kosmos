@@ -12,7 +12,9 @@ import lombok.AllArgsConstructor;
 import lombok.NonNull;
 import redis.clients.jedis.Jedis;
 
+import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 /**
  * A class to repository World UUID's and their servers.
@@ -101,6 +103,27 @@ public class WorldManager {
 			throw new ProcessingException( "There was an error loading the world of \"" + playerUuid + "\" on server \"" + serverId + "\"!", ex );
 		}
 
+	}
+
+	/**
+	 * Gets all the UUID's of the owners of the worlds loaded on a specified server.
+	 * @param jedis A jedis instance to use.
+	 * @param serverId The id of the server you want information on.
+	 * @return The list of UUID's loaded on the server.
+	 * @throws ProcessingException if an exception occurs.
+	 */
+	public List<UUID> getAllForServer( @NonNull Jedis jedis, @NonNull String serverId ) throws ProcessingException {
+		try {
+
+			return jedis.hgetAll( RedisKeys.WORLD_REPO.toString() ).entrySet()
+					.stream()
+					.filter( row -> row.getValue().equals( serverId ) )
+					.map( row -> UUID.fromString( row.getValue() ) )
+					.collect( Collectors.toList() );
+
+		} catch ( Exception ex ) {
+			throw new ProcessingException( "There was an error getting the servers we own.", ex );
+		}
 	}
 
 	/**
