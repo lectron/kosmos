@@ -9,7 +9,6 @@ import com.minecraftly.bukkit.MinecraftlyBukkitCore;
 import com.minecraftly.core.manager.exceptions.NoJedisException;
 import com.minecraftly.core.manager.exceptions.ProcessingException;
 import com.minecraftly.core.util.Callback;
-import com.sun.istack.internal.Nullable;
 import lombok.RequiredArgsConstructor;
 import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Material;
@@ -81,7 +80,7 @@ public class DebugCommand implements CommandExecutor {
 
 	}
 
-	private List<String> getDebug( @Nullable UUID uuid ) {
+	private List<String> getDebug( UUID uuid ) {
 
 		List<String> ret = new ArrayList<>();
 
