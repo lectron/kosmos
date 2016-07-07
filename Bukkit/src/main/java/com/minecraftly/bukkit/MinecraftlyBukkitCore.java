@@ -5,10 +5,12 @@
 
 package com.minecraftly.bukkit;
 
+import com.google.gson.GsonBuilder;
+import com.minecraftly.bukkit.configuration.LocationAdapter;
 import com.minecraftly.bukkit.connection.ReconnectionHandler;
 import com.minecraftly.bukkit.event.MinecraftlyEvent;
 import com.minecraftly.bukkit.world.WorldHandler;
-import com.minecraftly.bukkit.world.data.global.inventories.InventoryHandler;
+import com.minecraftly.bukkit.world.data.local.PlayerHandler;
 import com.minecraftly.core.MinecraftlyCore;
 import com.minecraftly.core.RedisKeys;
 import com.minecraftly.core.configuration.MinecraftlyConfiguration;
@@ -20,10 +22,12 @@ import com.minecraftly.core.runnables.RunnableData;
 import lombok.Getter;
 import lombok.NonNull;
 import org.bukkit.Bukkit;
+import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.scheduler.BukkitScheduler;
 import redis.clients.jedis.Jedis;
 
+import java.io.IOException;
 import java.util.Collection;
 import java.util.UUID;
 import java.util.logging.Level;
@@ -40,7 +44,7 @@ public class MinecraftlyBukkitCore extends MinecraftlyCore<MinecraftlyBukkitPlug
 	private ReconnectionHandler reconnectionHandler = new ReconnectionHandler( this );
 
 	@Getter
-	private InventoryHandler inventoryHandler = new InventoryHandler( this );
+	private PlayerHandler playerHandler = new PlayerHandler( this );
 
 	public MinecraftlyBukkitCore( @NonNull MinecraftlyBukkitPlugin plugin ) {
 		super( plugin.getLogger(), plugin.getDataFolder(), plugin, Bukkit.getPort() );
@@ -53,7 +57,13 @@ public class MinecraftlyBukkitCore extends MinecraftlyCore<MinecraftlyBukkitPlug
 	@Override
 	public void shutdown() {
 
-		// TODO kick players properly :P
+		// TODO kick players properly.
+
+		try {
+			playerHandler.close();
+		} catch ( IOException e ) {
+			getLogger().log( Level.SEVERE, "There was an error closing the player handler!", e );
+		}
 
 	}
 
@@ -156,6 +166,11 @@ public class MinecraftlyBukkitCore extends MinecraftlyCore<MinecraftlyBukkitPlug
 		} catch ( NoJedisException | ProcessingException e ) {
 			getLogger().log( Level.WARNING, "There was an error when " + uniqueId + " joined..", e );
 		}
+	}
+
+	@Override
+	public GsonBuilder processGsonBuilder( @NonNull GsonBuilder gsonBuilder ) {
+		return super.processGsonBuilder( gsonBuilder ).registerTypeAdapter( Location.class, LocationAdapter.INSTANCE );
 	}
 
 }

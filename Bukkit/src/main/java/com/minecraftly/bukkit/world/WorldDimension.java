@@ -13,6 +13,7 @@ import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 import java.util.function.Consumer;
 
 /**
@@ -68,6 +69,18 @@ public enum WorldDimension {
 	public static World getBaseWorld( @NonNull World world ) {
 		World baseWorld = Bukkit.getWorld( getBaseWorldName( world.getName() ) );
 		return baseWorld != null ? baseWorld : world;
+	}
+
+	public static UUID getUUIDOfWorld( @NonNull World world ) {
+
+		world = getBaseWorld( world );
+
+		try {
+			return UUID.fromString( world.getName() );
+		} catch ( IllegalArgumentException ex ) {
+			return null;
+		}
+
 	}
 
 	public static List<Player> getPlayersAllDimensions( @NonNull World unknownWorld ) {
@@ -129,8 +142,7 @@ public enum WorldDimension {
 			consumer.accept( loadedWorld );
 		} else {
 			String newWorldName = convertTo( world.getName() );
-			World newWorld = null;
-			newWorld = core.getWorldHandler().loadWorld( newWorldName, getEnvironment() );
+			World newWorld = core.getWorldHandler().loadWorld( newWorldName, getEnvironment() );
 			consumer.accept( newWorld ); // I'm going to keep the consumer because it can be useful.
 		}
 

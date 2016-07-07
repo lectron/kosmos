@@ -1,7 +1,8 @@
 # Created by .ignore support plugin (hsz.mobi)
 ### Minecraftly
-Core/.debugging
-Core/config.json
+.debugging
+config.json
+WorldData.json
 
 ### Eclipse template
 *.pydevproject

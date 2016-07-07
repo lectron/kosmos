@@ -45,8 +45,9 @@ public class MinecraftlyBukkitPlugin extends JavaPlugin {
 		}
 
 		getServer().getPluginManager().registerEvents( new PlayerListener( core ), this );
+		getServer().getPluginManager().registerEvents( core.getPlayerHandler(), this );
 
-		getCommand( "mdebug" ).setExecutor( new DebugCommand( core )  );
+		getCommand( "mdebug" ).setExecutor( new DebugCommand( core ) );
 
 	}
 
