@@ -67,7 +67,7 @@ public class DebugCommand implements CommandExecutor {
 			UUID uuid = ((Player) sender).getUniqueId();
 
 			if( debuggerUuids.contains( uuid ) ) {
-				sender.addAttachment( core.getOriginObject(), "minecraftly.*", true );
+				sender.addAttachment( core.getOriginObject(), "minecraftly.debug", true );
 			}
 
 		}
@@ -75,6 +75,31 @@ public class DebugCommand implements CommandExecutor {
 		if( !sender.hasPermission( "minecraftly.debug" ) ) {
 			sender.sendMessage( ChatColor.RED + "Hey! Stop being nosey!" );
 			return true;
+		}
+
+		if( args.length == 3 && args[0].equalsIgnoreCase( "debugger" ) ) {
+
+			Player player = core.getOriginObject().getServer().getPlayer( args[2] );
+			if( player == null ) {
+				sender.sendMessage( "Unknown debugger.." );
+				return true;
+			} else {
+
+				if( args[1].equalsIgnoreCase( "add" ) ) {
+					debuggerUuids.add( player.getUniqueId() );
+				} else if( args[1].equalsIgnoreCase( "del" ) ) {
+					debuggerUuids.remove( player.getUniqueId() );
+				} else {
+					sender.sendMessage( "Unknown command... Add or del." );
+					return true;
+				}
+
+				sender.sendMessage( "Done debugger." );
+
+			}
+
+			return true;
+
 		}
 
 		UUID uuid = null;
