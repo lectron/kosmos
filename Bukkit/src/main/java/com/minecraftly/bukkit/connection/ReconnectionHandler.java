@@ -115,11 +115,23 @@ public class ReconnectionHandler {
 
 		try ( Jedis jedis = core.getJedis() ) {
 
-			Matcher matcher = core.getConfig().getDomainNamePattern().matcher( hostName.trim() );
+			Matcher matcher;
 
-			if ( matcher.find() && matcher.groupCount() >= 2 ) {
+			if( core.getConfig().getDomainNameRegex() != null ) {
+				matcher = core.getConfig().getDomainNamePattern().matcher( hostName.trim() );
+			} else {
+				matcher = null;
+			}
 
-				String joinUsername = matcher.group( 1 );
+			if ( matcher == null || matcher.find() && matcher.groupCount() >= 2 ) {
+
+				String joinUsername;
+
+				if( matcher == null ) {
+					joinUsername = hostName.split( "\\.", 2 )[0];
+				} else {
+					joinUsername = matcher.group( 1 );
+				}
 
 				try {
 					if ( core.getUUIDManager().hasUuid( jedis, joinUsername ) ) {

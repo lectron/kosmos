@@ -280,6 +280,10 @@ public class MinecraftlyConfiguration {
 			domainNamePattern = Pattern.compile( getDomainNameRegex(), Pattern.CASE_INSENSITIVE );
 		}
 
+		if ( getDomainNameRegex() != null ) {
+			System.err.println( "[Minecraftly][Warning] The domain name regex is null in the configuration." );
+		}
+
 		return domainNamePattern;
 
 	}

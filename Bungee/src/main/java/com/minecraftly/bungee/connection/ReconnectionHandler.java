@@ -43,7 +43,13 @@ public class ReconnectionHandler extends AbstractReconnectHandler {
 	protected ServerInfo getStoredServer( ProxiedPlayer player ) {
 
 		InetSocketAddress virtualHostAddress = player.getPendingConnection().getVirtualHost();
-		Matcher matcher = core.getConfig().getDomainNamePattern().matcher( virtualHostAddress.getHostString() );
+		Matcher matcher;
+
+		if( core.getConfig().getDomainNameRegex() != null ) {
+			matcher = core.getConfig().getDomainNamePattern().matcher( virtualHostAddress.getHostString() );
+		} else {
+			matcher = null;
+		}
 
 		UUID uuidToJoin = player.getUniqueId();
 
@@ -57,9 +63,15 @@ public class ReconnectionHandler extends AbstractReconnectHandler {
 			}
 
 			// Match the hostname against the regex.
-			if ( matcher.find() && matcher.groupCount() >= 2 ) {
+			if ( matcher == null || matcher.find() && matcher.groupCount() >= 2 ) {
 
-				String joinUsername = matcher.group( 1 );
+				String joinUsername;
+
+				if( matcher == null ) {
+					joinUsername = virtualHostAddress.getHostString().split( "\\.", 2 )[0];
+				} else {
+					joinUsername = matcher.group( 1 );
+				}
 
 				// Get the UUID from the name if it exists.
 				try {
