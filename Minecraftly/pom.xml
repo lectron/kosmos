@@ -15,7 +15,7 @@
 
 		<finalName>Minecraftly</finalName>
 
-		<defaultGoal>clean install</defaultGoal>
+		<defaultGoal>clean package</defaultGoal>
 
 		<plugins>
 			<plugin>

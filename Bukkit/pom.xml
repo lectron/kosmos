@@ -13,7 +13,7 @@
 
 	<build>
 
-		<defaultGoal>clean install</defaultGoal>
+		<defaultGoal>clean package</defaultGoal>
 
 		<finalName>Minecraftly-Bukkit_${version}</finalName>
 

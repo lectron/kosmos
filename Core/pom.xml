@@ -13,7 +13,7 @@
 
 	<build>
 
-		<defaultGoal>clean install</defaultGoal>
+		<defaultGoal>clean install javadoc:jar</defaultGoal>
 
 		<finalName>Minecraftly-Core_${version}</finalName>
 

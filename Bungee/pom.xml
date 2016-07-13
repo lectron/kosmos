@@ -15,7 +15,7 @@
 
 		<finalName>Minecraftly-Bungee_${version}</finalName>
 
-		<defaultGoal>clean install</defaultGoal>
+		<defaultGoal>clean package</defaultGoal>
 
 		<resources>
 			<resource>
