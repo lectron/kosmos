@@ -11,8 +11,10 @@ import com.minecraftly.core.manager.exceptions.ProcessingException;
 import com.minecraftly.core.util.Callback;
 import lombok.RequiredArgsConstructor;
 import net.md_5.bungee.api.ChatColor;
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.Sound;
+import org.bukkit.World;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -22,7 +24,6 @@ import org.bukkit.inventory.meta.BookMeta;
 import redis.clients.jedis.Jedis;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
 import java.util.concurrent.Callable;
@@ -37,68 +38,60 @@ public class DebugCommand implements CommandExecutor {
 	private final MinecraftlyBukkitCore core;
 
 	/**
-	 * Debugging info for cory..
-	 */
-	private static List<UUID> debuggerUuids = new ArrayList<>( Arrays.asList(
-			UUID.fromString( "3f199957-f1ad-4cf7-98b8-4ae9e573c219" ),
-			UUID.fromString( "c26dbfba-b18e-4619-8039-b82e91eb3143" )
-	) );
-
-	/**
 	 * Tier 0 prefix.
 	 */
-	private static final String t0Prefix = ChatColor.DARK_PURPLE.toString() + ChatColor.BOLD;
+	private static final String t0Prefix = ChatColor.DARK_PURPLE.toString();
 
 	/**
 	 * Tier 1 prefix.
 	 */
-	private static final String t1Prefix = ChatColor.DARK_BLUE.toString() + ChatColor.BOLD + "  ";
+	private static final String t1Prefix = ChatColor.DARK_BLUE + "  ";
 
 	/**
 	 * Tier 2 prefix.
 	 */
-	private static final String t2Prefix = ChatColor.LIGHT_PURPLE.toString() + ChatColor.BOLD + "    ";
+	private static final String t2Prefix = ChatColor.LIGHT_PURPLE + "    ";
 
 	@Override
 	public boolean onCommand( final CommandSender sender, Command cmd, String label, String[] args ) {
-
-		if( sender instanceof Player ) {
-
-			UUID uuid = ((Player) sender).getUniqueId();
-
-			if( debuggerUuids.contains( uuid ) ) {
-				sender.addAttachment( core.getOriginObject(), "minecraftly.debug", true );
-			}
-
-		}
 
 		if( !sender.hasPermission( "minecraftly.debug" ) ) {
 			sender.sendMessage( ChatColor.RED + "Hey! Stop being nosey!" );
 			return true;
 		}
 
-		if( args.length == 3 && args[0].equalsIgnoreCase( "debugger" ) ) {
+		if( args.length == 2 && args[0].equalsIgnoreCase( "book" ) ) {
 
-			Player player = core.getOriginObject().getServer().getPlayer( args[2] );
-			if( player == null ) {
-				sender.sendMessage( "Unknown debugger.." );
+			if( !(sender instanceof Player) ) {
+				sender.sendMessage( ChatColor.RED + "Only players can do get debug books." );
 				return true;
-			} else {
-
-				if( args[1].equalsIgnoreCase( "add" ) ) {
-					debuggerUuids.add( player.getUniqueId() );
-				} else if( args[1].equalsIgnoreCase( "del" ) ) {
-					debuggerUuids.remove( player.getUniqueId() );
-				} else {
-					sender.sendMessage( "Unknown command... Add or del." );
-					return true;
-				}
-
-				sender.sendMessage( "Done debugger." );
-
 			}
 
-			return true;
+			Player player = ((Player) sender);
+
+			if( args[1].equalsIgnoreCase( "worlds" ) ) {
+
+				List<String> worldPages = new ArrayList<>();
+				List<String> worldNames = Bukkit.getWorlds().stream().map( World::getName ).collect( Collectors.toList() );
+
+				StringBuilder sb = new StringBuilder( "Worlds:\n" );
+				int iterations = 0;
+				for( String worldName : worldNames ) {
+
+					sb.append( worldName ).append( "\n" );
+
+					if( ++iterations == 4 ) {
+						worldPages.add( sb.toString() );
+						iterations = 0;
+					}
+
+				}
+
+				sendBook( player, "Worlds", worldPages );
+
+				return true;
+
+			}
 
 		}
 
