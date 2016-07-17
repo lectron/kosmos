@@ -30,7 +30,7 @@ public class DebugListener implements Listener {
 
 	private final MinecraftlyBungeeCore core;
 
-	Callback<Callable<Void>, PlayerInputPair> loadedCallback = param -> {
+	Callback<Callable<Void>, PlayerInputPair> loadedCallback = param -> () -> {
 
 		try {
 			ScriptEngine engine = getScriptEngine( param.getPlayer() );

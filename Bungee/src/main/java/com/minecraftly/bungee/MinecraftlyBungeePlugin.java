@@ -7,6 +7,7 @@ package com.minecraftly.bungee;
 
 import com.minecraftly.bungee.commands.DebugCommand;
 import com.minecraftly.bungee.connection.ReconnectionHandler;
+import com.minecraftly.bungee.listeners.DebugListener;
 import net.md_5.bungee.api.plugin.Plugin;
 
 import java.io.IOException;
@@ -34,7 +35,10 @@ public class MinecraftlyBungeePlugin extends Plugin {
 			e.printStackTrace();
 		}
 
+		getProxy().registerChannel( "NMCLY" );
+
 		getProxy().getPluginManager().registerCommand( this, new DebugCommand( core ) );
+		getProxy().getPluginManager().registerListener( this, new DebugListener( core ) );
 
 	}
 

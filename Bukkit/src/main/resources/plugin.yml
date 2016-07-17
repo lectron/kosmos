@@ -1,6 +1,70 @@
+# We're Minecraftly.
 name: Minecraftly
+
+# Bukkit version.
 version: ${pom.version}-BUKKIT
+
+# I guess we can change this to authors? O_o
 author: Cory Redmond
+
+# Main class.
 main: com.minecraftly.bukkit.MinecraftlyBukkitPlugin
+
+# WIP..
 description: Minecraft cloud platform.
+
+# Startup load please.
 load: STARTUP
+
+# We are here bro..
+website: http://minecraftly.com/
+
+commands:
+
+  ## Debug command.
+  mdebug:
+    description: A debugging command.
+    aliases: [mbdebug]
+
+  list:
+    description: Get a list of currently online players in the current world.
+
+  ## Spawn commands.
+  spawn:
+    description: Teleport to the spawn of the current world.
+  setspawn:
+    description: Set the spawn of the current world.
+
+  ## Home commands.
+  home:
+    description: Teleport to the spawn of the current world.
+  sethome:
+    description: Set a home.
+  delhome:
+    description: Delete the specified home.
+
+  ## Whitelist commands.
+  whitelist:
+    description: The base whitelist command.
+
+  ## Trust commands.
+  trust:
+    description: Allows the specified player to build.
+  untrust:
+    description: Disallows the specified player to build.
+  trusted:
+    description: Get a list of currently trusted online players.
+
+  ## Ban commands.
+  ban:
+    description: Prevents the specified player joining.
+  unban:
+    description: Allows the specified player to join.
+
+  ## Mute commands.
+  mute:
+    description: Prevents the specified player from speaking.
+  unmute:
+    description: Allows the specified player to chat.
+  muted:
+    description: Get a list of currently muted online players.

@@ -25,7 +25,7 @@ public class PunishEntry {
 	/**
 	 * The reason for the ban.
 	 */
-	private String reason = "&c&lYou've been banned!";
+	private String reason = "&c&lYou've been punished!";
 
 	/**
 	 * Is the banentry banned.

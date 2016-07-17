@@ -40,7 +40,7 @@ public class WorldData extends AbstractLocalData {
 	/**
 	 * A list of trusted users.
 	 */
-	private List<UUID> trustedUsers = new ArrayList<>();
+	private Set<UUID> trustedUsers = new HashSet<>();
 
 	/**
 	 * Is the "universe" white listed?
@@ -50,7 +50,7 @@ public class WorldData extends AbstractLocalData {
 	/**
 	 * A list of white listed users.
 	 */
-	private List<UUID> whiteListedUsers = new ArrayList<>();
+	private Set<UUID> whiteListedUsers = new HashSet<>();
 
 	/**
 	 * The file of which to save to upon unloading.
@@ -64,7 +64,8 @@ public class WorldData extends AbstractLocalData {
 		File dataFile = new File( getSaveFolder( core, world ), "world_data.json" );
 
 		try {
-			ret = MinecraftlyConfiguration.getGson().fromJson( MinecraftlyUtil.readText( dataFile ), WorldData.class );
+			if( dataFile.exists() )
+				ret = MinecraftlyConfiguration.getGson().fromJson( MinecraftlyUtil.readText( dataFile ), WorldData.class );
 		} catch ( IOException e ) {
 			core.getLogger().log( Level.SEVERE, "An error occurred whilst reading the data file for world \"" + world.getName() + "\"", e );
 		}

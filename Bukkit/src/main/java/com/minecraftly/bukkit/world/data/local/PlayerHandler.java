@@ -8,10 +8,15 @@ package com.minecraftly.bukkit.world.data.local;
 import com.minecraftly.bukkit.MinecraftlyBukkitCore;
 import com.minecraftly.bukkit.world.WorldDimension;
 import com.minecraftly.bukkit.world.data.local.userdata.UserData;
+import com.minecraftly.bukkit.world.data.local.worlddata.PunishEntry;
 import com.minecraftly.bukkit.world.data.local.worlddata.WorldData;
+import com.minecraftly.core.MinecraftlyUtil;
 import com.minecraftly.core.util.Callback;
 import lombok.NonNull;
+import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Bukkit;
+import org.bukkit.GameMode;
+import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -27,12 +32,12 @@ import org.bukkit.scheduler.BukkitRunnable;
 
 import java.io.Closeable;
 import java.io.IOException;
-import java.util.Objects;
-import java.util.UUID;
+import java.util.*;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.logging.Level;
+import java.util.stream.Collectors;
 
 /**
  * A class to manage the loading and savin the data of players and worlds.
@@ -70,7 +75,7 @@ public class PlayerHandler implements Listener, Closeable {
 		final World world = Bukkit.getWorld( param.toString() );
 		return () -> {
 			if( world == null ) return null;
-			WorldDimension.getPlayersAllDimensions( world ).forEach( player -> userJoinedWorld( player, world ) );
+			WorldDimension.getPlayersAllDimensions( world ).forEach( player -> userJoinedWorld( player, world, getWorldData( player.getUniqueId() ) ) );
 			return null;
 		};
 	};
@@ -86,6 +91,7 @@ public class PlayerHandler implements Listener, Closeable {
 			for( int i = 0; i < saveInInterval; i++ ) {
 				try {
 					AbstractLocalData data = dataToBeSaved.poll();
+					if( data == null ) continue;
 					if( !data.save( core ) ) {
 						throw new Exception( "Unable to save data \"" + data.getClass() + "\"." );
 					}
@@ -100,12 +106,15 @@ public class PlayerHandler implements Listener, Closeable {
 	public PlayerHandler( MinecraftlyBukkitCore core ) {
 
 		this.core = core;
-		this.saveTask.runTaskTimer( core.getOriginObject(), 20, 20 );
 
 	}
 
+	public void load() {
+		this.saveTask.runTaskTimer( core.getOriginObject(), 20, 20 );
+	}
+
 	@EventHandler( priority = EventPriority.MONITOR, ignoreCancelled = true )
-	public void onPlayerMove( PlayerMoveEvent event ) {
+	private void onPlayerMove( PlayerMoveEvent event ) {
 
 		// Update the player location.
 		UserData data = loadedUserData.get( event.getPlayer().getUniqueId() );
@@ -117,18 +126,8 @@ public class PlayerHandler implements Listener, Closeable {
 
 	}
 
-	public void onPlayerTeleport( PlayerTeleportEvent event ) {
-
-		// Update the player location.
-		UserData data = loadedUserData.get( event.getPlayer().getUniqueId() );
-		if( data == null ) return;
-
-		data.setLastLocation( event.getTo() );
-
-	}
-
 	@EventHandler
-	public void onWorldLoad( WorldLoadEvent event ) {
+	private void onWorldLoad( WorldLoadEvent event ) {
 
 		final UUID uuid = WorldDimension.getUUIDOfWorld( event.getWorld() );
 		if( uuid == null ) return;
@@ -141,7 +140,7 @@ public class PlayerHandler implements Listener, Closeable {
 	}
 
 	@EventHandler
-	public void onWorldUnload( WorldUnloadEvent event ) {
+	private void onWorldUnload( WorldUnloadEvent event ) {
 
 		final UUID uuid = WorldDimension.getUUIDOfWorld( event.getWorld() );
 		if( uuid == null || !loadedWorldData.containsKey( uuid ) ) return;
@@ -153,8 +152,8 @@ public class PlayerHandler implements Listener, Closeable {
 
 	}
 
-	@EventHandler
-	public void onPlayerDim( PlayerChangedWorldEvent event ) {
+	@EventHandler( priority = EventPriority.MONITOR )
+	private void onPlayerDim( PlayerChangedWorldEvent event ) {
 
 		// TODO implement a cool down of switching between "universes".
 
@@ -169,12 +168,12 @@ public class PlayerHandler implements Listener, Closeable {
 			userLeftWorld( event.getPlayer(), from );
 		}
 
-		userJoinedWorld( event.getPlayer(), to );
+		userJoinedWorld( event.getPlayer(), to, getWorldData( uuid ) );
 
 	}
 
 	@EventHandler( priority = EventPriority.LOWEST)
-	public void onPlayerQuit( PlayerQuitEvent event ) {
+	private void onPlayerQuit( PlayerQuitEvent event ) {
 		userLeftWorld( event.getPlayer(), event.getPlayer().getWorld() );
 	}
 
@@ -206,14 +205,64 @@ public class PlayerHandler implements Listener, Closeable {
 	 * @param user The player to process.
 	 * @param world THe world which they joined.
 	 */
-	public void userJoinedWorld( @NonNull Player user, @NonNull World world ) {
+	private void userJoinedWorld( @NonNull Player user, @NonNull World world, WorldData worldData ) {
+
+		final UUID uuid = user.getUniqueId();
 
 		// TODO ASYNC? Could cause issues..
-		UserData data = UserData.load( core, world, user.getUniqueId() );
-		loadedUserData.put( user.getUniqueId(), data );
+		UserData data = UserData.load( core, world, uuid );
+		loadedUserData.put( uuid, data );
+
+		boolean isOwner = user.getUniqueId().equals( WorldDimension.getUUIDOfWorld( world ) );
+
+		if( worldData != null && !isOwner ) {
+
+			if( worldData.getBannedUsers().containsKey( uuid ) ) {
+
+				PunishEntry banEntry = worldData.getBannedUsers().get( uuid );
+				if( banEntry != null && banEntry.isBanned() ) {
+
+					List<String> messages = new ArrayList<>();
+					messages.add( ChatColor.RED + "You are banned from this server." );
+					messages.add( ChatColor.RED + "Reason:" );
+					messages.addAll(
+							Arrays.asList( banEntry.getReason().split( "\n" ) ).stream()
+									.map( s -> ChatColor.translateAlternateColorCodes( '&', s ) )
+									.collect( Collectors.toList() )
+					);
+					if( banEntry.getTime() > 0 )
+						messages.add( ChatColor.RED + "You will be unbanned in " + MinecraftlyUtil.getTimeString( banEntry.getRemainingBanTime() ) + "." );
+
+					messages.stream().forEach( user::sendMessage );
+					// TODO Send to own world.
+					return;
+
+				}
+
+			}
+
+			if( worldData.isWhiteListed() && !worldData.getWhiteListedUsers().contains( uuid ) ) {
+
+				user.sendMessage( ChatColor.RED + "You're not white listed on this server, sorry." );
+				// TODO Send to own world.
+				return;
+
+			}
+
+			if( worldData.getTrustedUsers().contains( uuid ) ) {
+				user.setGameMode( GameMode.SURVIVAL );
+			} else {
+				user.setGameMode( GameMode.ADVENTURE );
+			}
+
+		} else if( isOwner ) {
+			user.setGameMode( GameMode.SURVIVAL );
+		}
 
 		user.setBedSpawnLocation( data.getBedLocation() );
-		user.teleport( data.getLastLocation(), PlayerTeleportEvent.TeleportCause.PLUGIN );
+
+		Location lastLocation = data.getLastLocation() != null ? data.getLastLocation() : world.getSpawnLocation();
+		user.teleport( lastLocation, PlayerTeleportEvent.TeleportCause.PLUGIN );
 
 	}
 
@@ -223,13 +272,34 @@ public class PlayerHandler implements Listener, Closeable {
 	 * @param user The player to process.
 	 * @param world The world which they left.
 	 */
-	public void userLeftWorld( @NonNull Player user, @NonNull World world ) {
+	private void userLeftWorld( @NonNull Player user, @NonNull World world ) {
 
 		// Okay we keep this because it's likely to get removed after this is call finishes.
 		final UserData userData = loadedUserData.get( user.getUniqueId() );
 		if( userData != null ) dataToBeSaved.add( userData );
 		loadedUserData.remove( user.getUniqueId(), userData );
 
+	}
+
+	public void save( AbstractLocalData abstractLocalData ) {
+		dataToBeSaved.add( abstractLocalData );
+	}
+
+	public UserData getUserData( @NonNull UUID uuid ) {
+		return loadedUserData.get( uuid );
+	}
+
+	public WorldData getWorldData( @NonNull World world ) {
+
+		UUID uuid = WorldDimension.getUUIDOfWorld( world );
+		if( uuid == null ) return null;
+
+		return getWorldData( uuid );
+
+	}
+
+	public WorldData getWorldData( @NonNull UUID uuid ) {
+		return loadedWorldData.get( uuid );
 	}
 
 }

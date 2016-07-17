@@ -20,12 +20,16 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.*;
+import org.bukkit.scheduler.BukkitRunnable;
 import redis.clients.jedis.Jedis;
 
+import java.io.Closeable;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Set;
 import java.util.UUID;
+import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.logging.Level;
 
 /**
@@ -34,11 +38,32 @@ import java.util.logging.Level;
  * @author Cory Redmond <ace@ac3-servers.eu>
  */
 @RequiredArgsConstructor
-public class PlayerListener implements Listener {
+public class PlayerListener implements Listener, Closeable {
 
 	private final MinecraftlyBukkitCore core;
 
 	private HashMap<UUID, World> playerDeathWorlds = new HashMap<>();
+
+	private final ConcurrentLinkedQueue<String> worldsToBeRemoved = new ConcurrentLinkedQueue<>();
+
+	private final BukkitRunnable worldUnloader = new BukkitRunnable() {
+
+		@Override
+		public void run() {
+
+			String worldName = worldsToBeRemoved.poll();
+			World world;
+			if( worldName != null && (world = Bukkit.getWorld( worldName )) != null ) {
+				if( Bukkit.unloadWorld( world, true ) ) {
+					core.getLogger().log( Level.INFO, "Unloaded world \"" + worldName + "\"" );
+				} else {
+					worldsToBeRemoved.add( worldName );
+				}
+			}
+
+		}
+
+	};
 
 	/**
 	 * Deal with player login, storing the Vhost to {@link com.minecraftly.bukkit.connection.ReconnectionHandler}
@@ -154,6 +179,9 @@ public class PlayerListener implements Listener {
 					while ( trys < 2 ) {
 						try {
 							World world = core.getWorldHandler().loadWorld( event.getPlayer().getUniqueId(), joinUUID.toString(), World.Environment.NORMAL );
+							if( world == null ) {
+								continue;
+							}
 							event.getPlayer().teleport( world.getSpawnLocation(), PlayerTeleportEvent.TeleportCause.PLUGIN );
 							System.out.println( "Using world " + world.getName() + " for " + event.getPlayer().getName() + "|| Spawn location: " + world.getSpawnLocation() );
 							break;
@@ -237,8 +265,13 @@ public class PlayerListener implements Listener {
 				}
 
 				try {
-					System.out.println( "Unloading world " + world.getName() );
-					Bukkit.unloadWorld( world, true );
+
+					String worldName = world.getName();
+					if( Bukkit.unloadWorld( world, true ) ) {
+						core.getLogger().log( Level.INFO, "Unloaded world \"" + worldName + "\"" );
+					} else {
+						worldsToBeRemoved.add( worldName );
+					}
 
 				} catch ( Exception ex ) {
 					core.getLogger().log( Level.WARNING, "Unable to save & unload dimworld: \"" + world.getName() + "\"", ex );
@@ -261,4 +294,14 @@ public class PlayerListener implements Listener {
 
 	}
 
+
+	public void load() {
+		worldUnloader.runTaskTimer( core.getOriginObject(), 3, 3 );
+	}
+
+	@Override
+	public void close() throws IOException {
+		worldUnloader.cancel();
+		worldsToBeRemoved.clear();
+	}
 }

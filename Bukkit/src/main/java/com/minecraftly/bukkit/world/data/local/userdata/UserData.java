@@ -67,7 +67,8 @@ public class UserData extends AbstractLocalData {
 		File dataFile = new File( getUserDataFolder( core, world ), uuid.toString() + ".json" );
 
 		try {
-			ret = MinecraftlyConfiguration.getGson().fromJson( MinecraftlyUtil.readText( dataFile ), UserData.class );
+			if( dataFile.exists() )
+				ret = MinecraftlyConfiguration.getGson().fromJson( MinecraftlyUtil.readText( dataFile ), UserData.class );
 		} catch ( IOException e ) {
 			core.getLogger().log( Level.SEVERE, "An error occurred whilst reading the data file for world \"" + world.getName() + "\"", e );
 		}

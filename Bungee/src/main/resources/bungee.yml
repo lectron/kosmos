@@ -1,4 +1,17 @@
+# We're Minecraftly.
 name: Minecraftly
+
+# Bukkit version.
 version: ${pom.version}-BUNGEE
+
+# I guess we can change this to authors? O_o
 author: Cory Redmond
+
+# Main class.
 main: com.minecraftly.bungee.MinecraftlyBungeePlugin
+
+# WIP..
+description: Minecraft cloud platform.
+
+# We are here bro..
+website: http://minecraftly.com/

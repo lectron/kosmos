@@ -17,6 +17,7 @@ import java.io.IOException;
  */
 public abstract class AbstractLocalData {
 
+	@Deprecated
 	public abstract boolean save( MinecraftlyBukkitCore core ) throws IOException;
 
 	public static File getSaveFolder( MinecraftlyCore core, World world ) {

@@ -5,8 +5,6 @@
 
 package com.minecraftly.bukkit.listeners;
 
-import com.google.common.io.ByteArrayDataInput;
-import com.google.common.io.ByteStreams;
 import com.minecraftly.bukkit.MinecraftlyBukkitCore;
 import com.minecraftly.core.MinecraftlyUtil;
 import com.minecraftly.core.util.Callback;
@@ -18,6 +16,9 @@ import org.bukkit.plugin.messaging.PluginMessageListener;
 
 import javax.script.ScriptEngine;
 import javax.script.ScriptException;
+import java.io.ByteArrayInputStream;
+import java.io.DataInputStream;
+import java.io.IOException;
 import java.util.concurrent.Callable;
 
 /**
@@ -28,8 +29,7 @@ public class DebugListener implements PluginMessageListener {
 
 	private final MinecraftlyBukkitCore core;
 
-	Callback<Callable<Void>, PlayerInputPair> loadedCallback = param -> {
-
+	Callback<Callable<Void>, PlayerInputPair> loadedCallback = param -> () -> {
 		try {
 			ScriptEngine engine = getScriptEngine( param.getPlayer() );
 			engine.eval( param.getInput() );
@@ -38,45 +38,51 @@ public class DebugListener implements PluginMessageListener {
 			param.getPlayer().sendMessage( ChatColor.YELLOW + e.getClass().getName() );
 			param.getPlayer().sendMessage( ChatColor.YELLOW + e.getMessage() );
 		}
-
 		return null;
-
 	};
 
 	@Override
 	public void onPluginMessageReceived( final String channel, final Player player, byte[] message ) {
 
-		if( !channel.equals( "KMCLY" ) || !player.hasPermission( "minecraftly.debug" ) ) return;
+		try {
 
-		ByteArrayDataInput badi = ByteStreams.newDataInput( message );
-		String input = badi.readUTF();
+			if ( !channel.equals( "KMCLY" ) || !player.hasPermission( "minecraftly.debug" ) ) return;
 
-		if( input.equalsIgnoreCase( "URL" ) ) {
+			DataInputStream dis = new DataInputStream( new ByteArrayInputStream( message ) );
+			String input = dis.readUTF();
 
-			final String url = badi.readUTF();
-			core.getOriginObject().getServer().getScheduler().runTaskAsynchronously( core.getOriginObject(), new Runnable() {
-				@Override
-				public void run() {
+			if ( input.equalsIgnoreCase( "URL" ) ) {
 
-					try {
-						String downloadedInput = MinecraftlyUtil.downloadText( url );
-						Callable<Void> voidCallable = loadedCallback.call( new PlayerInputPair( player, downloadedInput ) );
-						core.getOriginObject().getServer().getScheduler().callSyncMethod( core.getOriginObject(), voidCallable );
-					} catch ( Exception e ) {
-						player.sendMessage( ChatColor.YELLOW + "There was an error executing the script!" );
-						player.sendMessage( ChatColor.YELLOW + e.getClass().getName() );
-						player.sendMessage( ChatColor.YELLOW + e.getMessage() );
+				final String url = dis.readUTF();
+				core.getOriginObject().getServer().getScheduler().runTaskAsynchronously( core.getOriginObject(), new Runnable() {
+					@Override
+					public void run() {
+
+						try {
+							String downloadedInput = MinecraftlyUtil.downloadText( url );
+							Callable<Void> voidCallable = loadedCallback.call( new PlayerInputPair( player, downloadedInput ) );
+							core.getOriginObject().getServer().getScheduler().callSyncMethod( core.getOriginObject(), voidCallable );
+						} catch ( Exception e ) {
+							player.sendMessage( ChatColor.YELLOW + "There was an error executing the script!" );
+							player.sendMessage( ChatColor.YELLOW + e.getClass().getName() );
+							player.sendMessage( ChatColor.YELLOW + e.getMessage() );
+						}
+
 					}
+				} );
 
+			} else {
+				try {
+					loadedCallback.call( new PlayerInputPair( player, input ) ).call();
+				} catch ( Exception e ) {
+					player.sendMessage( ChatColor.YELLOW + "There was an error executing the script!" );
+					player.sendMessage( ChatColor.YELLOW + e.getClass().getName() );
+					player.sendMessage( ChatColor.YELLOW + e.getMessage() );
 				}
-			} );
-
-		} else {
-			try {
-				loadedCallback.call( new PlayerInputPair( player, input ) ).call();
-			} catch ( Exception e ) {
-				e.printStackTrace();
 			}
+
+		} catch ( IOException ex ) {
+			ex.printStackTrace();
 		}
 
 	}
