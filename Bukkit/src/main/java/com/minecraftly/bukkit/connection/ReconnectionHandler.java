@@ -6,6 +6,7 @@
 package com.minecraftly.bukkit.connection;
 
 import com.minecraftly.bukkit.MinecraftlyBukkitCore;
+import com.minecraftly.core.MinecraftlyUtil;
 import com.minecraftly.core.manager.exceptions.NoJedisException;
 import com.minecraftly.core.manager.exceptions.ProcessingException;
 import lombok.NonNull;
@@ -16,7 +17,6 @@ import redis.clients.jedis.Jedis;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.logging.Level;
-import java.util.regex.Matcher;
 
 /**
  * Deals with the vhosts essentially.
@@ -115,33 +115,24 @@ public class ReconnectionHandler {
 
 		try ( Jedis jedis = core.getJedis() ) {
 
-			Matcher matcher;
+			String joinUsername = hostName.split( "\\.", 2 )[0];
 
-			if( core.getConfig().getDomainNameRegex() != null ) {
-				matcher = core.getConfig().getDomainNamePattern().matcher( hostName.trim() );
-			} else {
-				matcher = null;
+			boolean uuidSet = false;
+			try {
+				if( joinUsername.length() > 16 ) {
+					uuidToJoin = MinecraftlyUtil.convertFromNoDashes( joinUsername );
+					uuidSet = true;
+				}
+			} catch ( IllegalArgumentException ignored ) {
 			}
 
-			if ( matcher == null || matcher.find() && matcher.groupCount() >= 2 ) {
-
-				String joinUsername;
-
-				if( matcher == null ) {
-					joinUsername = hostName.split( "\\.", 2 )[0];
-				} else {
-					joinUsername = matcher.group( 1 );
+			try {
+				if ( !uuidSet && core.getUUIDManager().hasUuid( jedis, joinUsername ) ) {
+					uuidToJoin = core.getUUIDManager().getUuid( jedis, joinUsername );
 				}
-
-				try {
-					if ( core.getUUIDManager().hasUuid( jedis, joinUsername ) ) {
-						uuidToJoin = core.getUUIDManager().getUuid( jedis, joinUsername );
-					}
-				} catch ( ProcessingException e ) {
-					// TODO translations?
-					core.getLogger().log( Level.SEVERE, "Error getting the server for \"" + joinUsername + "\".", e );
-				}
-
+			} catch ( ProcessingException e ) {
+				// TODO translations?
+				core.getLogger().log( Level.SEVERE, "Error getting the server for \"" + joinUsername + "\".", e );
 			}
 
 		} catch ( NoJedisException e ) {

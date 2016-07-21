@@ -5,27 +5,29 @@
 
 package com.minecraftly.bungee.connection;
 
+import com.minecraftly.bungee.MinecraftlyBungeeCore;
 import com.minecraftly.bungee.MinecraftlyBungeePlugin;
 import com.minecraftly.core.MinecraftlyCore;
 import com.minecraftly.core.MinecraftlyUtil;
 import com.minecraftly.core.manager.exceptions.NoJedisException;
 import com.minecraftly.core.manager.exceptions.ProcessingException;
+import com.minecraftly.core.util.DnsHelper;
 import lombok.RequiredArgsConstructor;
 import net.md_5.bungee.api.AbstractReconnectHandler;
 import net.md_5.bungee.api.ProxyServer;
 import net.md_5.bungee.api.config.ServerInfo;
 import net.md_5.bungee.api.connection.ProxiedPlayer;
+import net.md_5.bungee.protocol.packet.Handshake;
 import redis.clients.jedis.Jedis;
 
 import java.net.InetSocketAddress;
 import java.util.UUID;
 import java.util.logging.Level;
-import java.util.regex.Matcher;
 
 /**
  * Handle reconnections of players.
  *
- * @author Cory Redmond <ace@ac3-servers.eu>
+ * @author Cory Redmond &lt;ace@ac3-servers.eu&gt;
  */
 @RequiredArgsConstructor
 public class ReconnectionHandler extends AbstractReconnectHandler {
@@ -43,14 +45,6 @@ public class ReconnectionHandler extends AbstractReconnectHandler {
 	protected ServerInfo getStoredServer( ProxiedPlayer player ) {
 
 		InetSocketAddress virtualHostAddress = player.getPendingConnection().getVirtualHost();
-		Matcher matcher;
-
-		if( core.getConfig().getDomainNameRegex() != null ) {
-			matcher = core.getConfig().getDomainNamePattern().matcher( virtualHostAddress.getHostString() );
-		} else {
-			matcher = null;
-		}
-
 		UUID uuidToJoin = player.getUniqueId();
 
 		try ( Jedis jedis = core.getJedis() ) {
@@ -62,29 +56,38 @@ public class ReconnectionHandler extends AbstractReconnectHandler {
 				e.printStackTrace();
 			}
 
-			// Match the hostname against the regex.
-			if ( matcher == null || matcher.find() && matcher.groupCount() >= 2 ) {
+			String joinUsername = null;
 
-				String joinUsername;
+			// If the domain name isn't ours, resolve the cname.
+			if( !isMinecraftly( virtualHostAddress.getHostString() ) ) {
+				joinUsername = DnsHelper.getCname( virtualHostAddress.getHostString() );
+			}
 
-				if( matcher == null ) {
-					joinUsername = virtualHostAddress.getHostString().split( "\\.", 2 )[0];
-				} else {
-					joinUsername = matcher.group( 1 );
+			// If the cname is null, return the host string.
+			if( joinUsername == null ) {
+				joinUsername = virtualHostAddress.getHostString();
+			}
+
+			// Split the hostString/cname to get the first section.
+			joinUsername = joinUsername.split( "\\.", 2 )[0];
+
+			boolean uuidSet = false;
+			try {
+				if( joinUsername.length() > 16 ) {
+					uuidToJoin = MinecraftlyUtil.convertFromNoDashes( joinUsername );
+					uuidSet = true;
 				}
+			} catch ( IllegalArgumentException ignored ) {
+			}
 
-				// Get the UUID from the name if it exists.
-				try {
-					if ( core.getUUIDManager().hasUuid( jedis, joinUsername ) ) {
-						System.out.println( "0.3 | has UUID: " + joinUsername );
-						uuidToJoin = core.getUUIDManager().getUuid( jedis, joinUsername );
-						System.out.println( "0.4 | UUID: " + uuidToJoin );
-					}
-				} catch ( ProcessingException e ) {
-					// TODO translations?
-					core.getLogger().log( Level.SEVERE, "Error getting the server for \"" + joinUsername + "\".", e );
+			// Get the UUID from the name if it exists.
+			try {
+				if ( !uuidSet && core.getUUIDManager().hasUuid( jedis, joinUsername ) ) {
+					uuidToJoin = core.getUUIDManager().getUuid( jedis, joinUsername );
 				}
-
+			} catch ( ProcessingException e ) {
+				// TODO translations?
+				core.getLogger().log( Level.SEVERE, "Error getting the server for \"" + joinUsername + "\".", e );
 			}
 
 			// Check the world isn't already loaded, and if it is, return the server where it's loaded.
@@ -92,6 +95,7 @@ public class ReconnectionHandler extends AbstractReconnectHandler {
 				if ( core.getWorldManager().hasServer( jedis, uuidToJoin ) ) {
 
 					String serverId = core.getWorldManager().getServer( jedis, uuidToJoin );
+					setHandshake( player, uuidToJoin );
 					return ProxyServer.getInstance().constructServerInfo( serverId, MinecraftlyUtil.parseAddress( serverId ), "", false );
 
 				}
@@ -105,6 +109,7 @@ public class ReconnectionHandler extends AbstractReconnectHandler {
 			try {
 
 				String serverId = core.getWorldManager().loadWorld( jedis, uuidToJoin );
+				setHandshake( player, uuidToJoin );
 				return ProxyServer.getInstance().constructServerInfo( serverId, MinecraftlyUtil.parseAddress( serverId ), "", false );
 
 			} catch ( ProcessingException e ) {
@@ -119,6 +124,23 @@ public class ReconnectionHandler extends AbstractReconnectHandler {
 		// AParrently there's nothing we can do here? Hopefully we'll never end up here.
 		return null;
 
+	}
+
+	private void setHandshake( ProxiedPlayer player, UUID uuidToJoin ) {
+		Handshake hs = MinecraftlyBungeeCore.ReflectionUtil.getHandshake( player.getPendingConnection() );
+		if( hs != null ) {
+			hs.setHost( uuidToJoin.toString() + ".m.ly" );
+		}
+	}
+
+	private boolean isMinecraftly( String h ) {
+		h = h.toLowerCase();
+		return
+				h.endsWith( "m.ly" ) ||
+				h.endsWith( "minecraft.ly" ) ||
+				h.endsWith( "minecraftly.com" ) ||
+				h.endsWith( "minecraftly.net" ) ||
+				h.endsWith( "minecraftly.org" );
 	}
 
 	@Override

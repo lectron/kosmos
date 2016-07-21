@@ -45,11 +45,6 @@ public class MinecraftlyConfiguration {
 	private IPAddressConfiguration myAddress = null;
 
 	/**
-	 * The regex for matching the username in the domain name.
-	 */
-	private String domainNameRegex;
-
-	/**
 	 * Allows for a default action if there is no existing server.
 	 */
 	private DefaultServerAction defaultActionIfNoServer = null;
@@ -88,7 +83,6 @@ public class MinecraftlyConfiguration {
 		configuration.setMyAddress( ipAddressConfiguration );
 		configuration.setDefaultActionIfNoServer( DefaultServerAction.OWN );
 		configuration.setConfigLocation( null );
-		configuration.setDomainNameRegex( "^(\\w{1,16})\\.(.*)\\.(\\w{2,18})$" );
 
 		return configuration;
 
@@ -261,30 +255,8 @@ public class MinecraftlyConfiguration {
 		}
 
 		// Misc applications.
-		if ( masterConfig.getDomainNameRegex() == null || masterConfig.getDomainNameRegex().isEmpty() )
-			masterConfig.setDomainNameRegex( getDomainNameRegex() );
-
 		if ( masterConfig.getDefaultActionIfNoServer() == null )
 			masterConfig.setDefaultActionIfNoServer( getDefaultActionIfNoServer() );
-
-	}
-
-	/**
-	 * Runtime generates a pattern from <link>MinecraftlyConfiguration#getDomainNamePattern()</link>
-	 *
-	 * @return the pattern to match domain names against.
-	 */
-	public Pattern getDomainNamePattern() {
-
-		if ( domainNamePattern == null && getDomainNameRegex() != null ) {
-			domainNamePattern = Pattern.compile( getDomainNameRegex(), Pattern.CASE_INSENSITIVE );
-		}
-
-		if ( getDomainNameRegex() != null ) {
-			System.err.println( "[Minecraftly][Warning] The domain name regex is null in the configuration." );
-		}
-
-		return domainNamePattern;
 
 	}
 
