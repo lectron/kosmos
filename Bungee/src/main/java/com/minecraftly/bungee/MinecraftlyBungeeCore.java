@@ -90,7 +90,7 @@ public class MinecraftlyBungeeCore extends MinecraftlyCore<MinecraftlyBungeePlug
 		ProxiedPlayer player = getOriginObject().getProxy().getPlayer( playerUuid );
 		if( player == null ) return false;
 
-		String serverId = null;
+		String serverId;
 
 		try (Jedis jedis = getJedis() ) {
 
@@ -101,37 +101,32 @@ public class MinecraftlyBungeeCore extends MinecraftlyCore<MinecraftlyBungeePlug
 				serverId = getWorldManager().loadWorld( jedis, server );
 			}
 
+			Handshake hs = ReflectionUtil.getHandshake( player.getPendingConnection() );
+			if( hs == null ) return false;
+
+			hs.setHost( server.toString() + ".m.ly" );
+
+			if( serverId == null ) {
+				player.sendMessage( ChatColor.RED + "We were unable to send you to the specified server." );
+				return false;
+			}
+			ServerInfo si = ProxyServer.getInstance().constructServerInfo( serverId, MinecraftlyUtil.parseAddress( serverId ), "", false );
+
+			if( player.getServer().getInfo().equals( si ) ) {
+
+				if( !messageDownstream )
+					return true;
+
+				jedis.publish( RedisKeys.TRANSPORT.toString(), "SEND\00" + playerUuid.toString() + "\00" + server.toString() );
+
+			} else {
+				player.connect( si );
+			}
+
 		} catch ( NoJedisException | ProcessingException e ) {
 			e.printStackTrace();
 			player.sendMessage( ChatColor.RED + "We were unable to send you to the specified server." );
 			return false;
-		}
-
-		Handshake hs = ReflectionUtil.getHandshake( player.getPendingConnection() );
-		if( hs == null ) return false;
-
-		hs.setHost( server.toString() + ".m.ly" );
-
-		if( serverId == null ) {
-			player.sendMessage( ChatColor.RED + "We were unable to send you to the specified server." );
-			return false;
-		}
-		ServerInfo si = ProxyServer.getInstance().constructServerInfo( serverId, MinecraftlyUtil.parseAddress( serverId ), "", false );
-
-		if( player.getServer().getInfo().equals( si ) ) {
-			// TODO Use the same jedis instance as above.
-
-			if( !messageDownstream )
-				return true;
-
-			try {
-				sendMessage( RedisKeys.TRANSPORT, "SEND\00" + playerUuid.toString() + "\00" + server.toString() );
-			} catch ( ProcessingException | NoJedisException e ) {
-				e.printStackTrace();
-				player.sendMessage( ChatColor.RED + "We were unable to send you to the specified server." );
-			}
-		} else {
-			player.connect( si );
 		}
 
 		return false;

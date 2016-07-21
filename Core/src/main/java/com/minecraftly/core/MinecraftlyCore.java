@@ -404,9 +404,15 @@ public abstract class MinecraftlyCore<P> implements Closeable {
 
 	}
 
+	/**
+	 * Send the specified player to the server.
+	 * @param player The UUID of the player to send.
+	 * @param server The UUID of the server in which we want the player.
+	 * @param messageDownstream true to message the server
+	 * @return True if the player is on the server and messageDownstream is false.
+	 */
 	public boolean sendToServer( UUID player, UUID server, boolean messageDownstream ) {
-
-		return messageDownstream;
+		return false;
 	}
 
 	/**
