@@ -8,6 +8,7 @@ package com.minecraftly.bukkit.listeners;
 import com.minecraftly.bukkit.MinecraftlyBukkitCore;
 import com.minecraftly.bukkit.exceptions.WorldDoesNotExistException;
 import com.minecraftly.bukkit.world.WorldDimension;
+import com.minecraftly.bukkit.world.data.local.worlddata.WorldData;
 import com.minecraftly.core.manager.exceptions.NoJedisException;
 import com.minecraftly.core.manager.exceptions.ProcessingException;
 import lombok.NonNull;
@@ -93,10 +94,17 @@ public class PlayerListener implements Listener, Closeable {
 			event.setCancelled( true );
 		}
 
+		World world = WorldDimension.getBaseWorld( event.getPlayer().getWorld() );
+		WorldData worldData;
+		if( ( worldData = core.getPlayerHandler().getWorldData( world ) ) != null ) {
+			if( worldData.getMutedUsers().containsKey( event.getPlayer().getUniqueId() ) )
+				event.setCancelled( true ); // TODO not monitor.
+		}
+
 		// Per world chat.
 		Set<Player> recipients = event.getRecipients();
 		recipients.clear();
-		recipients.addAll( WorldDimension.getPlayersAllDimensions( event.getPlayer().getWorld() ) );
+		recipients.addAll( WorldDimension.getPlayersAllDimensions( world ) );
 
 	}
 
@@ -113,6 +121,7 @@ public class PlayerListener implements Listener, Closeable {
 
 		event.setKeepInventory( true );
 		event.setKeepLevel( true );
+
 	}
 
 	/**
@@ -146,8 +155,9 @@ public class PlayerListener implements Listener, Closeable {
 		World to = WorldDimension.getBaseWorld( event.getTo().getWorld() );
 
 		if ( !from.equals( to ) ) {
-			playerLeftWorld( event.getPlayer().getWorld() );
+			playerLeftWorld( player.getWorld() );
 		}
+
 	}
 
 	/**
@@ -155,7 +165,7 @@ public class PlayerListener implements Listener, Closeable {
 	 *
 	 * @param event PlayerJoinEvent
 	 */
-	@EventHandler
+	@EventHandler( priority = EventPriority.LOWEST ) // LOWEST to allow playerhandler to use and set location.
 	public void onPlayerJoin( PlayerJoinEvent event ) {
 
 		// We really want to clear the join message.. TODO make it per world?

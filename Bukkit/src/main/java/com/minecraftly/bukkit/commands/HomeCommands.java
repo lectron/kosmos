@@ -201,16 +201,17 @@ public class HomeCommands implements CommandExecutor, TabCompleter {
 
 		HashMap<String, Location> homes = userData.getHomes();
 
-		if( homeName == null ) {
+		if( homeName == null || homeName.trim().isEmpty() ) {
 
-			if( homes.size() == 1 ) {
-				return homes.values().iterator().next();
-			} else if( homes.containsKey( "home" ) ) {
+			if( homes.containsKey( "home" ) ) {
 				return homes.get( "home" );
+			} else if( homes.size() == 1 ) {
+				return homes.values().iterator().next();
 			}
 
 		} else {
-			if( homes.containsKey( homeName.toLowerCase() ) ) return homes.get( homeName.toLowerCase() );
+			homeName = homeName.trim().toLowerCase();
+			if( homes.containsKey( homeName ) ) return homes.get( homeName );
 		}
 
 		return userData.getBedLocation() == null ? player.getWorld().getSpawnLocation() : userData.getBedLocation();
