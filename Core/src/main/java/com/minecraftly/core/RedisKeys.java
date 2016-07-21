@@ -37,7 +37,12 @@ public enum RedisKeys {
 	/**
 	 * PLAYER_REPO is a repository or UUID-ServerID links, to track players across the network.
 	 */
-	PLAYER_REPO;
+	PLAYER_REPO,
+
+	/**
+	 * TRANSPORT is to be used strictly for messaging and sending users through the network.
+	 */
+	TRANSPORT;
 
 	private static Collection<String> valueList;
 

@@ -8,6 +8,7 @@ package com.minecraftly.bungee;
 import com.minecraftly.bungee.event.MinecraftlyEvent;
 import com.minecraftly.core.MinecraftlyCore;
 import com.minecraftly.core.MinecraftlyUtil;
+import com.minecraftly.core.RedisKeys;
 import com.minecraftly.core.configuration.MinecraftlyConfiguration;
 import com.minecraftly.core.event.MCLYEvent;
 import com.minecraftly.core.manager.exceptions.NoJedisException;
@@ -15,6 +16,7 @@ import com.minecraftly.core.manager.exceptions.ProcessingException;
 import com.minecraftly.core.runnables.RunnableData;
 import lombok.NonNull;
 import lombok.ToString;
+import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.ProxyServer;
 import net.md_5.bungee.api.config.ServerInfo;
 import net.md_5.bungee.api.connection.PendingConnection;
@@ -83,10 +85,10 @@ public class MinecraftlyBungeeCore extends MinecraftlyCore<MinecraftlyBungeePlug
 	}
 
 	@Override
-	public void sendToServer( UUID playerUuid, UUID server ) {
+	public boolean sendToServer( UUID playerUuid, UUID server, boolean messageDownstream ) {
 
 		ProxiedPlayer player = getOriginObject().getProxy().getPlayer( playerUuid );
-		if( player == null ) return;
+		if( player == null ) return false;
 
 		String serverId = null;
 
@@ -101,25 +103,38 @@ public class MinecraftlyBungeeCore extends MinecraftlyCore<MinecraftlyBungeePlug
 
 		} catch ( NoJedisException | ProcessingException e ) {
 			e.printStackTrace();
-			// TODO Exception occurred.
+			player.sendMessage( ChatColor.RED + "We were unable to send you to the specified server." );
+			return false;
 		}
 
 		Handshake hs = ReflectionUtil.getHandshake( player.getPendingConnection() );
-		if( hs == null ) return;
+		if( hs == null ) return false;
 
 		hs.setHost( server.toString() + ".m.ly" );
 
 		if( serverId == null ) {
-			// TODO something is wrong..
-			return;
+			player.sendMessage( ChatColor.RED + "We were unable to send you to the specified server." );
+			return false;
 		}
 		ServerInfo si = ProxyServer.getInstance().constructServerInfo( serverId, MinecraftlyUtil.parseAddress( serverId ), "", false );
 
 		if( player.getServer().getInfo().equals( si ) ) {
-			// TODO send pubsub message.
+			// TODO Use the same jedis instance as above.
+
+			if( !messageDownstream )
+				return true;
+
+			try {
+				sendMessage( RedisKeys.TRANSPORT, "SEND\00" + playerUuid.toString() + "\00" + server.toString() );
+			} catch ( ProcessingException | NoJedisException e ) {
+				e.printStackTrace();
+				player.sendMessage( ChatColor.RED + "We were unable to send you to the specified server." );
+			}
 		} else {
 			player.connect( si );
 		}
+
+		return false;
 
 	}
 

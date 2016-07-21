@@ -404,8 +404,9 @@ public abstract class MinecraftlyCore<P> implements Closeable {
 
 	}
 
-	public void sendToServer( UUID player, UUID server ) {
+	public boolean sendToServer( UUID player, UUID server, boolean messageDownstream ) {
 
+		return messageDownstream;
 	}
 
 	/**
