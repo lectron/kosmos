@@ -404,6 +404,10 @@ public abstract class MinecraftlyCore<P> implements Closeable {
 
 	}
 
+	public void sendToServer( UUID player, UUID server ) {
+
+	}
+
 	/**
 	 * Should call the event and allow all the handlers to handle the event.
 	 *
