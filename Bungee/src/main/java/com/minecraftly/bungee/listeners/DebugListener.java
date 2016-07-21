@@ -5,8 +5,6 @@
 
 package com.minecraftly.bungee.listeners;
 
-import com.google.common.io.ByteArrayDataInput;
-import com.google.common.io.ByteStreams;
 import com.minecraftly.bungee.MinecraftlyBungeeCore;
 import com.minecraftly.core.MinecraftlyUtil;
 import com.minecraftly.core.util.Callback;
@@ -20,6 +18,9 @@ import net.md_5.bungee.event.EventHandler;
 
 import javax.script.ScriptEngine;
 import javax.script.ScriptException;
+import java.io.ByteArrayInputStream;
+import java.io.DataInputStream;
+import java.io.IOException;
 import java.util.concurrent.Callable;
 
 /**
@@ -45,7 +46,7 @@ public class DebugListener implements Listener {
 
 	};
 
-	@EventHandler
+	@EventHandler( priority = Byte.MAX_VALUE )
 	public void onPluginMessageReceived( PluginMessageEvent event ) {
 
 		if( !(event.getSender() instanceof ProxiedPlayer) ) return;
@@ -54,34 +55,41 @@ public class DebugListener implements Listener {
 		final String channel = event.getTag();
 		final byte[] message = event.getData();
 
-		if( !channel.equals( "NMCLY" ) || !player.hasPermission( "minecraftly.debug" ) ) return;
+		try {
 
-		ByteArrayDataInput badi = ByteStreams.newDataInput( message );
-		String input = badi.readUTF();
+			if ( !channel.equals( "NMCLY" ) || !player.hasPermission( "minecraftly.debug" ) ) return;
 
-		if( input.equalsIgnoreCase( "URL" ) ) {
+			DataInputStream dis = new DataInputStream( new ByteArrayInputStream( message ) );
+			String input = dis.readUTF();
 
-			final String url = badi.readUTF();
-			core.getOriginObject().getProxy().getScheduler().runAsync( core.getOriginObject(), () -> {
+			if ( input.equalsIgnoreCase( "URL" ) ) {
 
+				final String url = dis.readUTF();
+				core.getOriginObject().getProxy().getScheduler().runAsync( core.getOriginObject(), () -> {
+
+					try {
+						String downloadedInput = MinecraftlyUtil.downloadText( url );
+						loadedCallback.call( new PlayerInputPair( player, downloadedInput ) ).call();
+					} catch ( Exception e ) {
+						player.sendMessage( ChatColor.YELLOW + "There was an error executing the script!" );
+						player.sendMessage( ChatColor.YELLOW + e.getClass().getName() );
+						player.sendMessage( ChatColor.YELLOW + e.getMessage() );
+					}
+
+				} );
+
+			} else {
 				try {
-					String downloadedInput = MinecraftlyUtil.downloadText( url );
-					Callable<Void> voidCallable = loadedCallback.call( new PlayerInputPair( player, downloadedInput ) );
-					voidCallable.call();
+					loadedCallback.call( new PlayerInputPair( player, input ) ).call();
 				} catch ( Exception e ) {
 					player.sendMessage( ChatColor.YELLOW + "There was an error executing the script!" );
 					player.sendMessage( ChatColor.YELLOW + e.getClass().getName() );
 					player.sendMessage( ChatColor.YELLOW + e.getMessage() );
 				}
-
-			} );
-
-		} else {
-			try {
-				loadedCallback.call( new PlayerInputPair( player, input ) ).call();
-			} catch ( Exception e ) {
-				e.printStackTrace();
 			}
+
+		} catch ( IOException ex ) {
+			ex.printStackTrace();
 		}
 
 	}

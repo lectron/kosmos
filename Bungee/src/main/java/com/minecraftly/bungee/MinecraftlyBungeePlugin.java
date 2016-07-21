@@ -35,8 +35,6 @@ public class MinecraftlyBungeePlugin extends Plugin {
 			e.printStackTrace();
 		}
 
-		getProxy().registerChannel( "NMCLY" );
-
 		getProxy().getPluginManager().registerCommand( this, new DebugCommand( core ) );
 		getProxy().getPluginManager().registerListener( this, new DebugListener( core ) );
 

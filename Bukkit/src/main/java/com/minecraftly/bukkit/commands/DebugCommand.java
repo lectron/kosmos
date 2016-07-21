@@ -78,10 +78,11 @@ public class DebugCommand implements CommandExecutor {
 				int iterations = 0;
 				for( String worldName : worldNames ) {
 
-					sb.append( worldName ).append( "\n" );
+					sb.append( worldName ).append( "\n\n" );
 
-					if( ++iterations == 4 ) {
+					if( iterations++ >= 4 ) {
 						worldPages.add( sb.toString() );
+						sb = new StringBuilder( "Worlds:\n" );
 						iterations = 0;
 					}
 
@@ -90,6 +91,11 @@ public class DebugCommand implements CommandExecutor {
 				sendBook( player, "Worlds", worldPages );
 
 				return true;
+
+			} else {
+
+				player.sendMessage( ChatColor.YELLOW + "Valid books are: 'worlds'" );
+				return false;
 
 			}
 
@@ -185,6 +191,8 @@ public class DebugCommand implements CommandExecutor {
 		bookMeta.setTitle( ChatColor.GOLD.toString() + ChatColor.BOLD + "Debugging Book || " + title  );
 		bookMeta.setGeneration( BookMeta.Generation.ORIGINAL );
 		bookMeta.setPages( pages );
+
+		is.setItemMeta( bookMeta );
 
 		Player player = ((Player) sender);
 		player.getWorld().dropItem( player.getLocation().add( 0, 1, 0 ), is );
