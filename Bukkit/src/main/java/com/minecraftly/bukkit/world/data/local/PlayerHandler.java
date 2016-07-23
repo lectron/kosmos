@@ -22,10 +22,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
-import org.bukkit.event.player.PlayerChangedWorldEvent;
-import org.bukkit.event.player.PlayerMoveEvent;
-import org.bukkit.event.player.PlayerQuitEvent;
-import org.bukkit.event.player.PlayerTeleportEvent;
+import org.bukkit.event.player.*;
 import org.bukkit.event.world.WorldLoadEvent;
 import org.bukkit.event.world.WorldUnloadEvent;
 import org.bukkit.scheduler.BukkitRunnable;
@@ -170,6 +167,12 @@ public class PlayerHandler implements Listener, Closeable {
 
 		userJoinedWorld( event.getPlayer(), to, getWorldData( uuid ) );
 
+	}
+
+	@EventHandler( priority = EventPriority.HIGHEST)
+	private void onPlayerJoin( PlayerJoinEvent event ) {
+		WorldData worldData = getWorldData( WorldDimension.getUUIDOfWorld( event.getPlayer().getWorld() ) );
+		userJoinedWorld( event.getPlayer(), event.getPlayer().getWorld(), worldData );
 	}
 
 	@EventHandler( priority = EventPriority.LOWEST)
