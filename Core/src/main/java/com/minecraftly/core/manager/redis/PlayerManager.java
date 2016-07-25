@@ -48,27 +48,27 @@ public class PlayerManager {
 	 * @return the serverId of where the player is.
 	 * @throws ProcessingException if an exception occurs.
 	 */
-	public String getServer( @NonNull Jedis jedis, @NonNull UUID playerUuid ) throws ProcessingException {
+	public UUID getServer( @NonNull Jedis jedis, @NonNull UUID playerUuid ) throws ProcessingException {
 		try {
-			return jedis.hget( RedisKeys.WORLD_REPO.toString(), playerUuid.toString() );
+			return UUID.fromString( jedis.hget( RedisKeys.WORLD_REPO.toString(), playerUuid.toString() ) );
 		} catch ( Exception ex ) {
 			throw new ProcessingException( "There was an error getting the owner of \"" + playerUuid + "\"!", ex );
 		}
 	}
 
 	/**
-	 * Gets all the UUID's of the players on a specified server.
+	 * Gets all the UUID's of the players on a specified world.
 	 * @param jedis A jedis instance to use.
-	 * @param serverId The id of the server you want information on.
+	 * @param world The uuid of the world you want information on.
 	 * @return The list of UUID's on the server.
 	 * @throws ProcessingException if an exception occurs.
 	 */
-	public List<UUID> getAllForServer( @NonNull Jedis jedis, @NonNull String serverId ) throws ProcessingException {
+	public List<UUID> getAllForServer( @NonNull Jedis jedis, @NonNull UUID world ) throws ProcessingException {
 		try {
 
 			return jedis.hgetAll( RedisKeys.WORLD_REPO.toString() ).entrySet()
 					.stream()
-					.filter( row -> row.getValue().equals( serverId ) )
+					.filter( row -> row.getValue().equals( world.toString() ) )
 					.map( row -> UUID.fromString( row.getValue() ) )
 					.collect( Collectors.toList() );
 
@@ -78,42 +78,42 @@ public class PlayerManager {
 	}
 
 	/**
-	 * Set the serverId of the playerUuid.
+	 * Set the world of the playerUuid.
 	 *
 	 * @param playerUuid The uuid of the player.
-	 * @param serverId   The serverId that has the player.
+	 * @param world The world that the player is in.
 	 * @throws ProcessingException if an exception occurs.
 	 */
-	public void setServer( @NonNull Jedis jedis, @NonNull UUID playerUuid, String serverId ) throws ProcessingException {
+	public void setServer( @NonNull Jedis jedis, @NonNull UUID playerUuid, UUID world ) throws ProcessingException {
 		try {
 
-			if ( serverId != null ) {
-				jedis.hset( RedisKeys.WORLD_REPO.toString(), playerUuid.toString(), serverId );
+			if ( world != null ) {
+				jedis.hset( RedisKeys.WORLD_REPO.toString(), playerUuid.toString(), world.toString() );
 			} else {
 				jedis.hdel( RedisKeys.WORLD_REPO.toString(), playerUuid.toString() );
 			}
 
 		} catch ( Exception ex ) {
-			throw new ProcessingException( "There was an error setting the owner of \"" + playerUuid + "\" as server \"" + serverId + "\"!", ex );
+			throw new ProcessingException( "There was an error setting the owner of \"" + playerUuid + "\" as server \"" + world + "\"!", ex );
 		}
 	}
 
 	/**
-	 * Remove all the players loaded on serverId. Used when a server shuts down.
+	 * Remove all the players on world. Used when a server shuts down.
 	 *
-	 * @param serverId The id of the server to remove.
+	 * @param world The world UUID to remove.
 	 * @throws ProcessingException if an exception occurs.
 	 */
-	public void removeAll( @NonNull Jedis jedis, @NonNull String serverId ) throws ProcessingException {
+	public void removeAll( @NonNull Jedis jedis, @NonNull UUID world ) throws ProcessingException {
 		try {
 
 			jedis.hgetAll( RedisKeys.WORLD_REPO.toString() ).entrySet()
 					.stream()
-					.filter( row -> row.getValue().equals( serverId ) )
+					.filter( row -> row.getValue().equals( world.toString() ) )
 					.forEach( row -> jedis.hdel( RedisKeys.WORLD_REPO.toString(), row.getKey() ) );
 
 		} catch ( Exception ex ) {
-			throw new ProcessingException( "There was an error removing server \"" + serverId + "\"!", ex );
+			throw new ProcessingException( "There was an error removing server \"" + world + "\"!", ex );
 		}
 	}
 

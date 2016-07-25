@@ -194,6 +194,10 @@ public class PlayerListener implements Listener, Closeable {
 							}
 							event.getPlayer().teleport( world.getSpawnLocation(), PlayerTeleportEvent.TeleportCause.PLUGIN );
 							System.out.println( "Using world " + world.getName() + " for " + event.getPlayer().getName() + "|| Spawn location: " + world.getSpawnLocation() );
+							core.playerJoined( event.getPlayer().getUniqueId(), playerUuid );
+
+							// TODO implement events
+
 							break;
 						} catch ( WorldDoesNotExistException ex ) {
 							event.getPlayer().sendMessage( "We were unable to load the requested world, we're sending you to yours." );
@@ -205,9 +209,6 @@ public class PlayerListener implements Listener, Closeable {
 					return null;
 
 				} );
-
-				// Call the player joined on core for whatever core wants to do.
-				core.playerJoined( event.getPlayer().getUniqueId() );
 
 			} );
 
@@ -245,9 +246,7 @@ public class PlayerListener implements Listener, Closeable {
 		//core.getInventoryHandler().doPlayerUnload( event.getPlayer() );
 
 		// Call core playerExit for whatever core wants it to.
-		core.getOriginObject().getServer().getScheduler().runTaskAsynchronously( core.getOriginObject(), () -> {
-			core.playerExited( event.getPlayer().getUniqueId() );
-		} );
+		core.getOriginObject().getServer().getScheduler().runTaskAsynchronously( core.getOriginObject(), () -> core.playerExited( event.getPlayer().getUniqueId(), WorldDimension.getUUIDOfWorld( world ) ) );
 
 	}
 

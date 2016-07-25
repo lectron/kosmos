@@ -149,20 +149,20 @@ public class MinecraftlyBukkitCore extends MinecraftlyCore<MinecraftlyBukkitPlug
 	}
 
 	@Override
-	public void playerJoined( UUID uniqueId ) {
+	public void playerJoined( UUID uniqueId, UUID worldUUID ) {
 		try ( Jedis jedis = getJedis() ) {
 			getServerManager().incrServerPlayerCount( jedis, identify(), 1 );
-			getPlayerManager().setServer( jedis, uniqueId, identify() );
+			getPlayerManager().setServer( jedis, uniqueId, worldUUID );
 		} catch ( NoJedisException | ProcessingException e ) {
 			getLogger().log( Level.WARNING, "There was an error when " + uniqueId + " joined..", e );
 		}
 	}
 
 	@Override
-	public void playerExited( UUID uniqueId ) {
+	public void playerExited( UUID uniqueId, UUID worldUUID ) {
 		try ( Jedis jedis = getJedis() ) {
 			getServerManager().incrServerPlayerCount( jedis, identify(), -1 );
-			getPlayerManager().setServer( jedis, uniqueId, identify() );
+			getPlayerManager().setServer( jedis, uniqueId, null );
 		} catch ( NoJedisException | ProcessingException e ) {
 			getLogger().log( Level.WARNING, "There was an error when " + uniqueId + " joined..", e );
 		}

@@ -467,11 +467,11 @@ public abstract class MinecraftlyCore<P> implements Closeable {
 
 	public abstract void runTask( @NonNull RunnableData runnable );
 
-	public void playerJoined( @NonNull UUID uniqueId ) {
+	public void playerJoined( @NonNull UUID uniqueId, @NonNull UUID worldUUID ) {
 
 	}
 
-	public void playerExited( @NonNull UUID uniqueId ) {
+	public void playerExited( @NonNull UUID uniqueId, @NonNull UUID worldUUID ) {
 
 	}
 
