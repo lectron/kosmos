@@ -11,6 +11,7 @@ import com.minecraftly.core.MinecraftlyUtil;
 import com.minecraftly.core.RedisKeys;
 import com.minecraftly.core.configuration.MinecraftlyConfiguration;
 import com.minecraftly.core.event.MCLYEvent;
+import com.minecraftly.core.event.events.MessageEvent;
 import com.minecraftly.core.manager.exceptions.NoJedisException;
 import com.minecraftly.core.manager.exceptions.ProcessingException;
 import com.minecraftly.core.runnables.RunnableData;
@@ -51,6 +52,14 @@ public class MinecraftlyBungeeCore extends MinecraftlyCore<MinecraftlyBungeePlug
 
 	@Override
 	public <T extends MCLYEvent> T callEvent( T event ) {
+
+		if( event instanceof MessageEvent ) {
+			if ( "suicide".equalsIgnoreCase( ((MessageEvent) event).getChannel() ) ) {
+				ProxyServer.getInstance().stop( "Stopped by redis network suicide message!" );
+				return event;
+			}
+		}
+
 		return getOriginObject().getProxy().getPluginManager().callEvent( new MinecraftlyEvent<>( event ) ).getEvent();
 	}
 

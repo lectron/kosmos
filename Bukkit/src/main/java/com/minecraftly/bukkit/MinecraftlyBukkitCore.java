@@ -98,6 +98,8 @@ public class MinecraftlyBukkitCore extends MinecraftlyCore<MinecraftlyBukkitPlug
 
 				}
 
+			} else if ( "suicide".equalsIgnoreCase( channel ) ) {
+				Bukkit.shutdown();
 			}
 
 		}
