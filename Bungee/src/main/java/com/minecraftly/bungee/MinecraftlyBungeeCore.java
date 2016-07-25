@@ -54,7 +54,8 @@ public class MinecraftlyBungeeCore extends MinecraftlyCore<MinecraftlyBungeePlug
 	public <T extends MCLYEvent> T callEvent( T event ) {
 
 		if( event instanceof MessageEvent ) {
-			if ( "suicide".equalsIgnoreCase( ((MessageEvent) event).getChannel() ) ) {
+			MessageEvent messageEvent = (MessageEvent) event;
+			if ( RedisKeys.IDENTIFY.toString().equalsIgnoreCase( messageEvent.getChannel() ) && "suicide".equalsIgnoreCase( messageEvent.getMessage() ) ) {
 				ProxyServer.getInstance().stop( "Stopped by redis network suicide message!" );
 				return event;
 			}
