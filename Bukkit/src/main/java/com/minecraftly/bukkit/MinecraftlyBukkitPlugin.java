@@ -98,6 +98,9 @@ public class MinecraftlyBukkitPlugin extends JavaPlugin {
 		// List
 		setExecutors( "list", new ListCommand( core ) );
 
+		// List
+		setExecutors( "world", new WorldCommand( core ) );
+
 		// More??
 
 	}

@@ -26,8 +26,13 @@ commands:
     description: A debugging command.
     aliases: [mbdebug]
 
+  ## List command.
   list:
     description: Get a list of currently online players in the current world.
+
+  ## World command.
+  world:
+    description: Go to the specified world.
 
   ## Spawn commands.
   spawn:
