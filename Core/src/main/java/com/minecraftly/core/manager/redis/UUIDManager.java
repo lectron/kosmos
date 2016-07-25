@@ -34,7 +34,7 @@ public class UUIDManager {
 	 */
 	public boolean hasUuid( @NonNull Jedis jedis, @NonNull String playerName ) throws ProcessingException {
 		try {
-			return jedis.hexists( RedisKeys.UUID_REPO.toString(), playerName );
+			return jedis.hexists( RedisKeys.UUID_REPO.toString(), playerName.toLowerCase() );
 		} catch ( Exception ex ) {
 			throw new ProcessingException( "There was an error checking if \"" + playerName + "\" has a UUID!", ex );
 		}
