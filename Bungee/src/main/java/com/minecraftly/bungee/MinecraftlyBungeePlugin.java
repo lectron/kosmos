@@ -6,6 +6,7 @@
 package com.minecraftly.bungee;
 
 import com.minecraftly.bungee.commands.DebugCommand;
+import com.minecraftly.bungee.commands.ServerCommand;
 import com.minecraftly.bungee.commands.WorldCommand;
 import com.minecraftly.bungee.connection.ReconnectionHandler;
 import com.minecraftly.bungee.listeners.DebugListener;
@@ -37,6 +38,7 @@ public class MinecraftlyBungeePlugin extends Plugin {
 		}
 
 		getProxy().getPluginManager().registerCommand( this, new WorldCommand( core ) );
+		getProxy().getPluginManager().registerCommand( this, new ServerCommand( core ) );
 
 		getProxy().getPluginManager().registerCommand( this, new DebugCommand( core ) );
 		getProxy().getPluginManager().registerListener( this, new DebugListener( core ) );
