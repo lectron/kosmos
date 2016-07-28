@@ -19,6 +19,7 @@ import net.md_5.bungee.api.plugin.Command;
 import net.md_5.bungee.api.plugin.TabExecutor;
 
 import java.util.Collections;
+import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
@@ -66,9 +67,21 @@ public class ServerCommand extends Command implements TabExecutor {
 
 			}
 
+			// Append world to the list
+			TextComponent serverTextComponent = new TextComponent( ", world" );
+			serverTextComponent.setClickEvent( new ClickEvent( ClickEvent.Action.RUN_COMMAND, "/server world" ) );
+			serverList.addExtra( serverTextComponent );
+
 			player.sendMessage( serverList );
 
 		} else {
+
+			if( args[0].equalsIgnoreCase( "world" ) ) {
+
+				ProxyServer.getInstance().getPluginManager().dispatchCommand( sender, "world " + player.getUniqueId() );
+				return;
+
+			}
 
 			ServerInfo server = servers.get( args[0] );
 
@@ -77,13 +90,7 @@ public class ServerCommand extends Command implements TabExecutor {
 			} else if ( !server.canAccess( player ) ) {
 				player.sendMessage( ProxyServer.getInstance().getTranslation( "no_server_permission" ) );
 			} else {
-
-				if ( !args[0].equalsIgnoreCase( "world" ) ) {
-					player.connect( server );
-				} else {
-					ProxyServer.getInstance().getPluginManager().dispatchCommand( sender, "world " + player.getUniqueId() );
-				}
-
+				player.connect( server );
 			}
 
 		}
@@ -96,10 +103,13 @@ public class ServerCommand extends Command implements TabExecutor {
 		if ( args.length > 1 ) return Collections.emptyList();
 
 		final String lower = args.length == 0 ? "" : args[0].toLowerCase();
-		return ProxyServer.getInstance().getServers().values().stream()
+		List<String> ret = ProxyServer.getInstance().getServers().values().stream()
 				.filter( serverInfo -> serverInfo.getName().toLowerCase().startsWith( lower ) && serverInfo.canAccess( sender ) )
 				.map( ServerInfo::getName )
 				.collect( Collectors.toList() );
+		ret.add( "world" );
+		
+		return ret;
 
 	}
 
