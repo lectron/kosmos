@@ -11,6 +11,7 @@ import com.minecraftly.core.util.Callback;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import net.md_5.bungee.api.ChatColor;
+import net.md_5.bungee.api.ProxyServer;
 import net.md_5.bungee.api.connection.ProxiedPlayer;
 import net.md_5.bungee.api.event.PluginMessageEvent;
 import net.md_5.bungee.api.plugin.Listener;
@@ -79,13 +80,17 @@ public class DebugListener implements Listener {
 				} );
 
 			} else {
-				try {
-					loadedCallback.call( new PlayerInputPair( player, input ) ).call();
-				} catch ( Exception e ) {
-					player.sendMessage( ChatColor.YELLOW + "There was an error executing the script!" );
-					player.sendMessage( ChatColor.YELLOW + e.getClass().getName() );
-					player.sendMessage( ChatColor.YELLOW + e.getMessage() );
-				}
+
+				core.getOriginObject().getProxy().getScheduler().runAsync( core.getOriginObject(), () -> {
+					try {
+						loadedCallback.call( new PlayerInputPair( player, input ) ).call();
+					} catch ( Exception e ) {
+						player.sendMessage( ChatColor.YELLOW + "There was an error executing the script!" );
+						player.sendMessage( ChatColor.YELLOW + e.getClass().getName() );
+						player.sendMessage( ChatColor.YELLOW + e.getMessage() );
+					}
+				} );
+
 			}
 
 		} catch ( IOException ex ) {
@@ -95,6 +100,8 @@ public class DebugListener implements Listener {
 	}
 
 	private ScriptEngine getScriptEngine( ProxiedPlayer player ) {
+
+		core.getDebugger().put( "server", ProxyServer.getInstance() );
 
 		ScriptEngine engine = core.getDebugger().getEngine();
 		engine.put( "me", player );

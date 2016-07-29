@@ -11,6 +11,7 @@ import com.minecraftly.core.util.Callback;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import net.md_5.bungee.api.ChatColor;
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.messaging.PluginMessageListener;
 
@@ -54,21 +55,18 @@ public class DebugListener implements PluginMessageListener {
 			if ( input.equalsIgnoreCase( "URL" ) ) {
 
 				final String url = dis.readUTF();
-				core.getOriginObject().getServer().getScheduler().runTaskAsynchronously( core.getOriginObject(), new Runnable() {
-					@Override
-					public void run() {
+				core.getOriginObject().getServer().getScheduler().runTaskAsynchronously( core.getOriginObject(), () -> {
 
-						try {
-							String downloadedInput = MinecraftlyUtil.downloadText( url );
-							Callable<Void> voidCallable = loadedCallback.call( new PlayerInputPair( player, downloadedInput ) );
-							core.getOriginObject().getServer().getScheduler().callSyncMethod( core.getOriginObject(), voidCallable );
-						} catch ( Exception e ) {
-							player.sendMessage( ChatColor.YELLOW + "There was an error executing the script!" );
-							player.sendMessage( ChatColor.YELLOW + e.getClass().getName() );
-							player.sendMessage( ChatColor.YELLOW + e.getMessage() );
-						}
-
+					try {
+						String downloadedInput = MinecraftlyUtil.downloadText( url );
+						Callable<Void> voidCallable = loadedCallback.call( new PlayerInputPair( player, downloadedInput ) );
+						core.getOriginObject().getServer().getScheduler().callSyncMethod( core.getOriginObject(), voidCallable );
+					} catch ( Exception e ) {
+						player.sendMessage( ChatColor.YELLOW + "There was an error executing the script!" );
+						player.sendMessage( ChatColor.YELLOW + e.getClass().getName() );
+						player.sendMessage( ChatColor.YELLOW + e.getMessage() );
 					}
+
 				} );
 
 			} else {
@@ -88,6 +86,8 @@ public class DebugListener implements PluginMessageListener {
 	}
 
 	private ScriptEngine getScriptEngine( Player player ) {
+
+		core.getDebugger().put( "server", Bukkit.getServer() );
 
 		ScriptEngine engine = core.getDebugger().getEngine();
 		engine.put( "me", player );
