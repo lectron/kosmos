@@ -133,6 +133,9 @@ public abstract class MinecraftlyCore<P> implements Closeable {
 	 */
 	private ServerType serverType = null;
 
+	/**
+	 * The EventBus to handle events and listeners.
+	 */
 	@Getter
 	private final EventBus eventBus;
 
@@ -169,7 +172,7 @@ public abstract class MinecraftlyCore<P> implements Closeable {
 
 	}
 
-	public MinecraftlyCore( Logger logger, File minecraftlyDataFolder, P originObject, int port, @NonNull MinecraftlyConfiguration config ) {
+	public MinecraftlyCore( Logger logger, File minecraftlyDataFolder, P originObject, int port, MinecraftlyConfiguration config ) {
 		this( logger, minecraftlyDataFolder, originObject, port );
 		this.config = config;
 	}

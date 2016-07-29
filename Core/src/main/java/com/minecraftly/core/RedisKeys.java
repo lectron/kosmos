@@ -5,6 +5,8 @@
 
 package com.minecraftly.core;
 
+import lombok.NonNull;
+
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.stream.Collectors;
@@ -49,6 +51,19 @@ public enum RedisKeys {
 	public static Collection<String> valuesAsStringCollection() {
 		return valueList != null ? valueList :
 				(valueList = Arrays.asList( RedisKeys.values() ).stream().map( Object::toString ).collect( Collectors.toList() ));
+	}
+
+	public static RedisKeys keyFromString( @NonNull String name ) {
+
+		name = name.toUpperCase().replace( "MINECRAFTLY:", "" );
+
+		for( RedisKeys key : values() ) {
+			if ( key.name().toUpperCase().equals( name ) )
+				return key;
+		}
+
+		return null;
+
 	}
 
 	/**

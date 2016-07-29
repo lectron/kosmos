@@ -8,14 +8,10 @@ package com.minecraftly.bukkit;
 import com.google.gson.GsonBuilder;
 import com.minecraftly.bukkit.configuration.LocationAdapter;
 import com.minecraftly.bukkit.connection.ReconnectionHandler;
-import com.minecraftly.bukkit.event.MinecraftlyEvent;
+import com.minecraftly.bukkit.listeners.MessageListener;
 import com.minecraftly.bukkit.world.WorldHandler;
 import com.minecraftly.bukkit.world.data.local.PlayerHandler;
 import com.minecraftly.core.MinecraftlyCore;
-import com.minecraftly.core.RedisKeys;
-import com.minecraftly.core.configuration.MinecraftlyConfiguration;
-import com.minecraftly.core.event.MCLYEvent;
-import com.minecraftly.core.event.MessageEvent;
 import com.minecraftly.core.manager.exceptions.NoJedisException;
 import com.minecraftly.core.manager.exceptions.ProcessingException;
 import com.minecraftly.core.runnables.RunnableData;
@@ -23,7 +19,6 @@ import lombok.Getter;
 import lombok.NonNull;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
-import org.bukkit.World;
 import org.bukkit.scheduler.BukkitScheduler;
 import redis.clients.jedis.Jedis;
 
@@ -48,10 +43,9 @@ public class MinecraftlyBukkitCore extends MinecraftlyCore<MinecraftlyBukkitPlug
 
 	public MinecraftlyBukkitCore( @NonNull MinecraftlyBukkitPlugin plugin ) {
 		super( plugin.getLogger(), plugin.getDataFolder(), plugin, Bukkit.getPort() );
-	}
 
-	public MinecraftlyBukkitCore( @NonNull MinecraftlyBukkitPlugin plugin, MinecraftlyConfiguration configuration ) {
-		super( plugin.getLogger(), plugin.getDataFolder(), plugin, Bukkit.getPort(), configuration );
+		getEventBus().register( new MessageListener( this ) );
+
 	}
 
 	@Override
@@ -64,47 +58,6 @@ public class MinecraftlyBukkitCore extends MinecraftlyCore<MinecraftlyBukkitPlug
 		} catch ( IOException e ) {
 			getLogger().log( Level.SEVERE, "There was an error closing the player handler!", e );
 		}
-
-	}
-
-	@Override
-	public <T extends MCLYEvent> T callEvent( T event ) {
-
-		MinecraftlyEvent<T> event1 = new MinecraftlyEvent<T>( event );
-		getOriginObject().getServer().getPluginManager().callEvent( event1 );
-		event1.postCall();
-
-		// TODO load worlds better.
-		if ( event instanceof MessageEvent ) {
-			MessageEvent messageEvent = ((MessageEvent) event);
-
-			String[] message = messageEvent.getMessage().split( "\\000" );
-			String channel = messageEvent.getChannel().trim();
-
-			if ( RedisKeys.WORLD_REPO.toString().equalsIgnoreCase( channel ) && message.length == 4 && message[0].equalsIgnoreCase( "WORLD" ) && message[1].equalsIgnoreCase( "LOAD" ) ) {
-
-				String serverId = message[2];
-
-				if ( serverId.equals( identify() ) ) {
-
-					UUID uuid = UUID.fromString( message[3] );
-
-					getOriginObject().getServer().getScheduler().callSyncMethod( getOriginObject(), () -> {
-
-						getWorldHandler().loadWorld( uuid.toString(), World.Environment.NORMAL );
-						return null;
-
-					} );
-
-				}
-
-			} else if ( RedisKeys.IDENTIFY.toString().equalsIgnoreCase( channel ) && "suicide".equalsIgnoreCase( messageEvent.getMessage() ) ) {
-				Bukkit.shutdown();
-			}
-
-		}
-
-		return event1.getEvent();
 
 	}
 

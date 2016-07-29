@@ -5,18 +5,14 @@
 
 package com.minecraftly.bungee;
 
-import com.minecraftly.bungee.event.MinecraftlyEvent;
+import com.minecraftly.bungee.listeners.MessageListener;
 import com.minecraftly.core.MinecraftlyCore;
 import com.minecraftly.core.MinecraftlyUtil;
 import com.minecraftly.core.RedisKeys;
-import com.minecraftly.core.configuration.MinecraftlyConfiguration;
-import com.minecraftly.core.event.MCLYEvent;
-import com.minecraftly.core.event.MessageEvent;
 import com.minecraftly.core.manager.exceptions.NoJedisException;
 import com.minecraftly.core.manager.exceptions.ProcessingException;
 import com.minecraftly.core.runnables.RunnableData;
 import lombok.NonNull;
-import lombok.ToString;
 import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.ProxyServer;
 import net.md_5.bungee.api.config.ServerInfo;
@@ -34,34 +30,18 @@ import java.util.logging.Level;
 /**
  * @author Cory Redmond <ace@ac3-servers.eu>
  */
-@ToString( of = { "" })
 public class MinecraftlyBungeeCore extends MinecraftlyCore<MinecraftlyBungeePlugin> {
 
 	public MinecraftlyBungeeCore( @NonNull MinecraftlyBungeePlugin originObject ) {
 		super( originObject.getLogger(), originObject.getDataFolder(), originObject, 0 );
-	}
 
-	public MinecraftlyBungeeCore( MinecraftlyBungeePlugin originObject, @NonNull MinecraftlyConfiguration config ) {
-		super( originObject.getLogger(), originObject.getDataFolder(), originObject, 0, config );
+		getEventBus().register( new MessageListener( this ) );
+
 	}
 
 	@Override
 	public void shutdown() {
 		// TODO
-	}
-
-	@Override
-	public <T extends MCLYEvent> T callEvent( T event ) {
-
-		if( event instanceof MessageEvent ) {
-			MessageEvent messageEvent = (MessageEvent) event;
-			if ( RedisKeys.IDENTIFY.toString().equalsIgnoreCase( messageEvent.getChannel() ) && "suicide".equalsIgnoreCase( messageEvent.getMessage() ) ) {
-				ProxyServer.getInstance().stop( "Stopped by redis network suicide message!" );
-				return event;
-			}
-		}
-
-		return getOriginObject().getProxy().getPluginManager().callEvent( new MinecraftlyEvent<>( event ) ).getEvent();
 	}
 
 	@Override

@@ -1,0 +1,83 @@
+/*
+ * See provided LICENCE.txt in the project root.
+ * Licenced to Minecraftly under GNU-GPLv3.
+ */
+
+/*
+ * See provided LICENCE.txt in the project root.
+ * Licenced to Minecraftly under GNU-GPLv3.
+ */
+
+package com.minecraftly.bukkit.listeners;
+
+import com.minecraftly.bukkit.MinecraftlyBukkitCore;
+import com.minecraftly.core.RedisKeys;
+import com.minecraftly.core.event.MessageEvent;
+import com.minecraftly.core.eventbus.EventHandler;
+import com.minecraftly.core.eventbus.Listener;
+import lombok.RequiredArgsConstructor;
+import org.bukkit.Bukkit;
+import org.bukkit.World;
+
+import java.util.UUID;
+
+/**
+ * @author Cory Redmond &lt;ace@ac3-servers.eu&gt;
+ */
+@RequiredArgsConstructor
+public class MessageListener implements Listener {
+
+	private final MinecraftlyBukkitCore core;
+
+	@EventHandler
+	public final void onPubSubMessage( MessageEvent event ) {
+
+		RedisKeys key = RedisKeys.keyFromString( event.getChannel() );
+		if( key == null ) return;
+
+		switch ( key ) {
+
+			case IDENTIFY:
+				doIdentify( event.getMessage() );
+				break;
+
+			case WORLD_REPO:
+				doWorldRepo( event.getMessage().split( "\\000" ) );
+				break;
+
+			default:
+				break;
+
+		}
+
+	}
+
+	private void doWorldRepo( String[] messages ) {
+
+		if( messages.length == 4 && messages[0].equalsIgnoreCase( "WORLD" ) && messages[1].equalsIgnoreCase( "LOAD" ) ) {
+			String serverId = messages[2];
+
+			if ( serverId.equals( core.identify() ) ) {
+
+				UUID uuid = UUID.fromString( messages[3] );
+
+				core.getOriginObject().getServer().getScheduler().callSyncMethod( core.getOriginObject(), () -> {
+					core.getWorldHandler().loadWorld( uuid.toString(), World.Environment.NORMAL );
+					return null;
+				} );
+
+			}
+		}
+
+	}
+
+	private void doIdentify( String message ) {
+
+		if( "suicide".equalsIgnoreCase(message)) {
+			Bukkit.shutdown();
+			return;
+		}
+
+	}
+
+}
