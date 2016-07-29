@@ -24,11 +24,11 @@ public class DebuggerEngine<P> {
 	private final ScriptEngineManager manager;
 
 	public DebuggerEngine( MinecraftlyCore<P> core ) {
+
 		this.core = core;
 
 		this.manager = new ScriptEngineManager();
 		this.manager.put( "core", core );
-		this.manager.put( "plugin", core.getOriginObject() );
 
 	}
 
@@ -43,10 +43,11 @@ public class DebuggerEngine<P> {
 	public ScriptEngine setupEngine( ScriptEngine engine ) {
 
 		try {
+			this.manager.put( "plugin", core.getOriginObject() );
 			engine.eval( "load('nashorn:mozilla_compat.js');" );
 			engine.eval( "importPackage( 'com.minecraftly.core' );" );
 		} catch ( ScriptException e ) {
-			core.getLogger().log( Level.WARNING, "Error seting up the debug script engine!", e );
+			core.getLogger().log( Level.WARNING, "Error setting up the debug script engine!", e );
 		}
 
 		return engine;
