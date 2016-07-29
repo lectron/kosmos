@@ -3,9 +3,9 @@
  * Licenced to Minecraftly under GNU-GPLv3.
  */
 
-package com.minecraftly.core.event.events;
+package com.minecraftly.core.event;
 
-import com.minecraftly.core.event.MCLYEvent;
+import com.minecraftly.core.eventbus.Event;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.RequiredArgsConstructor;
@@ -18,7 +18,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 @Data
 @EqualsAndHashCode( callSuper = true )
-public class MessageEvent extends MCLYEvent {
+public class MessageEvent extends Event {
 
 	/**
 	 * The channel of which the message was sent.

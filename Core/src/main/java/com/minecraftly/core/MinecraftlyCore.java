@@ -10,8 +10,9 @@ import com.minecraftly.core.configuration.IPAddressConfiguration;
 import com.minecraftly.core.configuration.MinecraftlyConfiguration;
 import com.minecraftly.core.configuration.RedisConfiguration;
 import com.minecraftly.core.debugger.DebuggerEngine;
-import com.minecraftly.core.event.MCLYEvent;
-import com.minecraftly.core.event.events.LoadCompleteEvent;
+import com.minecraftly.core.event.LoadCompleteEvent;
+import com.minecraftly.core.eventbus.Event;
+import com.minecraftly.core.eventbus.EventBus;
 import com.minecraftly.core.manager.exceptions.NoJedisException;
 import com.minecraftly.core.manager.exceptions.ProcessingException;
 import com.minecraftly.core.manager.messagelistener.RedisMessageListener;
@@ -132,6 +133,9 @@ public abstract class MinecraftlyCore<P> implements Closeable {
 	 */
 	private ServerType serverType = null;
 
+	@Getter
+	private final EventBus eventBus;
+
 	/**
 	 * The heartbeat task.
 	 */
@@ -140,6 +144,7 @@ public abstract class MinecraftlyCore<P> implements Closeable {
 	public MinecraftlyCore( @NonNull Logger parentLogger, @NonNull File minecraftlyDataFolder, @NonNull P originObject, int port ) {
 
 		this.logger = new MinecraftlyLogger( this, parentLogger );
+		this.eventBus = new EventBus( logger );
 		this.minecraftlyDataFolder = minecraftlyDataFolder;
 		this.originObject = originObject;
 		this.port = port;
@@ -427,7 +432,10 @@ public abstract class MinecraftlyCore<P> implements Closeable {
 	 * @param <T>   the wrapped event, must extend MCLYEvent
 	 * @return the called event.
 	 */
-	public abstract <T extends MCLYEvent> T callEvent( @NonNull T event );
+	public final <T extends Event> T callEvent( @NonNull T event ) {
+		getEventBus().post( event );
+		return event;
+	}
 
 	/**
 	 * Allows identification of what the type of server is.. Proxy or slave.

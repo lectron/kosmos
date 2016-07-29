@@ -11,7 +11,7 @@ import com.minecraftly.core.MinecraftlyUtil;
 import com.minecraftly.core.RedisKeys;
 import com.minecraftly.core.configuration.MinecraftlyConfiguration;
 import com.minecraftly.core.event.MCLYEvent;
-import com.minecraftly.core.event.events.MessageEvent;
+import com.minecraftly.core.event.MessageEvent;
 import com.minecraftly.core.manager.exceptions.NoJedisException;
 import com.minecraftly.core.manager.exceptions.ProcessingException;
 import com.minecraftly.core.runnables.RunnableData;

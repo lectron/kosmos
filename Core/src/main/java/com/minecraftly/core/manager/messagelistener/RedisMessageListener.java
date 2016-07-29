@@ -6,7 +6,7 @@
 package com.minecraftly.core.manager.messagelistener;
 
 import com.minecraftly.core.MinecraftlyCore;
-import com.minecraftly.core.event.events.MessageEvent;
+import com.minecraftly.core.event.MessageEvent;
 import lombok.RequiredArgsConstructor;
 import redis.clients.jedis.JedisPubSub;
 
