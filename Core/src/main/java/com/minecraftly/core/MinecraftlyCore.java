@@ -77,26 +77,31 @@ public abstract class MinecraftlyCore<P> implements Closeable {
 	 */
 	@Getter
 	private final int port;
+
 	/**
 	 * A sharable messageListener.
 	 */
 	@Getter
 	private final RedisMessageListener messageListener = new RedisMessageListener( this );
+
 	/**
 	 * The debugger engine.
 	 */
 	@Getter
 	private final DebuggerEngine<P> debugger = new DebuggerEngine<>( this );
+
 	/**
 	 * The manager of the world&lt;-&gt;server ownership.
 	 */
 	@Getter
 	private WorldManager worldManager;
+
 	/**
 	 * The manager of the player-world-server ownership.
 	 */
 	@Getter
 	private ServerManager serverManager;
+
 	/**
 	 * The manager of player&lt;-&gt;uuid relationships.
 	 */
