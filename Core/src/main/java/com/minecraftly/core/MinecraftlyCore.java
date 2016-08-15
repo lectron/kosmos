@@ -3,6 +3,11 @@
  * Licenced to Minecraftly under GNU-GPLv3.
  */
 
+/*
+ * See provided LICENCE.txt in the project root.
+ * Licenced to Minecraftly under GNU-GPLv3.
+ */
+
 package com.minecraftly.core;
 
 import com.google.gson.GsonBuilder;
@@ -20,6 +25,7 @@ import com.minecraftly.core.manager.redis.PlayerManager;
 import com.minecraftly.core.manager.redis.ServerManager;
 import com.minecraftly.core.manager.redis.UUIDManager;
 import com.minecraftly.core.manager.redis.WorldManager;
+import com.minecraftly.core.runnables.CloseTask;
 import com.minecraftly.core.runnables.HeartbeatTask;
 import com.minecraftly.core.runnables.RunnableData;
 import com.minecraftly.core.runnables.SubscribeTask;
@@ -90,55 +96,46 @@ public abstract class MinecraftlyCore<P> implements Closeable {
 	 */
 	@Getter
 	private final DebuggerEngine<P> debugger = new DebuggerEngine<>( this );
-
+	/**
+	 * The EventBus to handle events and listeners.
+	 */
+	@Getter
+	private final EventBus eventBus;
 	/**
 	 * The manager of the world&lt;-&gt;server ownership.
 	 */
 	@Getter
 	private WorldManager worldManager;
-
 	/**
 	 * The manager of the player-world-server ownership.
 	 */
 	@Getter
 	private ServerManager serverManager;
-
 	/**
 	 * The manager of player&lt;-&gt;uuid relationships.
 	 */
 	@Getter
 	private UUIDManager UUIDManager;
-
 	/**
 	 * The manager of players and their servers.
 	 */
 	@Getter
 	private PlayerManager playerManager;
-
 	/**
 	 * The configuration for the server.
 	 */
 	@Getter
 	@Setter
 	private MinecraftlyConfiguration config = null;
-
 	/**
 	 * The jedispool for redis comms.
 	 */
 	@Getter
 	private JedisPool jedisPool = null;
-
 	/**
 	 * The contained serverType.
 	 */
 	private ServerType serverType = null;
-
-	/**
-	 * The EventBus to handle events and listeners.
-	 */
-	@Getter
-	private final EventBus eventBus;
-
 	/**
 	 * The heartbeat task.
 	 */
@@ -281,11 +278,23 @@ public abstract class MinecraftlyCore<P> implements Closeable {
 
 	/**
 	 * Shut down everything including redis comms.
+	 * Defaults to {#close( boolean )} with now true.
 	 *
 	 * @throws IOException
 	 */
 	@Override
 	public final void close() throws IOException {
+		close( true );
+	}
+
+	/**
+	 * Shut down everything including redis comms.
+	 * Defaults to {#close( boolean )} with now true.
+	 *
+	 * @param now I true shut down immediately.
+	 * @throws IOException
+	 */
+	public final void close( boolean now ) throws IOException {
 
 		logger.log( Level.INFO, "Minecraftly shutting down.." );
 
@@ -325,21 +334,15 @@ public abstract class MinecraftlyCore<P> implements Closeable {
 		if ( heartBeatTask != null )
 			heartBeatTask.close();
 
-		/*
-		 * TODO:
-		 * Enable this;
-		 * Delay shutting down of the server either by ASM or maybe AspectJ.
-		 *
-		runTask( new CloseTask( () -> {
+		if( now ) {
 			close1();
-			return null;
-		} ) );
-		*/
-
-		logger.log( Level.FINE, "Close call completed, waiting for close1." );
-
-
-		close1();
+		} else {
+			runTask( new CloseTask( () -> {
+				close1();
+				return null;
+			} ) );
+			logger.log( Level.FINE, "Close call completed, waiting for close1." );
+		}
 
 	}
 
