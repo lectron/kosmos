@@ -3,6 +3,11 @@
  * Licenced to Minecraftly under GNU-GPLv3.
  */
 
+/*
+ * See provided LICENCE.txt in the project root.
+ * Licenced to Minecraftly under GNU-GPLv3.
+ */
+
 package com.minecraftly.bukkit.world.data.local;
 
 import com.minecraftly.bukkit.MinecraftlyBukkitCore;
@@ -169,8 +174,12 @@ public class PlayerHandler implements Listener, Closeable {
 
 	}
 
-	@EventHandler( priority = EventPriority.HIGHEST)
-	private void onPlayerJoin( PlayerJoinEvent event ) {
+	/**
+	 * Called from {@see PlayerListener}
+	 *
+	 * @param event
+	 */
+	public void onPlayerJoin( PlayerJoinEvent event ) {
 		WorldData worldData = getWorldData( WorldDimension.getUUIDOfWorld( event.getPlayer().getWorld() ) );
 		userJoinedWorld( event.getPlayer(), event.getPlayer().getWorld(), worldData );
 	}

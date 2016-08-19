@@ -3,6 +3,11 @@
  * Licenced to Minecraftly under GNU-GPLv3.
  */
 
+/*
+ * See provided LICENCE.txt in the project root.
+ * Licenced to Minecraftly under GNU-GPLv3.
+ */
+
 package com.minecraftly.bukkit.listeners;
 
 import com.minecraftly.bukkit.MinecraftlyBukkitCore;
@@ -42,11 +47,7 @@ import java.util.logging.Level;
 public class PlayerListener implements Listener, Closeable {
 
 	private final MinecraftlyBukkitCore core;
-
-	private HashMap<UUID, World> playerDeathWorlds = new HashMap<>();
-
 	private final ConcurrentLinkedQueue<String> worldsToBeRemoved = new ConcurrentLinkedQueue<>();
-
 	private final BukkitRunnable worldUnloader = new BukkitRunnable() {
 
 		@Override
@@ -65,6 +66,7 @@ public class PlayerListener implements Listener, Closeable {
 		}
 
 	};
+	private HashMap<UUID, World> playerDeathWorlds = new HashMap<>();
 
 	/**
 	 * Deal with player login, storing the Vhost to {@link com.minecraftly.bukkit.connection.ReconnectionHandler}
@@ -196,7 +198,7 @@ public class PlayerListener implements Listener, Closeable {
 							System.out.println( "Using world " + world.getName() + " for " + event.getPlayer().getName() + "|| Spawn location: " + world.getSpawnLocation() );
 							core.playerJoined( event.getPlayer().getUniqueId(), playerUuid );
 
-							// TODO implement events
+							core.getPlayerHandler().onPlayerJoin( event );
 
 							break;
 						} catch ( WorldDoesNotExistException ex ) {
