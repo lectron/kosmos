@@ -3,10 +3,19 @@
  * Licenced to Minecraftly under GNU-GPLv3.
  */
 
+/*
+ * See provided LICENCE.txt in the project root.
+ * Licenced to Minecraftly under GNU-GPLv3.
+ */
+
+/*
+ * See provided LICENCE.txt in the project root.
+ * Licenced to Minecraftly under GNU-GPLv3.
+ */
+
 package com.minecraftly.core.configuration;
 
 import com.minecraftly.core.MinecraftlyCore;
-import com.minecraftly.core.event.MCLYEvent;
 import com.minecraftly.core.runnables.RunnableData;
 import org.junit.Test;
 
@@ -24,11 +33,6 @@ public class ConfigurationExample {
 		MinecraftlyCore<ConfigurationExample> core = new MinecraftlyCore<ConfigurationExample>( Logger.getGlobal(), new File( "." ), this, 5555 ) {
 			@Override
 			public void shutdown() {
-				throw new IllegalStateException();
-			}
-
-			@Override
-			public <T extends MCLYEvent> T callEvent( T event ) {
 				throw new IllegalStateException();
 			}
 
