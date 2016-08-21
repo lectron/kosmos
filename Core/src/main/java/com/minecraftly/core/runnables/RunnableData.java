@@ -3,6 +3,11 @@
  * Licenced to Minecraftly under GNU-GPLv3.
  */
 
+/*
+ * See provided LICENCE.txt in the project root.
+ * Licenced to Minecraftly under GNU-GPLv3.
+ */
+
 package com.minecraftly.core.runnables;
 
 import com.minecraftly.core.MinecraftlyUtil;
@@ -13,7 +18,7 @@ import java.util.concurrent.TimeUnit;
 /**
  * A class that allows for cross platform support of scheduling tasks.
  *
- * @author Cory Redmond <ace@ac3-servers.eu>
+ * @author Cory Redmond &lt;ace@ac3-servers.eu&gt;
  */
 public abstract class RunnableData implements Runnable {
 

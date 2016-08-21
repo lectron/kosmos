@@ -3,6 +3,11 @@
  * Licenced to Minecraftly under GNU-GPLv3.
  */
 
+/*
+ * See provided LICENCE.txt in the project root.
+ * Licenced to Minecraftly under GNU-GPLv3.
+ */
+
 package com.minecraftly.bukkit.connection;
 
 import com.minecraftly.bukkit.MinecraftlyBukkitCore;
@@ -21,7 +26,7 @@ import java.util.logging.Level;
 /**
  * Deals with the vhosts essentially.
  *
- * @author Cory Redmond <ace@ac3-servers.eu>
+ * @author Cory Redmond &lt;ace@ac3-servers.eu&gt;
  */
 @RequiredArgsConstructor
 public class ReconnectionHandler {

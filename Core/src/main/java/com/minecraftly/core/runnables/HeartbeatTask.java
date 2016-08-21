@@ -3,6 +3,11 @@
  * Licenced to Minecraftly under GNU-GPLv3.
  */
 
+/*
+ * See provided LICENCE.txt in the project root.
+ * Licenced to Minecraftly under GNU-GPLv3.
+ */
+
 package com.minecraftly.core.runnables;
 
 import com.minecraftly.core.MinecraftlyCore;
@@ -23,7 +28,7 @@ import java.util.logging.Level;
  * The main heartbeat task, the servers know eachother are alive with this.
  * TODO check other servers.
  *
- * @author Cory Redmond <ace@ac3-servers.eu>
+ * @author Cory Redmond &lt;ace@ac3-servers.eu&gt;
  */
 @RequiredArgsConstructor
 public class HeartbeatTask extends RunnableData implements Closeable {

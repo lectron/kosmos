@@ -3,6 +3,11 @@
  * Licenced to Minecraftly under GNU-GPLv3.
  */
 
+/*
+ * See provided LICENCE.txt in the project root.
+ * Licenced to Minecraftly under GNU-GPLv3.
+ */
+
 package com.minecraftly.bukkit.world;
 
 import com.minecraftly.bukkit.MinecraftlyBukkitCore;
@@ -22,7 +27,7 @@ import java.util.UUID;
 /**
  * Handle loading of worlds.
  *
- * @author Cory Redmond <ace@ac3-servers.eu>
+ * @author Cory Redmond &lt;ace@ac3-servers.eu&gt;
  */
 @RequiredArgsConstructor
 public class WorldHandler {

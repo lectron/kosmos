@@ -8,6 +8,11 @@
  * Licenced to Minecraftly under GNU-GPLv3.
  */
 
+/*
+ * See provided LICENCE.txt in the project root.
+ * Licenced to Minecraftly under GNU-GPLv3.
+ */
+
 package com.minecraftly.core;
 
 import com.google.gson.GsonBuilder;
@@ -44,7 +49,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- * @author Cory Redmond <ace@ac3-servers.eu>
+ * @author Cory Redmond &lt;ace@ac3-servers.eu&gt;
  */
 public abstract class MinecraftlyCore<P> implements Closeable {
 

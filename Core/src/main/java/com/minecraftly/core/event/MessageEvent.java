@@ -3,6 +3,11 @@
  * Licenced to Minecraftly under GNU-GPLv3.
  */
 
+/*
+ * See provided LICENCE.txt in the project root.
+ * Licenced to Minecraftly under GNU-GPLv3.
+ */
+
 package com.minecraftly.core.event;
 
 import com.minecraftly.core.eventbus.Event;
@@ -13,7 +18,7 @@ import lombok.RequiredArgsConstructor;
 /**
  * Called when a message is received by the redis pubsub.
  *
- * @author Cory Redmond <ace@ac3-servers.eu>
+ * @author Cory Redmond &lt;ace@ac3-servers.eu&gt;
  */
 @RequiredArgsConstructor
 @Data

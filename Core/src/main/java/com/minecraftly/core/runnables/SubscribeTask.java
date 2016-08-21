@@ -3,6 +3,11 @@
  * Licenced to Minecraftly under GNU-GPLv3.
  */
 
+/*
+ * See provided LICENCE.txt in the project root.
+ * Licenced to Minecraftly under GNU-GPLv3.
+ */
+
 package com.minecraftly.core.runnables;
 
 import com.minecraftly.core.MinecraftlyCore;
@@ -19,7 +24,7 @@ import java.util.concurrent.TimeUnit;
 /**
  * Subscribes to all the redis channels appropriate.
  *
- * @author Cory Redmond <ace@ac3-servers.eu>
+ * @author Cory Redmond &lt;ace@ac3-servers.eu&gt;
  */
 @RequiredArgsConstructor
 public class SubscribeTask extends RunnableData {

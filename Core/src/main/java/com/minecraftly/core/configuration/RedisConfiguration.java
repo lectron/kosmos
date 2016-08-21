@@ -3,6 +3,11 @@
  * Licenced to Minecraftly under GNU-GPLv3.
  */
 
+/*
+ * See provided LICENCE.txt in the project root.
+ * Licenced to Minecraftly under GNU-GPLv3.
+ */
+
 package com.minecraftly.core.configuration;
 
 import lombok.AllArgsConstructor;
@@ -10,7 +15,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 /**
- * @author Cory Redmond <ace@ac3-servers.eu>
+ * @author Cory Redmond &lt;ace@ac3-servers.eu&gt;
  */
 @NoArgsConstructor
 @AllArgsConstructor

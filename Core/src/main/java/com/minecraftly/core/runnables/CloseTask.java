@@ -3,6 +3,11 @@
  * Licenced to Minecraftly under GNU-GPLv3.
  */
 
+/*
+ * See provided LICENCE.txt in the project root.
+ * Licenced to Minecraftly under GNU-GPLv3.
+ */
+
 package com.minecraftly.core.runnables;
 
 import lombok.RequiredArgsConstructor;
@@ -15,7 +20,7 @@ import java.util.concurrent.TimeUnit;
 /**
  * A task for future use.
  *
- * @author Cory Redmond <ace@ac3-servers.eu>
+ * @author Cory Redmond &lt;ace@ac3-servers.eu&gt;
  */
 @Deprecated
 @RequiredArgsConstructor

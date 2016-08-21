@@ -3,6 +3,11 @@
  * Licenced to Minecraftly under GNU-GPLv3.
  */
 
+/*
+ * See provided LICENCE.txt in the project root.
+ * Licenced to Minecraftly under GNU-GPLv3.
+ */
+
 package com.minecraftly.bungee;
 
 import com.minecraftly.bungee.commands.DebugCommand;
@@ -15,7 +20,7 @@ import net.md_5.bungee.api.plugin.Plugin;
 import java.io.IOException;
 
 /**
- * @author Cory Redmond <ace@ac3-servers.eu>
+ * @author Cory Redmond &lt;ace@ac3-servers.eu&gt;
  */
 public class MinecraftlyBungeePlugin extends Plugin {
 

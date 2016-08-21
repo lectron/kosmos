@@ -3,6 +3,11 @@
  * Licenced to Minecraftly under GNU-GPLv3.
  */
 
+/*
+ * See provided LICENCE.txt in the project root.
+ * Licenced to Minecraftly under GNU-GPLv3.
+ */
+
 package com.minecraftly.core.manager.redis;
 
 import com.minecraftly.core.MinecraftlyCore;
@@ -18,7 +23,7 @@ import java.util.Iterator;
 /**
  * A class to repository servers and their player count.
  *
- * @author Cory Redmond <ace@ac3-servers.eu>
+ * @author Cory Redmond &lt;ace@ac3-servers.eu&gt;
  */
 @AllArgsConstructor
 public class ServerManager {
