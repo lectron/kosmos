@@ -35,7 +35,7 @@ public class PlayerManager {
 	 */
 	public boolean hasServer( @NonNull Jedis jedis, @NonNull UUID playerUuid ) throws ProcessingException {
 		try {
-			return jedis.hexists( RedisKeys.WORLD_REPO.toString(), playerUuid.toString() );
+			return jedis.hexists( RedisKeys.PLAYER_REPO.toString(), playerUuid.toString() );
 		} catch ( Exception ex ) {
 			throw new ProcessingException( "There was an error checking if \"" + playerUuid + "\" has an owner!", ex );
 		}
@@ -50,7 +50,7 @@ public class PlayerManager {
 	 */
 	public UUID getServer( @NonNull Jedis jedis, @NonNull UUID playerUuid ) throws ProcessingException {
 		try {
-			return UUID.fromString( jedis.hget( RedisKeys.WORLD_REPO.toString(), playerUuid.toString() ) );
+			return UUID.fromString( jedis.hget( RedisKeys.PLAYER_REPO.toString(), playerUuid.toString() ) );
 		} catch ( Exception ex ) {
 			throw new ProcessingException( "There was an error getting the owner of \"" + playerUuid + "\"!", ex );
 		}
@@ -66,7 +66,7 @@ public class PlayerManager {
 	public List<UUID> getAllForServer( @NonNull Jedis jedis, @NonNull UUID world ) throws ProcessingException {
 		try {
 
-			return jedis.hgetAll( RedisKeys.WORLD_REPO.toString() ).entrySet()
+			return jedis.hgetAll( RedisKeys.PLAYER_REPO.toString() ).entrySet()
 					.stream()
 					.filter( row -> row.getValue().equals( world.toString() ) )
 					.map( row -> UUID.fromString( row.getValue() ) )
@@ -88,9 +88,9 @@ public class PlayerManager {
 		try {
 
 			if ( world != null ) {
-				jedis.hset( RedisKeys.WORLD_REPO.toString(), playerUuid.toString(), world.toString() );
+				jedis.hset( RedisKeys.PLAYER_REPO.toString(), playerUuid.toString(), world.toString() );
 			} else {
-				jedis.hdel( RedisKeys.WORLD_REPO.toString(), playerUuid.toString() );
+				jedis.hdel( RedisKeys.PLAYER_REPO.toString(), playerUuid.toString() );
 			}
 
 		} catch ( Exception ex ) {
@@ -107,10 +107,10 @@ public class PlayerManager {
 	public void removeAll( @NonNull Jedis jedis, @NonNull UUID world ) throws ProcessingException {
 		try {
 
-			jedis.hgetAll( RedisKeys.WORLD_REPO.toString() ).entrySet()
+			jedis.hgetAll( RedisKeys.PLAYER_REPO.toString() ).entrySet()
 					.stream()
 					.filter( row -> row.getValue().equals( world.toString() ) )
-					.forEach( row -> jedis.hdel( RedisKeys.WORLD_REPO.toString(), row.getKey() ) );
+					.forEach( row -> jedis.hdel( RedisKeys.PLAYER_REPO.toString(), row.getKey() ) );
 
 		} catch ( Exception ex ) {
 			throw new ProcessingException( "There was an error removing server \"" + world + "\"!", ex );
@@ -122,7 +122,7 @@ public class PlayerManager {
 	 */
 	public long getSize( @NonNull Jedis jedis ) {
 		try {
-			return jedis.hlen( RedisKeys.WORLD_REPO.toString() );
+			return jedis.hlen( RedisKeys.PLAYER_REPO.toString() );
 		} catch ( Exception ex ) {
 			return -1;
 		}
