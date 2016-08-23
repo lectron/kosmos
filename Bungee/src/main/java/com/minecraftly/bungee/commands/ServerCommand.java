@@ -67,16 +67,16 @@ public class ServerCommand extends Command implements TabExecutor {
 
 			}
 
-			// Append world to the list
-			TextComponent serverTextComponent = new TextComponent( ", world" );
-			serverTextComponent.setClickEvent( new ClickEvent( ClickEvent.Action.RUN_COMMAND, "/server world" ) );
+			// Append universe to the list
+			TextComponent serverTextComponent = new TextComponent( ", universe" );
+			serverTextComponent.setClickEvent( new ClickEvent( ClickEvent.Action.RUN_COMMAND, "/server universe" ) );
 			serverList.addExtra( serverTextComponent );
 
 			player.sendMessage( serverList );
 
 		} else {
 
-			if( args[0].equalsIgnoreCase( "world" ) ) {
+			if( args[0].equalsIgnoreCase( "universe" ) ) {
 
 				ProxyServer.getInstance().getPluginManager().dispatchCommand( sender, "world " + player.getUniqueId() );
 				return;
@@ -107,7 +107,7 @@ public class ServerCommand extends Command implements TabExecutor {
 				.filter( serverInfo -> serverInfo.getName().toLowerCase().startsWith( lower ) && serverInfo.canAccess( sender ) )
 				.map( ServerInfo::getName )
 				.collect( Collectors.toList() );
-		ret.add( "world" );
+		ret.add( "universe" );
 		
 		return ret;
 
@@ -118,7 +118,7 @@ public class ServerCommand extends Command implements TabExecutor {
 		if ( ProxyServer.getInstance().getServers().values().contains( info ) )
 			return info.getName();
 
-		return "world";
+		return "universe";
 
 	}
 
