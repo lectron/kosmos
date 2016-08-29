@@ -8,7 +8,12 @@
  * Licenced to Minecraftly under GNU-GPLv3.
  */
 
-package com.minecraftly.core.manager.messagelistener;
+/*
+ * See provided LICENCE.txt in the project root.
+ * Licenced to Minecraftly under GNU-GPLv3.
+ */
+
+package com.minecraftly.core.manager.redis;
 
 import com.minecraftly.core.MinecraftlyCore;
 import com.minecraftly.core.event.MessageEvent;
