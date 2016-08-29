@@ -13,6 +13,11 @@
  * Licenced to Minecraftly under GNU-GPLv3.
  */
 
+/*
+ * See provided LICENCE.txt in the project root.
+ * Licenced to Minecraftly under GNU-GPLv3.
+ */
+
 package com.minecraftly.core;
 
 import com.google.gson.GsonBuilder;
@@ -25,11 +30,7 @@ import com.minecraftly.core.eventbus.Event;
 import com.minecraftly.core.eventbus.EventBus;
 import com.minecraftly.core.manager.exceptions.NoJedisException;
 import com.minecraftly.core.manager.exceptions.ProcessingException;
-import com.minecraftly.core.manager.messagelistener.RedisMessageListener;
-import com.minecraftly.core.manager.redis.PlayerManager;
-import com.minecraftly.core.manager.redis.ServerManager;
-import com.minecraftly.core.manager.redis.UUIDManager;
-import com.minecraftly.core.manager.redis.WorldManager;
+import com.minecraftly.core.manager.redis.*;
 import com.minecraftly.core.runnables.CloseTask;
 import com.minecraftly.core.runnables.HeartbeatTask;
 import com.minecraftly.core.runnables.RunnableData;
@@ -121,6 +122,11 @@ public abstract class MinecraftlyCore<P> implements Closeable {
 	 */
 	@Getter
 	private UUIDManager UUIDManager;
+	/**
+	 * The manager of players and people who requested to tpa.
+	 */
+	@Getter
+	private TransportManager transportManager;
 	/**
 	 * The manager of players and their servers.
 	 */
