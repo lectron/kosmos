@@ -3,6 +3,11 @@
  * Licenced to Minecraftly under GNU-GPLv3.
  */
 
+/*
+ * See provided LICENCE.txt in the project root.
+ * Licenced to Minecraftly under GNU-GPLv3.
+ */
+
 package com.minecraftly.bungee.connection;
 
 import com.minecraftly.bungee.MinecraftlyBungeeCore;
@@ -135,12 +140,7 @@ public class ReconnectionHandler extends AbstractReconnectHandler {
 
 	private boolean isMinecraftly( String h ) {
 		h = h.toLowerCase();
-		return
-				h.endsWith( "m.ly" ) ||
-				h.endsWith( "minecraft.ly" ) ||
-				h.endsWith( "minecraftly.com" ) ||
-				h.endsWith( "minecraftly.net" ) ||
-				h.endsWith( "minecraftly.org" );
+		return h.endsWith( "m.ly" ) || h.endsWith( "minecraft.ly" ) || h.endsWith( "minecraftly.com" ) || h.endsWith( "minecraftly.net" ) || h.endsWith( "minecraftly.org" );
 	}
 
 	@Override
