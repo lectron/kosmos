@@ -13,6 +13,11 @@
  * Licenced to Minecraftly under GNU-GPLv3.
  */
 
+/*
+ * See provided LICENCE.txt in the project root.
+ * Licenced to Minecraftly under GNU-GPLv3.
+ */
+
 package com.minecraftly.bukkit.listeners;
 
 import com.minecraftly.bukkit.MinecraftlyBukkitCore;
@@ -128,6 +133,23 @@ public class PlayerListener implements Listener, Closeable {
 
 		event.setKeepInventory( true );
 		event.setKeepLevel( true );
+
+	}
+
+	/**
+	 * Deal with player's death messages.
+	 * NAUGHTY!
+	 *
+	 * @param event The death event.
+	 */
+	@EventHandler( priority = EventPriority.MONITOR )
+	public void onPlayerDeathMon( PlayerDeathEvent event ) {
+
+		String message = event.getDeathMessage();
+		event.setDeathMessage( null );
+
+		WorldDimension.getPlayersAllDimensions( event.getEntity().getWorld() )
+				.forEach( player -> player.sendMessage( message ) );
 
 	}
 
@@ -304,8 +326,7 @@ public class PlayerListener implements Listener, Closeable {
 
 			}
 
-		} catch ( IllegalArgumentException ex ) {
-			return;
+		} catch ( IllegalArgumentException ignored ) {
 		}
 
 	}
