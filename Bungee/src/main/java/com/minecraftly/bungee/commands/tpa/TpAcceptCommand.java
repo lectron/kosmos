@@ -18,6 +18,11 @@
  * Licenced to Minecraftly under GNU-GPLv3.
  */
 
+/*
+ * See provided LICENCE.txt in the project root.
+ * Licenced to Minecraftly under GNU-GPLv3.
+ */
+
 package com.minecraftly.bungee.commands.tpa;
 
 import com.google.common.collect.ImmutableSet;
@@ -44,7 +49,7 @@ public class TpAcceptCommand extends Command implements TabExecutor {
 	private final MinecraftlyBungeeCore core;
 
 	public TpAcceptCommand( MinecraftlyBungeeCore core ) {
-		super( "tpa", null, "tpyes", "tpaccept" );
+		super( "tpacc", null, "tpyes", "tpaccept" );
 		this.core = core;
 	}
 
