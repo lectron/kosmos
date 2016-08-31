@@ -18,6 +18,11 @@
  * Licenced to Minecraftly under GNU-GPLv3.
  */
 
+/*
+ * See provided LICENCE.txt in the project root.
+ * Licenced to Minecraftly under GNU-GPLv3.
+ */
+
 package com.minecraftly.bukkit.commands;
 
 import com.minecraftly.bukkit.MinecraftlyBukkitCore;
@@ -139,6 +144,8 @@ public class BanCommands implements CommandExecutor, TabCompleter {
 				} else {
 					player.sendMessage( ChatColor.BLUE + "UUID \"" + param + "\" is now banned!" );
 					worldData.getBannedUsers().put( param, new PunishEntry( -1, "You are banned." ) );
+					Player offender = Bukkit.getPlayer( param );
+					if ( offender != null ) offender.kickPlayer( ChatColor.RED + "You're banned from this server." );
 				}
 
 				// TODO kick player.

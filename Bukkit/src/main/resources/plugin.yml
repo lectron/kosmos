@@ -66,6 +66,10 @@ commands:
   unban:
     description: Allows the specified player to join.
 
+  ## Kick command.
+  kick:
+    description: Kicks the specified player.
+
   ## Mute commands.
   mute:
     description: Prevents the specified player from speaking.
