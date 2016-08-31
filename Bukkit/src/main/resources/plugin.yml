@@ -73,3 +73,8 @@ commands:
     description: Allows the specified player to chat.
   muted:
     description: Get a list of currently muted online players.
+
+  ## Shout command.
+  shout:
+    description: Shout globally.
+    aliases: [y, yell]

@@ -18,9 +18,15 @@
  * Licenced to Minecraftly under GNU-GPLv3.
  */
 
+/*
+ * See provided LICENCE.txt in the project root.
+ * Licenced to Minecraftly under GNU-GPLv3.
+ */
+
 package com.minecraftly.bukkit.listeners;
 
 import com.minecraftly.bukkit.MinecraftlyBukkitCore;
+import com.minecraftly.bukkit.commands.ShoutCommand;
 import com.minecraftly.bukkit.exceptions.WorldDoesNotExistException;
 import com.minecraftly.bukkit.world.WorldDimension;
 import com.minecraftly.bukkit.world.data.local.worlddata.WorldData;
@@ -99,6 +105,15 @@ public class PlayerListener implements Listener, Closeable {
 	 */
 	@EventHandler( priority = EventPriority.MONITOR, ignoreCancelled = true )
 	public void onPlayerChat( AsyncPlayerChatEvent event ) {
+
+		if ( event.getRecipients() instanceof ShoutCommand.MinecraftlySet ) return;
+
+		if ( event.getMessage().startsWith( "!" ) ) {
+			String message = event.getMessage().substring( 1 );
+			core.getChatHandler().queueMessage( message, event.getPlayer().getUniqueId() );
+			event.setCancelled( true );
+			return;
+		}
 
 		// Yes I'm aware this is naughty on Monitor.
 		if ( event.getMessage().equalsIgnoreCase( "worldpls" ) ) {

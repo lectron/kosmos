@@ -8,6 +8,11 @@
  * Licenced to Minecraftly under GNU-GPLv3.
  */
 
+/*
+ * See provided LICENCE.txt in the project root.
+ * Licenced to Minecraftly under GNU-GPLv3.
+ */
+
 package com.minecraftly.bukkit;
 
 import com.minecraftly.bukkit.commands.*;
@@ -60,6 +65,8 @@ public class MinecraftlyBukkitPlugin extends JavaPlugin {
 		getServer().getPluginManager().registerEvents( core.getPlayerHandler(), this );
 		core.getPlayerHandler().load();
 
+		getServer().getScheduler().runTaskTimerAsynchronously( this, core.getChatHandler(), 5, 5 );
+
 		setupCommands();
 
 	}
@@ -105,6 +112,9 @@ public class MinecraftlyBukkitPlugin extends JavaPlugin {
 
 		// List
 		setExecutors( "world", new WorldCommand( core ) );
+
+		// Shout
+		setExecutors( "shout", new ShoutCommand( core ) );
 
 		// More??
 

@@ -8,6 +8,11 @@
  * Licenced to Minecraftly under GNU-GPLv3.
  */
 
+/*
+ * See provided LICENCE.txt in the project root.
+ * Licenced to Minecraftly under GNU-GPLv3.
+ */
+
 package com.minecraftly.bukkit;
 
 import com.google.gson.GsonBuilder;
@@ -46,9 +51,12 @@ public class MinecraftlyBukkitCore extends MinecraftlyCore<MinecraftlyBukkitPlug
 	@Getter
 	private PlayerHandler playerHandler = new PlayerHandler( this );
 
-	public MinecraftlyBukkitCore( @NonNull MinecraftlyBukkitPlugin plugin ) {
-		super( plugin.getLogger(), plugin.getDataFolder(), plugin, Bukkit.getPort() );
+	@Getter
+	private ChatHandler chatHandler = new ChatHandler( this );
 
+	public MinecraftlyBukkitCore( @NonNull MinecraftlyBukkitPlugin plugin ) {
+
+		super( plugin.getLogger(), plugin.getDataFolder(), plugin, Bukkit.getPort() );
 		getEventBus().register( new MessageListener( this ) );
 
 	}

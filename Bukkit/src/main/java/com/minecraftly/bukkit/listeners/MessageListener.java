@@ -8,6 +8,11 @@
  * Licenced to Minecraftly under GNU-GPLv3.
  */
 
+/*
+ * See provided LICENCE.txt in the project root.
+ * Licenced to Minecraftly under GNU-GPLv3.
+ */
+
 package com.minecraftly.bukkit.listeners;
 
 import com.minecraftly.bukkit.MinecraftlyBukkitCore;
@@ -16,6 +21,7 @@ import com.minecraftly.core.event.MessageEvent;
 import com.minecraftly.core.eventbus.EventHandler;
 import com.minecraftly.core.eventbus.Listener;
 import lombok.RequiredArgsConstructor;
+import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Bukkit;
 import org.bukkit.World;
 
@@ -45,8 +51,27 @@ public class MessageListener implements Listener {
 				doWorldRepo( event.getMessage().split( "\\000" ) );
 				break;
 
+			case CHAT:
+				doChat( event.getMessage().split( "\\000" ) );
+				break;
+
 			default:
 				break;
+
+		}
+
+	}
+
+	private void doChat( String[] messages ) {
+
+		if ( messages.length == 2 || messages.length == 3 && messages[0].equalsIgnoreCase( "MSG" ) ) {
+
+			String message = ChatColor.translateAlternateColorCodes( '&', messages[1] );
+			if ( messages.length == 3 ) {
+				Bukkit.broadcast( message, messages[2] );
+			} else {
+				Bukkit.broadcast( message, messages[2] );
+			}
 
 		}
 
