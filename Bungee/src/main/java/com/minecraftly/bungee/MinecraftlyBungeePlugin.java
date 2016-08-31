@@ -13,6 +13,11 @@
  * Licenced to Minecraftly under GNU-GPLv3.
  */
 
+/*
+ * See provided LICENCE.txt in the project root.
+ * Licenced to Minecraftly under GNU-GPLv3.
+ */
+
 package com.minecraftly.bungee;
 
 import com.minecraftly.bungee.commands.DebugCommand;
@@ -52,6 +57,7 @@ public class MinecraftlyBungeePlugin extends Plugin {
 
 		//getProxy().getPluginManager().registerCommand( this, new TpaCommand( core ) );
 		//getProxy().getPluginManager().registerCommand( this, new TpAcceptCommand( core ) );
+		//getProxy().getPluginManager().registerCommand( this, new TpDeclineCommand( core ) );
 
 		getProxy().getPluginManager().registerCommand( this, new DebugCommand( core ) );
 		getProxy().getPluginManager().registerListener( this, new DebugListener( core ) );

@@ -8,6 +8,11 @@
  * Licenced to Minecraftly under GNU-GPLv3.
  */
 
+/*
+ * See provided LICENCE.txt in the project root.
+ * Licenced to Minecraftly under GNU-GPLv3.
+ */
+
 package com.minecraftly.bungee;
 
 import com.minecraftly.bungee.listeners.MessageListener;
@@ -80,7 +85,7 @@ public class MinecraftlyBungeeCore extends MinecraftlyCore<MinecraftlyBungeePlug
 	}
 
 	@Override
-	public boolean sendToServer( UUID playerUuid, UUID server, boolean messageDownstream ) {
+	public boolean sendToServer( UUID playerUuid, UUID server, boolean messageDownstream, boolean isTpa ) {
 
 		ProxiedPlayer player = getOriginObject().getProxy().getPlayer( playerUuid );
 		if( player == null ) return false;
@@ -99,7 +104,8 @@ public class MinecraftlyBungeeCore extends MinecraftlyCore<MinecraftlyBungeePlug
 			Handshake hs = ReflectionUtil.getHandshake( player.getPendingConnection() );
 			if( hs == null ) return false;
 
-			hs.setHost( server.toString() + ".m.ly" );
+			String tpa = isTpa ? ";;;." : "";
+			hs.setHost( tpa + server.toString() + ".m.ly" );
 
 			if( serverId == null ) {
 				player.sendMessage( ChatColor.RED + "We were unable to send you to the specified server." );
@@ -112,7 +118,7 @@ public class MinecraftlyBungeeCore extends MinecraftlyCore<MinecraftlyBungeePlug
 				if( !messageDownstream )
 					return true;
 
-				jedis.publish( RedisKeys.TRANSPORT.toString(), "SEND\00" + playerUuid.toString() + "\00" + server.toString() );
+				jedis.publish( RedisKeys.TRANSPORT.toString(), "SEND\00" + playerUuid.toString() + "\00" + server.toString() + "\00" + isTpa );
 
 			} else {
 				player.connect( si );

@@ -18,6 +18,11 @@
  * Licenced to Minecraftly under GNU-GPLv3.
  */
 
+/*
+ * See provided LICENCE.txt in the project root.
+ * Licenced to Minecraftly under GNU-GPLv3.
+ */
+
 package com.minecraftly.core;
 
 import com.google.gson.GsonBuilder;
@@ -433,12 +438,12 @@ public abstract class MinecraftlyCore<P> implements Closeable {
 
 	/**
 	 * Send the specified player to the server.
-	 * @param player The UUID of the player to send.
+	 * @param playerUuid The UUID of the player to send.
 	 * @param server The UUID of the server in which we want the player.
 	 * @param messageDownstream true to message the server
 	 * @return True if the player is on the server and messageDownstream is false.
 	 */
-	public boolean sendToServer( UUID player, UUID server, boolean messageDownstream ) {
+	public boolean sendToServer( UUID playerUuid, UUID server, boolean messageDownstream, boolean isTpa ) {
 		return false;
 	}
 

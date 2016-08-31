@@ -8,13 +8,32 @@
  * Licenced to Minecraftly under GNU-GPLv3.
  */
 
-package com.minecraftly.bungee.commands;
+/*
+ * See provided LICENCE.txt in the project root.
+ * Licenced to Minecraftly under GNU-GPLv3.
+ */
+
+/*
+ * See provided LICENCE.txt in the project root.
+ * Licenced to Minecraftly under GNU-GPLv3.
+ */
+
+/*
+ * See provided LICENCE.txt in the project root.
+ * Licenced to Minecraftly under GNU-GPLv3.
+ */
+
+/*
+ * See provided LICENCE.txt in the project root.
+ * Licenced to Minecraftly under GNU-GPLv3.
+ */
+
+package com.minecraftly.bungee.commands.tpa;
 
 import com.google.common.collect.ImmutableSet;
 import com.minecraftly.bungee.MinecraftlyBungeeCore;
-import com.minecraftly.core.MinecraftlyUtil;
+import com.minecraftly.core.RedisKeys;
 import com.minecraftly.core.manager.exceptions.NoJedisException;
-import com.minecraftly.core.manager.exceptions.ProcessingException;
 import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.CommandSender;
 import net.md_5.bungee.api.ProxyServer;
@@ -30,71 +49,54 @@ import java.util.stream.Collectors;
 /**
  * @author Cory Redmond &lt;ace@ac3-servers.eu&gt;
  */
-public class WorldCommand extends Command implements TabExecutor {
+public class TpDeclineCommand extends Command implements TabExecutor {
 
 	private final MinecraftlyBungeeCore core;
 
-	public WorldCommand( MinecraftlyBungeeCore core) {
-		super( "world" );
+	public TpDeclineCommand( MinecraftlyBungeeCore core ) {
+		super( "tpno", null, "tpnu", "tpdecline" );
 		this.core = core;
 	}
 
 	@Override
 	public void execute( CommandSender sender, String[] args ) {
 
-		if( !(sender instanceof ProxiedPlayer) ) {
-			sender.sendMessage( ChatColor.RED + "Only players can change worlds." );
+		if ( !(sender instanceof ProxiedPlayer) ) {
+			sender.sendMessage( ChatColor.RED + "Only players can tpdecline." );
 			return;
 		}
 
-		if( args.length != 1 ) {
+		if ( args.length != 0 ) {
 			sender.sendMessage( ChatColor.RED + "Hey, that isn't how you do this.." );
-			sender.sendMessage( ChatColor.YELLOW + " /world <worldname>" );
+			sender.sendMessage( ChatColor.YELLOW + " /tpdecline" );
 			return;
 		}
 
-		final String worldName = args[0].trim();
 		final ProxiedPlayer player = ((ProxiedPlayer) sender);
 
 		core.getOriginObject().getProxy().getScheduler().runAsync( core.getOriginObject(), () -> {
 
-			UUID uuidToJoin = null;
-
 			try ( Jedis jedis = core.getJedis() ) {
 
-				boolean uuidSet = false;
 				try {
-					if ( worldName.length() > 16 ) {
-						uuidToJoin = MinecraftlyUtil.convertFromNoDashes( worldName );
-						uuidSet = true;
-					}
-				} catch ( IllegalArgumentException ignored ) {
-				}
+					if ( core.getTransportManager().hasPendingReq( jedis, player.getUniqueId() ) ) {
 
-				// Get the UUID from the name if it exists.
-				try {
-					if ( !uuidSet && core.getUUIDManager().hasUuid( jedis, worldName ) ) {
-						uuidToJoin = core.getUUIDManager().getUuid( jedis, worldName );
+						UUID uuid = core.getTransportManager().getRequester( jedis, player.getUniqueId() );
+						core.getTransportManager().setRequester( jedis, player.getUniqueId(), null );
+
+						jedis.publish( RedisKeys.TRANSPORT.toString(), "TPDECLINE\00" + uuid + "\00" + player.getName() + "\00" );
+
+						// TODO uuid -> name.
+						player.sendMessage( ChatColor.RED + "You declined a request from " + uuid );
 					}
-				} catch ( ProcessingException e ) {
-					// TODO translations?
-					core.getLogger().log( Level.SEVERE, "Error getting the server for \"" + worldName + "\".", e );
+				} catch ( Exception ignored ) {
 				}
 
 			} catch ( NoJedisException e ) {
 				core.getLogger().log( Level.SEVERE, "There was an error fetching jedis!", e );
 			}
 
-			if( uuidToJoin == null ) {
-				player.sendMessages( ChatColor.RED + "We were unable to find a world by that name." );
-				return;
-			}
-
-			if ( core.sendToServer( player.getUniqueId(), uuidToJoin, false, false ) ) {
-
-				player.chat( "/world " + uuidToJoin.toString() );
-
-			}
+			player.sendMessages( ChatColor.RED + "We can't find/decline any pending requests!" );
 
 		} );
 
@@ -103,8 +105,7 @@ public class WorldCommand extends Command implements TabExecutor {
 	@Override
 	public Iterable<String> onTabComplete( CommandSender sender, String[] args ) {
 
-		if ( args.length != 0 )
-		{
+		if ( args.length != 0 ) {
 			return ImmutableSet.of();
 		}
 

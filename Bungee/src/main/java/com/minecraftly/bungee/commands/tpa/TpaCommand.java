@@ -13,6 +13,11 @@
  * Licenced to Minecraftly under GNU-GPLv3.
  */
 
+/*
+ * See provided LICENCE.txt in the project root.
+ * Licenced to Minecraftly under GNU-GPLv3.
+ */
+
 package com.minecraftly.bungee.commands.tpa;
 
 import com.google.common.collect.ImmutableSet;
@@ -45,6 +50,25 @@ public class TpaCommand extends Command implements TabExecutor {
 	public TpaCommand( MinecraftlyBungeeCore core ) {
 		super( "tpa", null, "tpr", "tprequest", "call", "tpask" );
 		this.core = core;
+	}
+
+	public static void sendTpaRequest( ProxiedPlayer receiver, UUID uuid, String name ) {
+
+		HoverEvent uuidHover = new HoverEvent( HoverEvent.Action.SHOW_TEXT, new TextComponent[]{
+				new TextComponent( "UUID: " + uuid )
+		} );
+
+		TextComponent playerTextComponent = new TextComponent( name );
+		playerTextComponent.setColor( ChatColor.AQUA );
+		playerTextComponent.setBold( true );
+		playerTextComponent.setHoverEvent( uuidHover );
+
+		TextComponent tpaTextComponent = new TextComponent( " has requested to teleport to you." );
+		tpaTextComponent.setColor( ChatColor.GOLD );
+
+		receiver.sendMessage( playerTextComponent, tpaTextComponent );
+		receiver.sendMessage( ChatColor.GOLD + "Type /tpaccept to accept or /tpdeny to decline." );
+
 	}
 
 	@Override
@@ -102,7 +126,8 @@ public class TpaCommand extends Command implements TabExecutor {
 				ProxiedPlayer receiver;
 				if ( (receiver = core.getOriginObject().getProxy().getPlayer( uuidToJoin )) != null ) {
 
-					sendTpaRequest( receiver, player );
+					sendTpaRequest( receiver, player.getUniqueId(), player.getName() );
+					player.sendMessage( ChatColor.BLUE + "Your teleport request has been sent!" );
 
 					try {
 						core.getTransportManager().setRequester( jedis, receiver.getUniqueId(), player.getUniqueId() );
@@ -131,26 +156,6 @@ public class TpaCommand extends Command implements TabExecutor {
 			player.sendMessages( ChatColor.RED + "We were unable to find an online player by that name." );
 
 		} );
-
-	}
-
-	private void sendTpaRequest( ProxiedPlayer receiver, ProxiedPlayer player ) {
-
-		HoverEvent uuidHover = new HoverEvent( HoverEvent.Action.SHOW_TEXT, new TextComponent[]{
-				new TextComponent( "UUID: " + player.getUniqueId() )
-		} );
-
-		TextComponent playerTextComponent = new TextComponent( player.getName() );
-		playerTextComponent.setColor( ChatColor.AQUA );
-		playerTextComponent.setBold( true );
-		playerTextComponent.setHoverEvent( uuidHover );
-
-		TextComponent tpaTextComponent = new TextComponent( " has requested to teleport to you." );
-		tpaTextComponent.setColor( ChatColor.GOLD );
-
-		receiver.sendMessage( playerTextComponent, tpaTextComponent );
-		receiver.sendMessage( ChatColor.GOLD + "Type /tpaccept to accept or /tpdeny to decline." );
-		player.sendMessage( ChatColor.BLUE + "Your teleport request has been sent!" );
 
 	}
 

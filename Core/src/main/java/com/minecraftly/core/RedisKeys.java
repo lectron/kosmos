@@ -8,6 +8,11 @@
  * Licenced to Minecraftly under GNU-GPLv3.
  */
 
+/*
+ * See provided LICENCE.txt in the project root.
+ * Licenced to Minecraftly under GNU-GPLv3.
+ */
+
 package com.minecraftly.core;
 
 import lombok.NonNull;
@@ -49,7 +54,12 @@ public enum RedisKeys {
 	/**
 	 * TRANSPORT is to be used strictly for messaging and sending users through the network.
 	 */
-	TRANSPORT;
+	TRANSPORT,
+
+	/**
+	 * CHAT is to be used or chat messages.
+	 */
+	CHAT;
 
 	private static Collection<String> valueList;
 

@@ -13,6 +13,11 @@
  * Licenced to Minecraftly under GNU-GPLv3.
  */
 
+/*
+ * See provided LICENCE.txt in the project root.
+ * Licenced to Minecraftly under GNU-GPLv3.
+ */
+
 package com.minecraftly.bukkit.listeners;
 
 import com.minecraftly.bukkit.MinecraftlyBukkitCore;
@@ -24,6 +29,7 @@ import lombok.RequiredArgsConstructor;
 import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Bukkit;
 import org.bukkit.World;
+import org.bukkit.entity.Player;
 
 import java.util.UUID;
 
@@ -55,8 +61,30 @@ public class MessageListener implements Listener {
 				doChat( event.getMessage().split( "\\000" ) );
 				break;
 
+			case TRANSPORT:
+				doTransport( event.getMessage().split( "\\000" ) );
+				break;
+
 			default:
 				break;
+
+		}
+
+	}
+
+	private void doTransport( String[] messages ) {
+
+		if ( messages.length == 3 || messages.length == 4 && messages[0].equalsIgnoreCase( "SEND" ) ) {
+
+			Player player = Bukkit.getPlayer( UUID.fromString( messages[1] ) );
+			if ( player == null ) return;
+
+			UUID serverUUID = UUID.fromString( messages[2] );
+
+			boolean isTpa = false;
+			if ( messages.length == 4 ) isTpa = Boolean.parseBoolean( messages[3] );
+
+			core.sendToServer( player.getUniqueId(), serverUUID, false, isTpa );
 
 		}
 
