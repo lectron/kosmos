@@ -13,6 +13,11 @@
  * Licenced to Minecraftly under GNU-GPLv3.
  */
 
+/*
+ * See provided LICENCE.txt in the project root.
+ * Licenced to Minecraftly under GNU-GPLv3.
+ */
+
 package com.minecraftly.bukkit.world.data.local;
 
 import com.google.common.base.Joiner;
@@ -252,7 +257,7 @@ public class PlayerHandler implements Listener, Closeable {
 						messages.add( ChatColor.RED + "You will be unbanned in " + MinecraftlyUtil.getTimeString( banEntry.getRemainingBanTime() ) + "." );
 
 					messages.stream().forEach( user::sendMessage );
-					user.kickPlayer( Joiner.on( "\n" ).join( messages ) );
+					user.kickPlayer( "$$$" + Joiner.on( "\n" ).join( messages ) );
 					// TODO Send to own world.
 					return;
 
@@ -264,7 +269,7 @@ public class PlayerHandler implements Listener, Closeable {
 
 				user.sendMessage( ChatColor.RED + "You're not white listed on this server, sorry." );
 				// TODO Send to own world.
-				user.kickPlayer( ChatColor.RED + "You're not white listed on this server, sorry." );
+				user.kickPlayer( "$$$" + ChatColor.RED + "You're not white listed on this server, sorry." );
 				return;
 
 			}

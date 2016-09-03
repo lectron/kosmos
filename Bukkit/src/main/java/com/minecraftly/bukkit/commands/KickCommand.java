@@ -13,22 +13,24 @@
  * Licenced to Minecraftly under GNU-GPLv3.
  */
 
+/*
+ * See provided LICENCE.txt in the project root.
+ * Licenced to Minecraftly under GNU-GPLv3.
+ */
+
 package com.minecraftly.bukkit.commands;
 
+import com.google.common.base.Joiner;
 import com.minecraftly.bukkit.MinecraftlyBukkitCore;
 import com.minecraftly.bukkit.world.WorldDimension;
-import com.minecraftly.bukkit.world.data.local.worlddata.WorldData;
 import lombok.RequiredArgsConstructor;
 import net.md_5.bungee.api.ChatColor;
-import net.md_5.bungee.api.chat.HoverEvent;
-import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Arrays;
 import java.util.UUID;
 
 /**
@@ -47,9 +49,9 @@ public class KickCommand implements CommandExecutor {
 			return true;
 		}
 
-		if ( args.length != 1 ) {
+		if ( args.length == 0 ) {
 			sender.sendMessage( ChatColor.RED + "That's not how you use this command..." );
-			sender.sendMessage( ChatColor.YELLOW + "  /kick [player]" );
+			sender.sendMessage( ChatColor.YELLOW + "  /kick [player] <reason>" );
 			return true;
 		}
 
@@ -65,10 +67,16 @@ public class KickCommand implements CommandExecutor {
 			}
 		}
 
+		String reason = "You have been kicked!";
+
+		if ( args.length > 1 ) {
+			reason = Joiner.on( " " ).join( Arrays.copyOfRange( args, 1, args.length ) );
+		}
+
 		for ( Player kicker : WorldDimension.getPlayersAllDimensions( player.getWorld() ) ) {
 
 			if ( kicker.getName().equalsIgnoreCase( compare ) || kicker.getUniqueId().toString().equalsIgnoreCase( compare ) ) {
-				kicker.kickPlayer( ChatColor.YELLOW + "You have been kicked!" );
+				kicker.kickPlayer( ChatColor.YELLOW + "$$$" + reason );
 				sender.sendMessage( ChatColor.GREEN + kicker.getName() + " has been kicked." );
 				return true;
 			}
@@ -76,43 +84,6 @@ public class KickCommand implements CommandExecutor {
 		}
 
 		return true;
-
-	}
-
-	public TextComponent generatePlayerComponent( Player player ) {
-
-		UUID uuid = player.getUniqueId();
-		UUID worldUuid = WorldDimension.getUUIDOfWorld( player.getWorld() );
-		WorldData worldData = core.getPlayerHandler().getWorldData( worldUuid );
-
-		TextComponent tc = new TextComponent( player.getName() );
-		tc.setColor( ChatColor.GOLD );
-
-		List<String> hoverLines = new ArrayList<>();
-
-		hoverLines.add( colour( "&bUUID: &9" ) );
-		hoverLines.add( colour( "&9 " + player.getUniqueId() ) );
-		hoverLines.add( colour( "&bWorld: &9" + getNiceWorldName( player ) ) );
-
-		if ( worldData != null ) {
-
-			String trusted = worldData.getTrustedUsers().contains( uuid ) ? "&aYes" : "&eNo";
-			hoverLines.add( colour( "&bTrusted: " + trusted ) );
-
-			String whiteListed = worldData.getWhiteListedUsers().contains( uuid ) ? "&aYes" : "&eNo";
-			hoverLines.add( colour( "&bWhite listed: " + whiteListed ) );
-
-			String muted = worldData.getMutedUsers().containsKey( uuid ) ? "&cYes" : "&eNo";
-			hoverLines.add( colour( "&bMuted: " + muted ) );
-
-		}
-
-		TextComponent[] hoverComponents = hoverLines.stream().map( s -> s + "\n" ).map( TextComponent::new ).toArray( TextComponent[]::new );
-		tc.setHoverEvent( new HoverEvent( HoverEvent.Action.SHOW_TEXT, hoverComponents ) );
-
-		// TODO click event message?
-
-		return tc;
 
 	}
 
