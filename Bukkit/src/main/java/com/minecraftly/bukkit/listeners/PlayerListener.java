@@ -35,8 +35,10 @@ import com.minecraftly.core.manager.exceptions.ProcessingException;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import org.bukkit.Bukkit;
+import org.bukkit.GameMode;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
+import org.bukkit.event.Event;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
@@ -290,6 +292,22 @@ public class PlayerListener implements Listener, Closeable {
 
 		// Call core playerExit for whatever core wants it to.
 		core.getOriginObject().getServer().getScheduler().runTaskAsynchronously( core.getOriginObject(), () -> core.playerExited( event.getPlayer().getUniqueId(), WorldDimension.getUUIDOfWorld( world ) ) );
+
+	}
+
+	/**
+	 * Handle world protection.
+	 *
+	 * @param event The interaction event.
+	 */
+	@EventHandler( ignoreCancelled = true, priority = EventPriority.HIGH )
+	public void onInteractEvent( PlayerInteractEvent event ) {
+
+		if ( event.getPlayer().getGameMode() == GameMode.ADVENTURE ) {
+			event.setUseItemInHand( Event.Result.DENY );
+			event.setUseInteractedBlock( Event.Result.DENY );
+			event.setCancelled( true );
+		}
 
 	}
 
