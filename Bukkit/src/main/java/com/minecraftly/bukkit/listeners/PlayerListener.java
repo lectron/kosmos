@@ -225,7 +225,7 @@ public class PlayerListener implements Listener, Closeable {
 				// Sync world loading via Bukkit api.
 				core.getOriginObject().getServer().getScheduler().callSyncMethod( core.getOriginObject(), () -> {
 
-					event.getPlayer().sendMessage( "Loading world..." );
+					//event.getPlayer().sendMessage( "Loading world..." );
 					UUID joinUUID = playerUuid;
 
 					// If the world from above isn't available, use the player's world.
@@ -263,7 +263,6 @@ public class PlayerListener implements Listener, Closeable {
 
 		//event.getPlayer().getInventory().clear();
 		//Bukkit.getScheduler().runTaskLater( core.getOriginObject(), () -> core.getInventoryHandler().doPlayerLoad( event.getPlayer() ), 20 * 3 );
-
 
 	}
 
