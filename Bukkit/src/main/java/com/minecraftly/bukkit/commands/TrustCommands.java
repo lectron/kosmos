@@ -125,6 +125,10 @@ public class TrustCommands implements CommandExecutor, TabCompleter {
 			} else {
 
 				Player trustee = Bukkit.getPlayer( param );
+				if ( trustee == player ) {
+					player.sendMessage( ChatColor.RED + "You may not trust/untrust yourself." );
+					return null;
+				}
 
 				if( remove ) {
 					player.sendMessage( ChatColor.BLUE + "UUID \"" + param + "\" is no longer trusted!" );

@@ -238,6 +238,10 @@ public class PlayerHandler implements Listener, Closeable {
 
 		boolean isOwner = user.getUniqueId().equals( WorldDimension.getUUIDOfWorld( world ) );
 
+		if ( isOwner && worldData != null ) {
+			worldData.getTrustedUsers().remove( user.getUniqueId() );
+		}
+
 		if( worldData != null && !isOwner ) {
 
 			if( worldData.getBannedUsers().containsKey( uuid ) ) {
