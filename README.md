@@ -1,4 +1,6 @@
-Think of this technology as Medium for Minecraft
+#Minecraftly Cosmos
+
+The solution for orchestrating multiple Minecraft servers, worlds as if it's a single thing (hence single universe). Think of this technology as Kubernetes (or Apache's Mesos) for Minecraft.
 
 ---
 
@@ -416,7 +418,7 @@ Each player has their own world that they control, accessible via their own publ
  
  The only term of using this software is that you expressively credit Minecraftly website as the creator of the software you are using on your server and website.
  
- We welcome everyone to install and develop on top of Minecraftly free of charge for non-commercial use. If you wish to use it for commercial use, please email viet@minecraftly.com to license it.
+ We welcome everyone to install and develop on top of Minecraftly free of charge for personal, non-commercial use. We have a patent pending on the software and. We don't allow any commercial use of this architecture.
 
 ##Bounty Program
 Want to make money fixing bugs for Minecraftly open source softwares?
