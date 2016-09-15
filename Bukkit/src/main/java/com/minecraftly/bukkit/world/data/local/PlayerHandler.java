@@ -273,6 +273,11 @@ public class PlayerHandler implements Listener, Closeable {
 			user.setGameMode( GameMode.SURVIVAL );
 		}
 
+		World baseWorld = WorldDimension.getBaseWorld( user.getWorld() );
+		if( baseWorld != world ) {
+			WorldDimension.getPlayersAllDimensions( world ).forEach( player -> player.sendMessage( colour( "&c&l>> &b" + user.getName() + " has joined." ) ) );
+		}
+
 		user.setBedSpawnLocation( data.getBedLocation() );
 
 		Location lastLocation = data.getLastLocation() != null ? data.getLastLocation() : world.getSpawnLocation();
@@ -287,6 +292,8 @@ public class PlayerHandler implements Listener, Closeable {
 	 * @param world The world which they left.
 	 */
 	private void userLeftWorld( @NonNull Player user, @NonNull World world ) {
+
+		WorldDimension.getPlayersAllDimensions( world ).forEach( player -> player.sendMessage( colour( "&c&l>> &b" + user.getName() + " has joined." ) ) );
 
 		// Okay we keep this because it's likely to get removed after this is call finishes.
 		final UserData userData = loadedUserData.get( user.getUniqueId() );
@@ -314,6 +321,10 @@ public class PlayerHandler implements Listener, Closeable {
 
 	public WorldData getWorldData( @NonNull UUID uuid ) {
 		return loadedWorldData.get( uuid );
+	}
+
+	public String colour( String in ) {
+		return ChatColor.translateAlternateColorCodes( '&', in );
 	}
 
 }
