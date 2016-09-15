@@ -3,16 +3,6 @@
  * Licenced to Minecraftly under GNU-GPLv3.
  */
 
-/*
- * See provided LICENCE.txt in the project root.
- * Licenced to Minecraftly under GNU-GPLv3.
- */
-
-/*
- * See provided LICENCE.txt in the project root.
- * Licenced to Minecraftly under GNU-GPLv3.
- */
-
 package com.minecraftly.bukkit;
 
 import com.minecraftly.bukkit.commands.ShoutCommand;

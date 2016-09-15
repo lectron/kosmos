@@ -67,7 +67,7 @@ public class UserData extends AbstractLocalData {
 		File dataFile = new File( getUserDataFolder( core, world ), uuid.toString() + ".json" );
 
 		try {
-			if( dataFile.exists() )
+			if ( dataFile.exists() )
 				ret = MinecraftlyConfiguration.getGson().fromJson( MinecraftlyUtil.readText( dataFile ), UserData.class );
 		} catch ( IOException e ) {
 			core.getLogger().log( Level.SEVERE, "An error occurred whilst reading the data file for world \"" + world.getName() + "\"", e );
@@ -85,9 +85,9 @@ public class UserData extends AbstractLocalData {
 		world = WorldDimension.getBaseWorld( world );
 		File saveFolder = new File( getSaveFolder( core, world ), "userdata" );
 
-		if( !saveFolder.exists() ) {
+		if ( !saveFolder.exists() ) {
 			saveFolder.mkdirs();
-		} else if( !saveFolder.isDirectory() ) {
+		} else if ( !saveFolder.isDirectory() ) {
 			core.getLogger().warning( "\"" + saveFolder.getAbsolutePath() + "\" exists, but isn't a directory. We need this as a DIR!" );
 		}
 
@@ -106,7 +106,7 @@ public class UserData extends AbstractLocalData {
 	@Override
 	public final boolean save( MinecraftlyBukkitCore core ) throws IOException {
 
-		if( dataFile == null ) return false;
+		if ( dataFile == null ) return false;
 
 		try ( FileWriter fw = new FileWriter( dataFile ) ) {
 			fw.write( MinecraftlyConfiguration.getGson().toJson( this ) );
@@ -119,5 +119,5 @@ public class UserData extends AbstractLocalData {
 		return true;
 
 	}
-	
+
 }

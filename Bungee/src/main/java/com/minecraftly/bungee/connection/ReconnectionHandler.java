@@ -3,11 +3,6 @@
  * Licenced to Minecraftly under GNU-GPLv3.
  */
 
-/*
- * See provided LICENCE.txt in the project root.
- * Licenced to Minecraftly under GNU-GPLv3.
- */
-
 package com.minecraftly.bungee.connection;
 
 import com.minecraftly.bungee.MinecraftlyBungeeCore;
@@ -64,12 +59,12 @@ public class ReconnectionHandler extends AbstractReconnectHandler {
 			String joinUsername = null;
 
 			// If the domain name isn't ours, resolve the cname.
-			if( !isMinecraftly( virtualHostAddress.getHostString() ) ) {
+			if ( !isMinecraftly( virtualHostAddress.getHostString() ) ) {
 				joinUsername = DnsHelper.getCname( virtualHostAddress.getHostString() );
 			}
 
 			// If the cname is null, return the host string.
-			if( joinUsername == null ) {
+			if ( joinUsername == null ) {
 				joinUsername = virtualHostAddress.getHostString();
 			}
 
@@ -78,7 +73,7 @@ public class ReconnectionHandler extends AbstractReconnectHandler {
 
 			boolean uuidSet = false;
 			try {
-				if( joinUsername.length() > 16 ) {
+				if ( joinUsername.length() > 16 ) {
 					uuidToJoin = MinecraftlyUtil.convertFromNoDashes( joinUsername );
 					uuidSet = true;
 				}
@@ -133,7 +128,7 @@ public class ReconnectionHandler extends AbstractReconnectHandler {
 
 	private void setHandshake( ProxiedPlayer player, UUID uuidToJoin ) {
 		Handshake hs = MinecraftlyBungeeCore.ReflectionUtil.getHandshake( player.getPendingConnection() );
-		if( hs != null ) {
+		if ( hs != null ) {
 			hs.setHost( uuidToJoin.toString() + ".m.ly" );
 		}
 	}

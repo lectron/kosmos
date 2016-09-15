@@ -3,11 +3,6 @@
  * Licenced to Minecraftly under GNU-GPLv3.
  */
 
-/*
- * See provided LICENCE.txt in the project root.
- * Licenced to Minecraftly under GNU-GPLv3.
- */
-
 package com.minecraftly.core.manager.redis;
 
 import com.minecraftly.core.MinecraftlyCore;
@@ -86,8 +81,9 @@ public class ServerManager {
 	/**
 	 * Incremement the player count for serverId by incrAmount.
 	 * Use negative numbers to negate players.
-	 * @param jedis A jedis instance to use.
-	 * @param serverId The serverId of whom's player count you're increasing.
+	 *
+	 * @param jedis      A jedis instance to use.
+	 * @param serverId   The serverId of whom's player count you're increasing.
 	 * @param incrAmount The amount you want to increase it by.
 	 * @throws ProcessingException if an exception occurs.
 	 */

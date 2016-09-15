@@ -3,16 +3,6 @@
  * Licenced to Minecraftly under GNU-GPLv3.
  */
 
-/*
- * See provided LICENCE.txt in the project root.
- * Licenced to Minecraftly under GNU-GPLv3.
- */
-
-/*
- * See provided LICENCE.txt in the project root.
- * Licenced to Minecraftly under GNU-GPLv3.
- */
-
 package com.minecraftly.bungee;
 
 import com.minecraftly.bungee.listeners.MessageListener;
@@ -88,34 +78,34 @@ public class MinecraftlyBungeeCore extends MinecraftlyCore<MinecraftlyBungeePlug
 	public boolean sendToServer( UUID playerUuid, UUID server, boolean messageDownstream, boolean isTpa ) {
 
 		ProxiedPlayer player = getOriginObject().getProxy().getPlayer( playerUuid );
-		if( player == null ) return false;
+		if ( player == null ) return false;
 
 		String serverId;
 
-		try (Jedis jedis = getJedis() ) {
+		try ( Jedis jedis = getJedis() ) {
 
 			boolean hasServer = getWorldManager().hasServer( jedis, server );
-			if( hasServer ) {
+			if ( hasServer ) {
 				serverId = getWorldManager().getServer( jedis, server );
 			} else {
 				serverId = getWorldManager().loadWorld( jedis, server );
 			}
 
 			Handshake hs = ReflectionUtil.getHandshake( player.getPendingConnection() );
-			if( hs == null ) return false;
+			if ( hs == null ) return false;
 
 			String tpa = isTpa ? ";;;." : "";
 			hs.setHost( tpa + server.toString() + ".m.ly" );
 
-			if( serverId == null ) {
+			if ( serverId == null ) {
 				player.sendMessage( ChatColor.RED + "We were unable to send you to the specified server." );
 				return false;
 			}
 			ServerInfo si = ProxyServer.getInstance().constructServerInfo( serverId, MinecraftlyUtil.parseAddress( serverId ), "", false );
 
-			if( player.getServer().getInfo().equals( si ) ) {
+			if ( player.getServer().getInfo().equals( si ) ) {
 
-				if( !messageDownstream )
+				if ( !messageDownstream )
 					return true;
 
 				jedis.publish( RedisKeys.TRANSPORT.toString(), "SEND\00" + playerUuid.toString() + "\00" + server.toString() + "\00" + isTpa );
@@ -158,7 +148,7 @@ public class MinecraftlyBungeeCore extends MinecraftlyCore<MinecraftlyBungeePlug
 
 			Class handlerClass = getInitialHandlerClass( pendingConnection );
 
-			if( handshakeField == null ) {
+			if ( handshakeField == null ) {
 				handshakeField = handlerClass.getDeclaredField( "handshake" );
 				handshakeField.setAccessible( true );
 			}
@@ -169,9 +159,9 @@ public class MinecraftlyBungeeCore extends MinecraftlyCore<MinecraftlyBungeePlug
 
 		public static Class getInitialHandlerClass( PendingConnection pendingConnection ) throws ReflectiveOperationException {
 
-			if( !"net.md_5.bungee.connection.InitialHandler".equals( pendingConnection.getClass().getName() ) ) {
+			if ( !"net.md_5.bungee.connection.InitialHandler".equals( pendingConnection.getClass().getName() ) ) {
 				throw new IllegalArgumentException( "Provided connection isn't an instance of InitialHandler." );
-			} else if( initialHandlerClass == null ) {
+			} else if ( initialHandlerClass == null ) {
 				initialHandlerClass = Class.forName( "net.md_5.bungee.connection.InitialHandler" );
 			}
 

@@ -12,12 +12,6 @@ import org.bukkit.World;
 
 import java.lang.reflect.Type;
 
-/**
- * A gson adapter for {@link org.bukkit.Location}.
- * <p>
- * Licenced under GNU-GPLv3 to Minecraftly.
- * @author Cory Redmond &lt;ace@ac3-servers.eu&gt;
- */
 public class LocationAdapter implements JsonDeserializer<Location>, JsonSerializer<Location> {
 
 	public static final LocationAdapter INSTANCE = new LocationAdapter();
@@ -66,8 +60,8 @@ public class LocationAdapter implements JsonDeserializer<Location>, JsonSerializ
 		}
 
 		World worldInstance = Bukkit.getWorld( world.getAsString() );
-		if (worldInstance == null) {
-			throw new IllegalArgumentException("Unknown/not loaded world");
+		if ( worldInstance == null ) {
+			throw new IllegalArgumentException( "Unknown/not loaded world" );
 		}
 
 		return new Location( worldInstance, x.getAsDouble(), y.getAsDouble(), z.getAsDouble(), yaw.getAsFloat(), pitch.getAsFloat() );

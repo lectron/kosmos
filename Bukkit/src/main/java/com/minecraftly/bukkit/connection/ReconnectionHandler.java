@@ -3,11 +3,6 @@
  * Licenced to Minecraftly under GNU-GPLv3.
  */
 
-/*
- * See provided LICENCE.txt in the project root.
- * Licenced to Minecraftly under GNU-GPLv3.
- */
-
 package com.minecraftly.bukkit.connection;
 
 import com.minecraftly.bukkit.MinecraftlyBukkitCore;
@@ -124,7 +119,7 @@ public class ReconnectionHandler {
 
 			boolean uuidSet = false;
 			try {
-				if( joinUsername.length() > 16 ) {
+				if ( joinUsername.length() > 16 ) {
 					uuidToJoin = MinecraftlyUtil.convertFromNoDashes( joinUsername );
 					uuidSet = true;
 				}

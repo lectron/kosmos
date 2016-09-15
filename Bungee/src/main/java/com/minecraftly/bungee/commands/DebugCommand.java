@@ -32,7 +32,7 @@ public class DebugCommand extends Command implements TabExecutor {
 	public void execute( CommandSender sender, String[] args ) {
 
 		// TODO bungeecord debug.
-		if( sender instanceof ProxiedPlayer ) {
+		if ( sender instanceof ProxiedPlayer ) {
 			((ProxiedPlayer) sender).chat( "/mdebug " + Joiner.on( " " ).join( args ) );
 		}
 
@@ -41,8 +41,7 @@ public class DebugCommand extends Command implements TabExecutor {
 	@Override
 	public Iterable<String> onTabComplete( CommandSender sender, String[] args ) {
 
-		if ( args.length != 0 )
-		{
+		if ( args.length != 0 ) {
 			return ImmutableSet.of();
 		}
 

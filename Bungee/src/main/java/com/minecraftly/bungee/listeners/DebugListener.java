@@ -50,7 +50,7 @@ public class DebugListener implements Listener {
 	@EventHandler( priority = Byte.MAX_VALUE )
 	public void onPluginMessageReceived( PluginMessageEvent event ) {
 
-		if( !(event.getSender() instanceof ProxiedPlayer) ) return;
+		if ( !(event.getSender() instanceof ProxiedPlayer) ) return;
 
 		final ProxiedPlayer player = ((ProxiedPlayer) event.getSender());
 		final String channel = event.getTag();

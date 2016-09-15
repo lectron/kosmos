@@ -18,6 +18,7 @@ import java.util.stream.Collectors;
 
 /**
  * A redis repsitory to track player's movement across the network.
+ *
  * @author Cory Redmond &lt;ace@ac3-servers.eu&gt;
  */
 @AllArgsConstructor
@@ -58,6 +59,7 @@ public class PlayerManager {
 
 	/**
 	 * Gets all the UUID's of the players on a specified world.
+	 *
 	 * @param jedis A jedis instance to use.
 	 * @param world The uuid of the world you want information on.
 	 * @return The list of UUID's on the server.
@@ -81,7 +83,7 @@ public class PlayerManager {
 	 * Set the world of the playerUuid.
 	 *
 	 * @param playerUuid The uuid of the player.
-	 * @param world The world that the player is in.
+	 * @param world      The world that the player is in.
 	 * @throws ProcessingException if an exception occurs.
 	 */
 	public void setServer( @NonNull Jedis jedis, @NonNull UUID playerUuid, UUID world ) throws ProcessingException {

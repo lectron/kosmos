@@ -33,7 +33,7 @@ public class ListCommand implements CommandExecutor {
 	@Override
 	public boolean onCommand( CommandSender sender, Command command, String label, String[] args ) {
 
-		if( !(sender instanceof Player) ) {
+		if ( !(sender instanceof Player) ) {
 			sender.sendMessage( ChatColor.RED + "Only players can do this.." );
 			return true;
 		}
@@ -56,11 +56,11 @@ public class ListCommand implements CommandExecutor {
 
 		// Remove the last comma.
 		List<BaseComponent> extraComponents = playerTextComponent.getExtra();
-		if( extraComponents != null && !extraComponents.isEmpty() ) {
+		if ( extraComponents != null && !extraComponents.isEmpty() ) {
 			extraComponents.remove( extraComponents.size() - 1 );
 		}
 
-		player.sendMessage( new TextComponent[] { title, playerTextComponent } );
+		player.sendMessage( new TextComponent[]{ title, playerTextComponent } );
 
 		return true;
 
@@ -81,7 +81,7 @@ public class ListCommand implements CommandExecutor {
 		hoverLines.add( colour( "&9 " + player.getUniqueId() ) );
 		hoverLines.add( colour( "&bWorld: &9" + getNiceWorldName( player ) ) );
 
-		if( worldData != null ) {
+		if ( worldData != null ) {
 
 			String trusted = worldData.getTrustedUsers().contains( uuid ) ? "&aYes" : "&eNo";
 			hoverLines.add( colour( "&bTrusted: " + trusted ) );

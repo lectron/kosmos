@@ -3,16 +3,6 @@
  * Licenced to Minecraftly under GNU-GPLv3.
  */
 
-/*
- * See provided LICENCE.txt in the project root.
- * Licenced to Minecraftly under GNU-GPLv3.
- */
-
-/*
- * See provided LICENCE.txt in the project root.
- * Licenced to Minecraftly under GNU-GPLv3.
- */
-
 package com.minecraftly.core;
 
 import lombok.NonNull;
@@ -72,7 +62,7 @@ public enum RedisKeys {
 
 		name = name.toUpperCase().replace( "MINECRAFTLY:", "" );
 
-		for( RedisKeys key : values() ) {
+		for ( RedisKeys key : values() ) {
 			if ( key.name().toUpperCase().equals( name ) )
 				return key;
 		}

@@ -60,24 +60,24 @@ public class HomeCommands implements CommandExecutor, TabCompleter {
 	public List<String> onTabComplete( CommandSender sender, Command command, String alias, String[] args ) {
 
 		// Don't accept non players.. Lazy.
-		if( !(sender instanceof Player) ) return Collections.emptyList();
+		if ( !(sender instanceof Player) ) return Collections.emptyList();
 		Player player = ((Player) sender);
 
 		// Load the userdata and the player's homes.
 		UserData userData = core.getPlayerHandler().getUserData( player.getUniqueId() );
-		if( userData == null ) return Collections.emptyList();
+		if ( userData == null ) return Collections.emptyList();
 
 		HashMap<String, Location> homes = userData.getHomes();
 
 		// Send the list of home names.
 		String commandName = command.getName();
-		if( commandName.equalsIgnoreCase( "home" ) || commandName.equalsIgnoreCase( "sethome" ) || commandName.equalsIgnoreCase( "delhome" ) ) {
+		if ( commandName.equalsIgnoreCase( "home" ) || commandName.equalsIgnoreCase( "sethome" ) || commandName.equalsIgnoreCase( "delhome" ) ) {
 
-			if( args.length == 0 ) {
+			if ( args.length == 0 ) {
 
-					return new ArrayList<>( homes.keySet() );
+				return new ArrayList<>( homes.keySet() );
 
-			} else if( args.length == 1 ) {
+			} else if ( args.length == 1 ) {
 
 				String search = args[0].toLowerCase();
 				return homes.keySet().stream().filter( home -> home.toLowerCase().startsWith( search ) ).collect( Collectors.toList() );
@@ -92,7 +92,7 @@ public class HomeCommands implements CommandExecutor, TabCompleter {
 
 	private void setHomeCommand( CommandSender sender, String[] args, boolean remove ) {
 
-		if( !(sender instanceof Player) ) {
+		if ( !(sender instanceof Player) ) {
 			sender.sendMessage( ChatColor.YELLOW + "Only players can set/remove homes." );
 			return;
 		}
@@ -107,7 +107,7 @@ public class HomeCommands implements CommandExecutor, TabCompleter {
 		}
 
 		UserData userData = core.getPlayerHandler().getUserData( player.getUniqueId() );
-		if( userData == null ) {
+		if ( userData == null ) {
 			sender.sendMessage( ChatColor.RED + "We were unable to load your data!" );
 			return;
 		}
@@ -115,7 +115,7 @@ public class HomeCommands implements CommandExecutor, TabCompleter {
 		HashMap<String, Location> homes = userData.getHomes();
 		String homeName = args.length == 1 ? args[0].toLowerCase() : "home";
 
-		if( remove ) {
+		if ( remove ) {
 			homes.remove( homeName.trim() );
 		} else {
 			homes.put( homeName.trim(), player.getLocation() );
@@ -132,7 +132,7 @@ public class HomeCommands implements CommandExecutor, TabCompleter {
 		Player player;
 		String homeName;
 
-		if( !(sender instanceof Player) ) {
+		if ( !(sender instanceof Player) ) {
 
 			if ( args.length != 1 && args.length != 2 ) {
 				sender.sendMessage( ChatColor.RED + "Hey, that isn't how you do this.." );
@@ -144,7 +144,7 @@ public class HomeCommands implements CommandExecutor, TabCompleter {
 				player = Bukkit.getPlayer( args[0] );
 				homeName = args.length == 2 ? args[1] : null;
 
-				if( player == null ) {
+				if ( player == null ) {
 					sender.sendMessage( ChatColor.YELLOW + "The specified player couldn't be found! :(" );
 					return;
 				}
@@ -197,21 +197,21 @@ public class HomeCommands implements CommandExecutor, TabCompleter {
 	private Location getHomeLocation( @NonNull Player player, String homeName ) {
 
 		UserData userData = core.getPlayerHandler().getUserData( player.getUniqueId() );
-		if( userData == null ) return player.getWorld().getSpawnLocation();
+		if ( userData == null ) return player.getWorld().getSpawnLocation();
 
 		HashMap<String, Location> homes = userData.getHomes();
 
-		if( homeName == null || homeName.trim().isEmpty() ) {
+		if ( homeName == null || homeName.trim().isEmpty() ) {
 
-			if( homes.containsKey( "home" ) ) {
+			if ( homes.containsKey( "home" ) ) {
 				return homes.get( "home" );
-			} else if( homes.size() == 1 ) {
+			} else if ( homes.size() == 1 ) {
 				return homes.values().iterator().next();
 			}
 
 		} else {
 			homeName = homeName.trim().toLowerCase();
-			if( homes.containsKey( homeName ) ) return homes.get( homeName );
+			if ( homes.containsKey( homeName ) ) return homes.get( homeName );
 		}
 
 		return userData.getBedLocation() == null ? player.getWorld().getSpawnLocation() : userData.getBedLocation();

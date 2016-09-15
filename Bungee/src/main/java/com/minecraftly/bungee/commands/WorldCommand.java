@@ -3,11 +3,6 @@
  * Licenced to Minecraftly under GNU-GPLv3.
  */
 
-/*
- * See provided LICENCE.txt in the project root.
- * Licenced to Minecraftly under GNU-GPLv3.
- */
-
 package com.minecraftly.bungee.commands;
 
 import com.google.common.collect.ImmutableSet;
@@ -34,7 +29,7 @@ public class WorldCommand extends Command implements TabExecutor {
 
 	private final MinecraftlyBungeeCore core;
 
-	public WorldCommand( MinecraftlyBungeeCore core) {
+	public WorldCommand( MinecraftlyBungeeCore core ) {
 		super( "world" );
 		this.core = core;
 	}
@@ -42,12 +37,12 @@ public class WorldCommand extends Command implements TabExecutor {
 	@Override
 	public void execute( CommandSender sender, String[] args ) {
 
-		if( !(sender instanceof ProxiedPlayer) ) {
+		if ( !(sender instanceof ProxiedPlayer) ) {
 			sender.sendMessage( ChatColor.RED + "Only players can change worlds." );
 			return;
 		}
 
-		if( args.length != 1 ) {
+		if ( args.length != 1 ) {
 			sender.sendMessage( ChatColor.RED + "Hey, that isn't how you do this.." );
 			sender.sendMessage( ChatColor.YELLOW + " /world <worldname>" );
 			return;
@@ -85,7 +80,7 @@ public class WorldCommand extends Command implements TabExecutor {
 				core.getLogger().log( Level.SEVERE, "There was an error fetching jedis!", e );
 			}
 
-			if( uuidToJoin == null ) {
+			if ( uuidToJoin == null ) {
 				player.sendMessages( ChatColor.RED + "We were unable to find a world by that name." );
 				return;
 			}
@@ -103,8 +98,7 @@ public class WorldCommand extends Command implements TabExecutor {
 	@Override
 	public Iterable<String> onTabComplete( CommandSender sender, String[] args ) {
 
-		if ( args.length != 0 )
-		{
+		if ( args.length != 0 ) {
 			return ImmutableSet.of();
 		}
 

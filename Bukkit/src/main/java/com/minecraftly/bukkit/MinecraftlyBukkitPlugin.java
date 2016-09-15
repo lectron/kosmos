@@ -3,16 +3,6 @@
  * Licenced to Minecraftly under GNU-GPLv3.
  */
 
-/*
- * See provided LICENCE.txt in the project root.
- * Licenced to Minecraftly under GNU-GPLv3.
- */
-
-/*
- * See provided LICENCE.txt in the project root.
- * Licenced to Minecraftly under GNU-GPLv3.
- */
-
 package com.minecraftly.bukkit;
 
 import com.minecraftly.bukkit.commands.*;
@@ -123,21 +113,21 @@ public class MinecraftlyBukkitPlugin extends JavaPlugin {
 	private boolean setExecutors( @NonNull String commandName, @NonNull Object executor ) {
 
 		PluginCommand command = getCommand( commandName );
-		if( command == null ) return false;
+		if ( command == null ) return false;
 
 		boolean ret = false;
 
-		if( executor instanceof CommandExecutor ) {
+		if ( executor instanceof CommandExecutor ) {
 			command.setExecutor( (CommandExecutor) executor );
 			ret = true;
 		}
 
-		if( executor instanceof TabCompleter ) {
+		if ( executor instanceof TabCompleter ) {
 			command.setTabCompleter( (TabCompleter) executor );
 			ret = true;
 		}
 
-		core.getLogger().log( Level.FINE, "Registered command \"" + commandName + "\" with executor \"" + executor.getClass() + "\". Was successful: " + ret  );
+		core.getLogger().log( Level.FINE, "Registered command \"" + commandName + "\" with executor \"" + executor.getClass() + "\". Was successful: " + ret );
 
 		return ret;
 

@@ -30,12 +30,12 @@ public class WorldCommand implements CommandExecutor {
 	@Override
 	public boolean onCommand( CommandSender sender, Command command, String label, String[] args ) {
 
-		if( !(sender instanceof Player) ) {
+		if ( !(sender instanceof Player) ) {
 			sender.sendMessage( ChatColor.RED + "Only players can change worlds." );
 			return true;
 		}
 
-		if( args.length != 1 ) {
+		if ( args.length != 1 ) {
 			sender.sendMessage( ChatColor.RED + "Hey, that isn't how you do this.." );
 			sender.sendMessage( ChatColor.YELLOW + " /world <worldname>" );
 			return true;
@@ -45,7 +45,7 @@ public class WorldCommand implements CommandExecutor {
 
 		World world = Bukkit.getWorld( uuidToJoin.toString() );
 
-		if( world != null ) {
+		if ( world != null ) {
 			((Player) sender).teleport( world.getSpawnLocation(), PlayerTeleportEvent.TeleportCause.COMMAND );
 			return true;
 		}

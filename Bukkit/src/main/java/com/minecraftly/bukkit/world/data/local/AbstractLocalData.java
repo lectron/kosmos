@@ -17,9 +17,6 @@ import java.io.IOException;
  */
 public abstract class AbstractLocalData {
 
-	@Deprecated
-	public abstract boolean save( MinecraftlyBukkitCore core ) throws IOException;
-
 	public static File getSaveFolder( MinecraftlyCore core, World world ) {
 		return getSaveFolder( core, world.getWorldFolder() );
 	}
@@ -28,14 +25,17 @@ public abstract class AbstractLocalData {
 
 		File saveFolder = new File( worldFolder, "minecraftly" );
 
-		if( !saveFolder.exists() ) {
+		if ( !saveFolder.exists() ) {
 			saveFolder.mkdirs();
-		} else if( !saveFolder.isDirectory() ) {
+		} else if ( !saveFolder.isDirectory() ) {
 			core.getLogger().warning( "\"" + saveFolder.getAbsolutePath() + "\" exists, but isn't a directory. We need this as a DIR!" );
 		}
 
 		return saveFolder;
 
 	}
+
+	@Deprecated
+	public abstract boolean save( MinecraftlyBukkitCore core ) throws IOException;
 
 }

@@ -3,21 +3,6 @@
  * Licenced to Minecraftly under GNU-GPLv3.
  */
 
-/*
- * See provided LICENCE.txt in the project root.
- * Licenced to Minecraftly under GNU-GPLv3.
- */
-
-/*
- * See provided LICENCE.txt in the project root.
- * Licenced to Minecraftly under GNU-GPLv3.
- */
-
-/*
- * See provided LICENCE.txt in the project root.
- * Licenced to Minecraftly under GNU-GPLv3.
- */
-
 package com.minecraftly.bukkit.world.data.local;
 
 import com.google.common.base.Joiner;
@@ -54,7 +39,7 @@ import java.util.stream.Collectors;
 
 /**
  * A class to manage the loading and savin the data of players and worlds.
- *
+ * <p>
  * TODO: I'm not happy with this, it will need a cleanup!
  *
  * @author Cory Redmond &lt;ace@ac3-servers.eu&gt;
@@ -87,7 +72,7 @@ public class PlayerHandler implements Listener, Closeable {
 	private final Callback<Callable<Void>, UUID> worldDataLoadedCallback = param -> {
 		final World world = Bukkit.getWorld( param.toString() );
 		return () -> {
-			if( world == null ) return null;
+			if ( world == null ) return null;
 			WorldDimension.getPlayersAllDimensions( world ).forEach( player -> userJoinedWorld( player, world, getWorldData( player.getUniqueId() ) ) );
 			return null;
 		};
@@ -101,11 +86,11 @@ public class PlayerHandler implements Listener, Closeable {
 		public void run() {
 
 			int saveInInterval = 15;
-			for( int i = 0; i < saveInInterval; i++ ) {
+			for ( int i = 0; i < saveInInterval; i++ ) {
 				try {
 					AbstractLocalData data = dataToBeSaved.poll();
-					if( data == null ) continue;
-					if( !data.save( core ) ) {
+					if ( data == null ) continue;
+					if ( !data.save( core ) ) {
 						throw new Exception( "Unable to save data \"" + data.getClass() + "\"." );
 					}
 				} catch ( Exception ex ) {
@@ -131,7 +116,7 @@ public class PlayerHandler implements Listener, Closeable {
 
 		// Update the player location.
 		UserData data = loadedUserData.get( event.getPlayer().getUniqueId() );
-		if( data == null ) return;
+		if ( data == null ) return;
 
 		data.setLastLocation( event.getTo() );
 
@@ -143,7 +128,7 @@ public class PlayerHandler implements Listener, Closeable {
 	private void onWorldLoad( WorldLoadEvent event ) {
 
 		final UUID uuid = WorldDimension.getUUIDOfWorld( event.getWorld() );
-		if( uuid == null ) return;
+		if ( uuid == null ) return;
 
 		core.getOriginObject().getServer().getScheduler().runTaskAsynchronously( core.getOriginObject(), () -> {
 			loadedWorldData.put( uuid, WorldData.load( core, event.getWorld() ) );
@@ -156,7 +141,7 @@ public class PlayerHandler implements Listener, Closeable {
 	private void onWorldUnload( WorldUnloadEvent event ) {
 
 		final UUID uuid = WorldDimension.getUUIDOfWorld( event.getWorld() );
-		if( uuid == null || !loadedWorldData.containsKey( uuid ) ) return;
+		if ( uuid == null || !loadedWorldData.containsKey( uuid ) ) return;
 
 		WorldData data = loadedWorldData.get( uuid );
 		loadedWorldData.remove( uuid );
@@ -175,9 +160,9 @@ public class PlayerHandler implements Listener, Closeable {
 
 		UUID uuid = WorldDimension.getUUIDOfWorld( to );
 		UUID uuid1 = WorldDimension.getUUIDOfWorld( from );
-		if( uuid1 == null || Objects.equals( uuid, uuid1 ) ) return;
+		if ( uuid1 == null || Objects.equals( uuid, uuid1 ) ) return;
 
-		if( loadedWorldData.containsKey( uuid1 ) ) {
+		if ( loadedWorldData.containsKey( uuid1 ) ) {
 			userLeftWorld( event.getPlayer(), from );
 		}
 
@@ -195,7 +180,7 @@ public class PlayerHandler implements Listener, Closeable {
 		userJoinedWorld( event.getPlayer(), event.getPlayer().getWorld(), worldData );
 	}
 
-	@EventHandler( priority = EventPriority.LOWEST)
+	@EventHandler( priority = EventPriority.LOWEST )
 	private void onPlayerQuit( PlayerQuitEvent event ) {
 		userLeftWorld( event.getPlayer(), event.getPlayer().getWorld() );
 	}
@@ -225,7 +210,7 @@ public class PlayerHandler implements Listener, Closeable {
 	/**
 	 * Processes the data and loads it on world join.
 	 *
-	 * @param user The player to process.
+	 * @param user  The player to process.
 	 * @param world THe world which they joined.
 	 */
 	private void userJoinedWorld( @NonNull Player user, @NonNull World world, WorldData worldData ) {
@@ -242,12 +227,12 @@ public class PlayerHandler implements Listener, Closeable {
 			worldData.getTrustedUsers().remove( user.getUniqueId() );
 		}
 
-		if( worldData != null && !isOwner ) {
+		if ( worldData != null && !isOwner ) {
 
-			if( worldData.getBannedUsers().containsKey( uuid ) ) {
+			if ( worldData.getBannedUsers().containsKey( uuid ) ) {
 
 				PunishEntry banEntry = worldData.getBannedUsers().get( uuid );
-				if( banEntry != null && banEntry.isBanned() ) {
+				if ( banEntry != null && banEntry.isBanned() ) {
 
 					List<String> messages = new ArrayList<>();
 					messages.add( ChatColor.RED + "You are banned from this server." );
@@ -257,7 +242,7 @@ public class PlayerHandler implements Listener, Closeable {
 									.map( s -> ChatColor.translateAlternateColorCodes( '&', s ) )
 									.collect( Collectors.toList() )
 					);
-					if( banEntry.getTime() > 0 )
+					if ( banEntry.getTime() > 0 )
 						messages.add( ChatColor.RED + "You will be unbanned in " + MinecraftlyUtil.getTimeString( banEntry.getRemainingBanTime() ) + "." );
 
 					messages.stream().forEach( user::sendMessage );
@@ -269,7 +254,7 @@ public class PlayerHandler implements Listener, Closeable {
 
 			}
 
-			if( worldData.isWhiteListed() && !worldData.getWhiteListedUsers().contains( uuid ) ) {
+			if ( worldData.isWhiteListed() && !worldData.getWhiteListedUsers().contains( uuid ) ) {
 
 				user.sendMessage( ChatColor.RED + "You're not white listed on this server, sorry." );
 				// TODO Send to own world.
@@ -278,13 +263,13 @@ public class PlayerHandler implements Listener, Closeable {
 
 			}
 
-			if( worldData.getTrustedUsers().contains( uuid ) ) {
+			if ( worldData.getTrustedUsers().contains( uuid ) ) {
 				user.setGameMode( GameMode.SURVIVAL );
 			} else {
 				user.setGameMode( GameMode.ADVENTURE );
 			}
 
-		} else if( isOwner ) {
+		} else if ( isOwner ) {
 			user.setGameMode( GameMode.SURVIVAL );
 		}
 
@@ -298,14 +283,14 @@ public class PlayerHandler implements Listener, Closeable {
 	/**
 	 * Processes the data and saves it on world leave.
 	 *
-	 * @param user The player to process.
+	 * @param user  The player to process.
 	 * @param world The world which they left.
 	 */
 	private void userLeftWorld( @NonNull Player user, @NonNull World world ) {
 
 		// Okay we keep this because it's likely to get removed after this is call finishes.
 		final UserData userData = loadedUserData.get( user.getUniqueId() );
-		if( userData != null ) dataToBeSaved.add( userData );
+		if ( userData != null ) dataToBeSaved.add( userData );
 		loadedUserData.remove( user.getUniqueId(), userData );
 
 	}
@@ -321,7 +306,7 @@ public class PlayerHandler implements Listener, Closeable {
 	public WorldData getWorldData( @NonNull World world ) {
 
 		UUID uuid = WorldDimension.getUUIDOfWorld( world );
-		if( uuid == null ) return null;
+		if ( uuid == null ) return null;
 
 		return getWorldData( uuid );
 

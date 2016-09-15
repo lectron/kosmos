@@ -3,16 +3,6 @@
  * Licenced to Minecraftly under GNU-GPLv3.
  */
 
-/*
- * See provided LICENCE.txt in the project root.
- * Licenced to Minecraftly under GNU-GPLv3.
- */
-
-/*
- * See provided LICENCE.txt in the project root.
- * Licenced to Minecraftly under GNU-GPLv3.
- */
-
 package com.minecraftly.bukkit.commands;
 
 import com.minecraftly.bukkit.MinecraftlyBukkitCore;
@@ -50,20 +40,20 @@ public class MuteCommands implements CommandExecutor, TabCompleter {
 	@Override
 	public boolean onCommand( CommandSender sender, Command command, String label, String[] args ) {
 
-		if( !(sender instanceof Player) ) {
+		if ( !(sender instanceof Player) ) {
 			sender.sendMessage( ChatColor.RED + "Only world owners can mute and unmute people!" );
 			return true;
 		}
 
 		Player player = ((Player) sender);
 
-		if( !Objects.equals( player.getUniqueId(), WorldDimension.getUUIDOfWorld( player.getWorld() ) ) ) {
+		if ( !Objects.equals( player.getUniqueId(), WorldDimension.getUUIDOfWorld( player.getWorld() ) ) ) {
 			sender.sendMessage( ChatColor.RED + "Only world owners can mute and unmute people!" );
 			return true;
 		}
 
 		WorldData worldData = core.getPlayerHandler().getWorldData( player.getUniqueId() );
-		if( worldData == null ) {
+		if ( worldData == null ) {
 			sender.sendMessage( ChatColor.RED + "We were unable to load the world data!" );
 			return true;
 		}
@@ -92,13 +82,13 @@ public class MuteCommands implements CommandExecutor, TabCompleter {
 	public List<String> onTabComplete( CommandSender sender, Command command, String alias, String[] args ) {
 
 		// Don't accept non players.. Lazy.
-		if( !(sender instanceof Player) ) return Collections.emptyList();
+		if ( !(sender instanceof Player) ) return Collections.emptyList();
 
 		// Send the list of home names.
 		String commandName = command.getName();
-		if( commandName.equalsIgnoreCase( "mute" ) || commandName.equalsIgnoreCase( "unmute" ) ) {
+		if ( commandName.equalsIgnoreCase( "mute" ) || commandName.equalsIgnoreCase( "unmute" ) ) {
 
-			if( args.length == 1 ) {
+			if ( args.length == 1 ) {
 
 				String search = args[0].toLowerCase();
 				return Bukkit.getOnlinePlayers()
@@ -119,7 +109,7 @@ public class MuteCommands implements CommandExecutor, TabCompleter {
 
 		// TODO tempmute.
 
-		if( args.length != 1 ) {
+		if ( args.length != 1 ) {
 			player.sendMessage( ChatColor.RED + "Hey, that isn't how you do this.." );
 			String un = remove ? "un" : "";
 			player.sendMessage( ChatColor.YELLOW + " /" + un + "mute [player]" );
@@ -127,22 +117,22 @@ public class MuteCommands implements CommandExecutor, TabCompleter {
 		}
 
 		Callback<Callable<Void>, UUID> uuidCallback = param -> () -> {
-			if( param == null ) {
+			if ( param == null ) {
 				player.sendMessage( ChatColor.RED + "An error occurred whilst getting the player's UUID..." );
 			} else {
 
 				Player punishee = Bukkit.getPlayer( param );
 
-				if( remove ) {
+				if ( remove ) {
 					player.sendMessage( ChatColor.BLUE + "UUID \"" + param + "\" is no longer muted!" );
-					if ( worldData.getMutedUsers().remove( param ) != null && punishee != null  ) {
+					if ( worldData.getMutedUsers().remove( param ) != null && punishee != null ) {
 						punishee.sendMessage( ChatColor.GREEN + "You are no longer muted!" );
 					}
 
 				} else {
 					player.sendMessage( ChatColor.BLUE + "UUID \"" + param + "\" is now muted!" );
 					worldData.getMutedUsers().put( param, new PunishEntry( -1, "You are muted." ) );
-					if( punishee != null ) punishee.sendMessage( ChatColor.DARK_RED + "You have been muted!" );
+					if ( punishee != null ) punishee.sendMessage( ChatColor.DARK_RED + "You have been muted!" );
 				}
 
 				core.getPlayerHandler().save( worldData );
@@ -154,7 +144,7 @@ public class MuteCommands implements CommandExecutor, TabCompleter {
 		player.sendMessage( ChatColor.YELLOW + "Processing..." );
 		core.getOriginObject().getServer().getScheduler().runTaskAsynchronously( core.getOriginObject(), () -> {
 
-			try ( Jedis jedis = core.getJedis() ){
+			try ( Jedis jedis = core.getJedis() ) {
 
 				UUID uuid = core.getUUIDManager().getUuid( jedis, args[0] );
 				core.getOriginObject().getServer().getScheduler().callSyncMethod( core.getOriginObject(), uuidCallback.call( uuid ) );

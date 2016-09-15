@@ -17,16 +17,16 @@ import java.util.Properties;
  */
 public class DnsHelper {
 
-	private static Properties env;
 	private static final String CNAME_ATTRIB = "CNAME";
+	private static Properties env;
 	private static String[] CNAME_ATTRIBS = { CNAME_ATTRIB };
 
 	static {
 		env = new Properties();
-		env.put( Context.INITIAL_CONTEXT_FACTORY, "com.sun.jndi.dns.DnsContextFactory");
+		env.put( Context.INITIAL_CONTEXT_FACTORY, "com.sun.jndi.dns.DnsContextFactory" );
 	}
 
-	public static String getCname(String host) {
+	public static String getCname( String host ) {
 		try {
 			return getCname( new InitialDirContext( env ), host );
 		} catch ( Exception ex ) {
@@ -34,9 +34,9 @@ public class DnsHelper {
 		}
 	}
 
-	private static String getCname(InitialDirContext idc, String host) throws NamingException {
-		Attributes attrs = idc.getAttributes(host, CNAME_ATTRIBS);
-		Attribute attr = attrs.get(CNAME_ATTRIB);
+	private static String getCname( InitialDirContext idc, String host ) throws NamingException {
+		Attributes attrs = idc.getAttributes( host, CNAME_ATTRIBS );
+		Attribute attr = attrs.get( CNAME_ATTRIB );
 
 		try {
 			return attr.get( 0 ).toString();

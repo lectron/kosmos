@@ -64,7 +64,7 @@ public class WorldData extends AbstractLocalData {
 		File dataFile = new File( getSaveFolder( core, world ), "world_data.json" );
 
 		try {
-			if( dataFile.exists() )
+			if ( dataFile.exists() )
 				ret = MinecraftlyConfiguration.getGson().fromJson( MinecraftlyUtil.readText( dataFile ), WorldData.class );
 		} catch ( IOException e ) {
 			core.getLogger().log( Level.SEVERE, "An error occurred whilst reading the data file for world \"" + world.getName() + "\"", e );
@@ -87,7 +87,7 @@ public class WorldData extends AbstractLocalData {
 	@Override
 	public final boolean save( MinecraftlyBukkitCore core ) throws IOException {
 
-		if( dataFile == null ) return false;
+		if ( dataFile == null ) return false;
 
 		try ( FileWriter fw = new FileWriter( dataFile ) ) {
 			fw.write( MinecraftlyConfiguration.getGson().toJson( this ) );

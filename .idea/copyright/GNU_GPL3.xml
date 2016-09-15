@@ -1,6 +1,8 @@
 <component name="CopyrightManager">
   <copyright>
+    <option name="allowReplaceKeyword" value="Licenced to Minecraftly" />
     <option name="myName" value="GNU-GPL3" />
+    <option name="keyword" value="Licenced" />
     <option name="notice" value="See provided LICENCE.txt in the project root.&#10;Licenced to Minecraftly under GNU-GPLv3." />
   </copyright>
 </component>

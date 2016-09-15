@@ -3,11 +3,6 @@
  * Licenced to Minecraftly under GNU-GPLv3.
  */
 
-/*
- * See provided LICENCE.txt in the project root.
- * Licenced to Minecraftly under GNU-GPLv3.
- */
-
 package com.minecraftly.core.manager.redis;
 
 import com.minecraftly.core.MinecraftlyCore;
@@ -88,7 +83,7 @@ public class WorldManager {
 	/**
 	 * Loads the world desired.
 	 *
-	 * @param jedis A jedis instance to use.
+	 * @param jedis      A jedis instance to use.
 	 * @param playerUuid THe UUID of the world to load.
 	 * @return The serverId of which it will be loaded on.
 	 * @throws ProcessingException if an exception occurs.
@@ -112,7 +107,8 @@ public class WorldManager {
 
 	/**
 	 * Gets all the UUID's of the owners of the worlds loaded on a specified server.
-	 * @param jedis A jedis instance to use.
+	 *
+	 * @param jedis    A jedis instance to use.
 	 * @param serverId The id of the server you want information on.
 	 * @return The list of UUID's loaded on the server.
 	 * @throws ProcessingException if an exception occurs.

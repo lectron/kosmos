@@ -35,52 +35,49 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class DebugCommand implements CommandExecutor {
 
-	private final MinecraftlyBukkitCore core;
-
 	/**
 	 * Tier 0 prefix.
 	 */
 	private static final String t0Prefix = ChatColor.DARK_PURPLE.toString();
-
 	/**
 	 * Tier 1 prefix.
 	 */
 	private static final String t1Prefix = ChatColor.DARK_BLUE + "  ";
-
 	/**
 	 * Tier 2 prefix.
 	 */
 	private static final String t2Prefix = ChatColor.LIGHT_PURPLE + "    ";
+	private final MinecraftlyBukkitCore core;
 
 	@Override
 	public boolean onCommand( final CommandSender sender, Command cmd, String label, String[] args ) {
 
-		if( !sender.hasPermission( "minecraftly.debug" ) ) {
+		if ( !sender.hasPermission( "minecraftly.debug" ) ) {
 			sender.sendMessage( ChatColor.RED + "Hey! Stop being nosey!" );
 			return true;
 		}
 
-		if( args.length == 2 && args[0].equalsIgnoreCase( "book" ) ) {
+		if ( args.length == 2 && args[0].equalsIgnoreCase( "book" ) ) {
 
-			if( !(sender instanceof Player) ) {
+			if ( !(sender instanceof Player) ) {
 				sender.sendMessage( ChatColor.RED + "Only players can do get debug books." );
 				return true;
 			}
 
 			Player player = ((Player) sender);
 
-			if( args[1].equalsIgnoreCase( "worlds" ) ) {
+			if ( args[1].equalsIgnoreCase( "worlds" ) ) {
 
 				List<String> worldPages = new ArrayList<>();
 				List<String> worldNames = Bukkit.getWorlds().stream().map( World::getName ).collect( Collectors.toList() );
 
 				StringBuilder sb = new StringBuilder( "Worlds:\n" );
 				int iterations = 0;
-				for( String worldName : worldNames ) {
+				for ( String worldName : worldNames ) {
 
 					sb.append( worldName ).append( "\n\n" );
 
-					if( iterations++ >= 4 ) {
+					if ( iterations++ >= 4 ) {
 						worldPages.add( sb.toString() );
 						sb = new StringBuilder( "Worlds:\n" );
 						iterations = 0;
@@ -177,7 +174,7 @@ public class DebugCommand implements CommandExecutor {
 
 	private void sendBook( CommandSender sender, String title, List<String> pages ) {
 
-		if( !(sender instanceof Player) ) {
+		if ( !(sender instanceof Player) ) {
 			sender.sendMessage( ChatColor.YELLOW + "We are unable to give you a debug book. :(" );
 			return;
 		}
@@ -185,10 +182,10 @@ public class DebugCommand implements CommandExecutor {
 		pages = pages.stream().map( page -> ChatColor.translateAlternateColorCodes( '&', page ) ).collect( Collectors.toList() );
 
 		ItemStack is = new ItemStack( Material.WRITTEN_BOOK, 1 );
-		BookMeta bookMeta = ( (BookMeta) is.getItemMeta() );
+		BookMeta bookMeta = ((BookMeta) is.getItemMeta());
 
 		bookMeta.setAuthor( ChatColor.GREEN.toString() + ChatColor.BOLD + "Minecraftly" );
-		bookMeta.setTitle( ChatColor.GOLD.toString() + ChatColor.BOLD + "Debugging Book || " + title  );
+		bookMeta.setTitle( ChatColor.GOLD.toString() + ChatColor.BOLD + "Debugging Book || " + title );
 		bookMeta.setGeneration( BookMeta.Generation.ORIGINAL );
 		bookMeta.setPages( pages );
 

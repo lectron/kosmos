@@ -29,6 +29,7 @@ public class PunishEntry {
 
 	/**
 	 * Is the banentry banned.
+	 *
 	 * @return true if they're banned.
 	 */
 	public boolean isBanned() {
@@ -37,6 +38,7 @@ public class PunishEntry {
 
 	/**
 	 * Gets the remaining ban time.
+	 *
 	 * @return The remaining ban time.
 	 */
 	public long getRemainingBanTime() {

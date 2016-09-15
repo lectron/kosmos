@@ -3,11 +3,6 @@
  * Licenced to Minecraftly under GNU-GPLv3.
  */
 
-/*
- * See provided LICENCE.txt in the project root.
- * Licenced to Minecraftly under GNU-GPLv3.
- */
-
 package com.minecraftly.bungee.listeners;
 
 import com.minecraftly.bungee.MinecraftlyBungeeCore;
@@ -38,7 +33,7 @@ public class MessageListener implements Listener {
 	public final void onPubSubMessage( MessageEvent event ) {
 
 		RedisKeys key = RedisKeys.keyFromString( event.getChannel() );
-		if( key == null ) return;
+		if ( key == null ) return;
 
 		switch ( key ) {
 
@@ -108,7 +103,7 @@ public class MessageListener implements Listener {
 
 	private void doIdentify( String message ) {
 
-		if( "suicide".equalsIgnoreCase(message)) {
+		if ( "suicide".equalsIgnoreCase( message ) ) {
 			ProxyServer.getInstance().stop( "Stopped by redis network suicide message!" );
 			return;
 		}

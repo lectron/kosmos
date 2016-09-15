@@ -76,7 +76,7 @@ public class ServerCommand extends Command implements TabExecutor {
 
 		} else {
 
-			if( args[0].equalsIgnoreCase( "universe" ) ) {
+			if ( args[0].equalsIgnoreCase( "universe" ) ) {
 
 				ProxyServer.getInstance().getPluginManager().dispatchCommand( sender, "world " + player.getUniqueId() );
 				return;
@@ -108,7 +108,7 @@ public class ServerCommand extends Command implements TabExecutor {
 				.map( ServerInfo::getName )
 				.collect( Collectors.toList() );
 		ret.add( "universe" );
-		
+
 		return ret;
 
 	}

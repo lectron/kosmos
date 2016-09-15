@@ -49,14 +49,14 @@ public class SpawnCommands implements CommandExecutor {
 
 	private void setSpawnCommand( CommandSender sender, String[] args ) {
 
-		if( !(sender instanceof Player) ) {
+		if ( !(sender instanceof Player) ) {
 			sender.sendMessage( ChatColor.RED + "Only world owners can set the spawn point!" );
 			return;
 		}
 
 		Player player = ((Player) sender);
 
-		if( !Objects.equals( player.getUniqueId(), WorldDimension.getUUIDOfWorld( player.getWorld() ) ) ) {
+		if ( !Objects.equals( player.getUniqueId(), WorldDimension.getUUIDOfWorld( player.getWorld() ) ) ) {
 			sender.sendMessage( ChatColor.RED + "Only world owners can set the spawn point!" );
 			return;
 		}
@@ -68,7 +68,7 @@ public class SpawnCommands implements CommandExecutor {
 		}
 
 		WorldData worldData = core.getPlayerHandler().getWorldData( player.getUniqueId() );
-		if( worldData == null ) {
+		if ( worldData == null ) {
 			sender.sendMessage( ChatColor.RED + "We were unable to load the world data!" );
 			return;
 		}
@@ -84,8 +84,8 @@ public class SpawnCommands implements CommandExecutor {
 
 		Player player;
 
-		if( !(sender instanceof Player) ) {
-				sender.sendMessage( ChatColor.RED + "Only players can go to spawn!" );
+		if ( !(sender instanceof Player) ) {
+			sender.sendMessage( ChatColor.RED + "Only players can go to spawn!" );
 		} else {
 
 			if ( args.length != 0 ) {

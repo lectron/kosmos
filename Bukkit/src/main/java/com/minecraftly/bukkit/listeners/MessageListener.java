@@ -3,21 +3,6 @@
  * Licenced to Minecraftly under GNU-GPLv3.
  */
 
-/*
- * See provided LICENCE.txt in the project root.
- * Licenced to Minecraftly under GNU-GPLv3.
- */
-
-/*
- * See provided LICENCE.txt in the project root.
- * Licenced to Minecraftly under GNU-GPLv3.
- */
-
-/*
- * See provided LICENCE.txt in the project root.
- * Licenced to Minecraftly under GNU-GPLv3.
- */
-
 package com.minecraftly.bukkit.listeners;
 
 import com.minecraftly.bukkit.MinecraftlyBukkitCore;
@@ -45,7 +30,7 @@ public class MessageListener implements Listener {
 	public final void onPubSubMessage( MessageEvent event ) {
 
 		RedisKeys key = RedisKeys.keyFromString( event.getChannel() );
-		if( key == null ) return;
+		if ( key == null ) return;
 
 		switch ( key ) {
 
@@ -107,7 +92,7 @@ public class MessageListener implements Listener {
 
 	private void doWorldRepo( String[] messages ) {
 
-		if( messages.length == 4 && messages[0].equalsIgnoreCase( "WORLD" ) && messages[1].equalsIgnoreCase( "LOAD" ) ) {
+		if ( messages.length == 4 && messages[0].equalsIgnoreCase( "WORLD" ) && messages[1].equalsIgnoreCase( "LOAD" ) ) {
 			String serverId = messages[2];
 
 			if ( serverId.equals( core.identify() ) ) {
@@ -126,7 +111,7 @@ public class MessageListener implements Listener {
 
 	private void doIdentify( String message ) {
 
-		if( "suicide".equalsIgnoreCase(message)) {
+		if ( "suicide".equalsIgnoreCase( message ) ) {
 			Bukkit.shutdown();
 			return;
 		}

@@ -3,26 +3,6 @@
  * Licenced to Minecraftly under GNU-GPLv3.
  */
 
-/*
- * See provided LICENCE.txt in the project root.
- * Licenced to Minecraftly under GNU-GPLv3.
- */
-
-/*
- * See provided LICENCE.txt in the project root.
- * Licenced to Minecraftly under GNU-GPLv3.
- */
-
-/*
- * See provided LICENCE.txt in the project root.
- * Licenced to Minecraftly under GNU-GPLv3.
- */
-
-/*
- * See provided LICENCE.txt in the project root.
- * Licenced to Minecraftly under GNU-GPLv3.
- */
-
 package com.minecraftly.bukkit.commands;
 
 import com.minecraftly.bukkit.MinecraftlyBukkitCore;
@@ -60,20 +40,20 @@ public class BanCommands implements CommandExecutor, TabCompleter {
 	@Override
 	public boolean onCommand( CommandSender sender, Command command, String label, String[] args ) {
 
-		if( !(sender instanceof Player) ) {
+		if ( !(sender instanceof Player) ) {
 			sender.sendMessage( ChatColor.RED + "Only world owners can ban and unban people!" );
 			return true;
 		}
 
 		Player player = ((Player) sender);
 
-		if( !Objects.equals( player.getUniqueId(), WorldDimension.getUUIDOfWorld( player.getWorld() ) ) ) {
+		if ( !Objects.equals( player.getUniqueId(), WorldDimension.getUUIDOfWorld( player.getWorld() ) ) ) {
 			sender.sendMessage( ChatColor.RED + "Only world owners can ban and unban people!" );
 			return true;
 		}
 
 		WorldData worldData = core.getPlayerHandler().getWorldData( player.getUniqueId() );
-		if( worldData == null ) {
+		if ( worldData == null ) {
 			sender.sendMessage( ChatColor.RED + "We were unable to load the world data!" );
 			return true;
 		}
@@ -99,13 +79,13 @@ public class BanCommands implements CommandExecutor, TabCompleter {
 	public List<String> onTabComplete( CommandSender sender, Command command, String alias, String[] args ) {
 
 		// Don't accept non players.. Lazy.
-		if( !(sender instanceof Player) ) return Collections.emptyList();
+		if ( !(sender instanceof Player) ) return Collections.emptyList();
 
 		// Send the list of home names.
 		String commandName = command.getName();
-		if( commandName.equalsIgnoreCase( "ban" ) || commandName.equalsIgnoreCase( "unban" ) ) {
+		if ( commandName.equalsIgnoreCase( "ban" ) || commandName.equalsIgnoreCase( "unban" ) ) {
 
-			if( args.length == 1 ) {
+			if ( args.length == 1 ) {
 
 				String search = args[0].toLowerCase();
 				return Bukkit.getOnlinePlayers()
@@ -126,7 +106,7 @@ public class BanCommands implements CommandExecutor, TabCompleter {
 
 		// TODO tempban.
 
-		if( args.length != 1 ) {
+		if ( args.length != 1 ) {
 			player.sendMessage( ChatColor.RED + "Hey, that isn't how you do this.." );
 			String un = remove ? "un" : "";
 			player.sendMessage( ChatColor.YELLOW + " /" + un + "ban [player]" );
@@ -134,11 +114,11 @@ public class BanCommands implements CommandExecutor, TabCompleter {
 		}
 
 		Callback<Callable<Void>, UUID> uuidCallback = param -> () -> {
-			if( param == null ) {
+			if ( param == null ) {
 				player.sendMessage( ChatColor.RED + "An error occurred whilst getting the player's UUID..." );
 			} else {
 
-				if( remove ) {
+				if ( remove ) {
 					player.sendMessage( ChatColor.BLUE + "UUID \"" + param + "\" is no longer banned!" );
 					worldData.getBannedUsers().remove( param );
 				} else {
@@ -159,7 +139,7 @@ public class BanCommands implements CommandExecutor, TabCompleter {
 		player.sendMessage( ChatColor.YELLOW + "Processing..." );
 		core.getOriginObject().getServer().getScheduler().runTaskAsynchronously( core.getOriginObject(), () -> {
 
-			try ( Jedis jedis = core.getJedis() ){
+			try ( Jedis jedis = core.getJedis() ) {
 
 				UUID uuid = core.getUUIDManager().getUuid( jedis, args[0] );
 				core.getOriginObject().getServer().getScheduler().callSyncMethod( core.getOriginObject(), uuidCallback.call( uuid ) );

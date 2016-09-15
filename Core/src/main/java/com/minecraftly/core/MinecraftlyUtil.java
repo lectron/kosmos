@@ -3,11 +3,6 @@
  * Licenced to Minecraftly under GNU-GPLv3.
  */
 
-/*
- * See provided LICENCE.txt in the project root.
- * Licenced to Minecraftly under GNU-GPLv3.
- */
-
 package com.minecraftly.core;
 
 import java.io.File;
@@ -26,16 +21,16 @@ public class MinecraftlyUtil {
 
 	private static final Pattern UUID_DASH_PATTERN = Pattern.compile( "(\\w{8})(\\w{4})(\\w{4})(\\w{4})(\\w{12})" );
 
-	public static UUID convertFromNoDashes(String uuidString) {
-		return UUID.fromString(UUID_DASH_PATTERN.matcher(uuidString).replaceAll("$1-$2-$3-$4-$5"));
+	public static UUID convertFromNoDashes( String uuidString ) {
+		return UUID.fromString( UUID_DASH_PATTERN.matcher( uuidString ).replaceAll( "$1-$2-$3-$4-$5" ) );
 	}
 
-	public static String convertToNoDashes(UUID uuid) {
-		return convertToNoDashes(uuid.toString());
+	public static String convertToNoDashes( UUID uuid ) {
+		return convertToNoDashes( uuid.toString() );
 	}
 
-	public static String convertToNoDashes(String uuidString) {
-		return uuidString.replace("-", "");
+	public static String convertToNoDashes( String uuidString ) {
+		return uuidString.replace( "-", "" );
 	}
 
 	/**
@@ -136,60 +131,60 @@ public class MinecraftlyUtil {
 	 * @param millis Milliseconds to be formatted.
 	 * @return The formatted string that looks beautiful.
 	 */
-	public static String getTimeString(long millis) {
+	public static String getTimeString( long millis ) {
 
-		if (millis < 1L) {
+		if ( millis < 1L ) {
 			return "not very long!";
 		} else {
-			long days = TimeUnit.MILLISECONDS.toDays(millis);
+			long days = TimeUnit.MILLISECONDS.toDays( millis );
 
-			millis -= TimeUnit.DAYS.toMillis(days);
-			long hours = TimeUnit.MILLISECONDS.toHours(millis);
+			millis -= TimeUnit.DAYS.toMillis( days );
+			long hours = TimeUnit.MILLISECONDS.toHours( millis );
 
-			millis -= TimeUnit.HOURS.toMillis(hours);
-			long minutes = TimeUnit.MILLISECONDS.toMinutes(millis);
+			millis -= TimeUnit.HOURS.toMillis( hours );
+			long minutes = TimeUnit.MILLISECONDS.toMinutes( millis );
 
-			millis -= TimeUnit.MINUTES.toMillis(minutes);
-			long seconds = TimeUnit.MILLISECONDS.toSeconds(millis);
+			millis -= TimeUnit.MINUTES.toMillis( minutes );
+			long seconds = TimeUnit.MILLISECONDS.toSeconds( millis );
 			StringBuilder sb = new StringBuilder();
 
-			if (days > 0L) {
-				sb.append(days).append(" day");
-				if (days > 1L) {
-					sb.append("s");
+			if ( days > 0L ) {
+				sb.append( days ).append( " day" );
+				if ( days > 1L ) {
+					sb.append( "s" );
 				}
 			}
 
-			if (hours > 0L) {
-				if (days > 0L) {
-					sb.append(", ");
+			if ( hours > 0L ) {
+				if ( days > 0L ) {
+					sb.append( ", " );
 				}
 
-				sb.append(hours).append(" hour");
-				if (hours > 1L) {
-					sb.append("s");
-				}
-			}
-
-			if (minutes > 0L) {
-				if (hours > 0L || days > 0L) {
-					sb.append(", ");
-				}
-
-				sb.append(minutes).append(" minute");
-				if (minutes > 1L) {
-					sb.append("s");
+				sb.append( hours ).append( " hour" );
+				if ( hours > 1L ) {
+					sb.append( "s" );
 				}
 			}
 
-			if (seconds > 0L) {
-				if (minutes > 0L || hours > 0L || days > 0L) {
-					sb.append(", ");
+			if ( minutes > 0L ) {
+				if ( hours > 0L || days > 0L ) {
+					sb.append( ", " );
 				}
 
-				sb.append(seconds).append(" second");
-				if (seconds > 1L) {
-					sb.append("s");
+				sb.append( minutes ).append( " minute" );
+				if ( minutes > 1L ) {
+					sb.append( "s" );
+				}
+			}
+
+			if ( seconds > 0L ) {
+				if ( minutes > 0L || hours > 0L || days > 0L ) {
+					sb.append( ", " );
+				}
+
+				sb.append( seconds ).append( " second" );
+				if ( seconds > 1L ) {
+					sb.append( "s" );
 				}
 			}
 

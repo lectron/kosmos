@@ -37,30 +37,30 @@ public class WhiteListCommands implements CommandExecutor, TabCompleter {
 	@Override
 	public boolean onCommand( CommandSender sender, Command command, String label, String[] args ) {
 
-		if( !command.getName().toLowerCase().equalsIgnoreCase( "whitelist" ) || args.length == 0 ) {
+		if ( !command.getName().toLowerCase().equalsIgnoreCase( "whitelist" ) || args.length == 0 ) {
 			sendHelp( sender );
 			return true;
 		}
 
-		if( !(sender instanceof Player) ) {
+		if ( !(sender instanceof Player) ) {
 			sender.sendMessage( ChatColor.RED + "Only players can manipulate white lists." );
 			return true;
 		}
 
 		Player player = ((Player) sender);
 
-		if( !Objects.equals( player.getUniqueId(), WorldDimension.getUUIDOfWorld( player.getWorld() ) ) ) {
+		if ( !Objects.equals( player.getUniqueId(), WorldDimension.getUUIDOfWorld( player.getWorld() ) ) ) {
 			sender.sendMessage( ChatColor.RED + "Only world owners can manipulate white lists!" );
 			return true;
 		}
 
 		WorldData worldData = core.getPlayerHandler().getWorldData( player.getUniqueId() );
-		if( worldData == null ) {
+		if ( worldData == null ) {
 			sender.sendMessage( ChatColor.RED + "We were unable to load the world data!" );
 			return true;
 		}
 
-		switch( args[0].toLowerCase() ) {
+		switch ( args[0].toLowerCase() ) {
 
 			case "add":
 				playerManipulate( player, args, true, worldData );
@@ -91,18 +91,18 @@ public class WhiteListCommands implements CommandExecutor, TabCompleter {
 
 	private void playerManipulate( Player player, String[] args, boolean addPlayer, WorldData worldData ) {
 
-		if( args.length != 2 ) {
+		if ( args.length != 2 ) {
 			player.sendMessage( ChatColor.RED + "Hey, that isn't how you do this.." );
 			player.sendMessage( ChatColor.YELLOW + " /whitelist add [player]" );
 			return;
 		}
 
 		Callback<Callable<Void>, UUID> uuidCallback = param -> () -> {
-			if( param == null ) {
+			if ( param == null ) {
 				player.sendMessage( ChatColor.RED + "An error occurred whilst getting the player's UUID..." );
 			} else {
 
-				if( addPlayer ) {
+				if ( addPlayer ) {
 					player.sendMessage( ChatColor.BLUE + "UUID \"" + param + "\" has been added to the whitelist!" );
 					worldData.getWhiteListedUsers().add( param );
 				} else {
@@ -119,7 +119,7 @@ public class WhiteListCommands implements CommandExecutor, TabCompleter {
 		player.sendMessage( ChatColor.YELLOW + "Processing..." );
 		core.getOriginObject().getServer().getScheduler().runTaskAsynchronously( core.getOriginObject(), () -> {
 
-			try ( Jedis jedis = core.getJedis() ){
+			try ( Jedis jedis = core.getJedis() ) {
 
 				UUID uuid = core.getUUIDManager().getUuid( jedis, args[1] );
 				core.getOriginObject().getServer().getScheduler().callSyncMethod( core.getOriginObject(), uuidCallback.call( uuid ) );
@@ -147,7 +147,7 @@ public class WhiteListCommands implements CommandExecutor, TabCompleter {
 	private WorldData getWorldData( World world ) {
 
 		UUID uuid = WorldDimension.getUUIDOfWorld( world );
-		if( uuid == null ) return null;
+		if ( uuid == null ) return null;
 		return core.getPlayerHandler().getWorldData( world );
 
 	}

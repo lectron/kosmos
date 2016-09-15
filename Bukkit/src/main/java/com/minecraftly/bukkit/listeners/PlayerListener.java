@@ -3,26 +3,6 @@
  * Licenced to Minecraftly under GNU-GPLv3.
  */
 
-/*
- * See provided LICENCE.txt in the project root.
- * Licenced to Minecraftly under GNU-GPLv3.
- */
-
-/*
- * See provided LICENCE.txt in the project root.
- * Licenced to Minecraftly under GNU-GPLv3.
- */
-
-/*
- * See provided LICENCE.txt in the project root.
- * Licenced to Minecraftly under GNU-GPLv3.
- */
-
-/*
- * See provided LICENCE.txt in the project root.
- * Licenced to Minecraftly under GNU-GPLv3.
- */
-
 package com.minecraftly.bukkit.listeners;
 
 import com.minecraftly.bukkit.MinecraftlyBukkitCore;
@@ -73,8 +53,8 @@ public class PlayerListener implements Listener, Closeable {
 
 			String worldName = worldsToBeRemoved.poll();
 			World world;
-			if( worldName != null && (world = Bukkit.getWorld( worldName )) != null ) {
-				if( Bukkit.unloadWorld( world, true ) ) {
+			if ( worldName != null && (world = Bukkit.getWorld( worldName )) != null ) {
+				if ( Bukkit.unloadWorld( world, true ) ) {
 					core.getLogger().log( Level.INFO, "Unloaded world \"" + worldName + "\"" );
 				} else {
 					worldsToBeRemoved.add( worldName );
@@ -125,8 +105,8 @@ public class PlayerListener implements Listener, Closeable {
 
 		World world = WorldDimension.getBaseWorld( event.getPlayer().getWorld() );
 		WorldData worldData;
-		if( ( worldData = core.getPlayerHandler().getWorldData( world ) ) != null ) {
-			if( worldData.getMutedUsers().containsKey( event.getPlayer().getUniqueId() ) )
+		if ( (worldData = core.getPlayerHandler().getWorldData( world )) != null ) {
+			if ( worldData.getMutedUsers().containsKey( event.getPlayer().getUniqueId() ) )
 				event.setCancelled( true ); // TODO not monitor.
 		}
 
@@ -235,7 +215,7 @@ public class PlayerListener implements Listener, Closeable {
 					while ( trys < 2 ) {
 						try {
 							World world = core.getWorldHandler().loadWorld( event.getPlayer().getUniqueId(), joinUUID.toString(), World.Environment.NORMAL );
-							if( world == null ) {
+							if ( world == null ) {
 								continue;
 							}
 							event.getPlayer().teleport( world.getSpawnLocation(), PlayerTeleportEvent.TeleportCause.PLUGIN );
@@ -337,7 +317,7 @@ public class PlayerListener implements Listener, Closeable {
 				try {
 
 					String worldName = world.getName();
-					if( Bukkit.unloadWorld( world, true ) ) {
+					if ( Bukkit.unloadWorld( world, true ) ) {
 						core.getLogger().log( Level.INFO, "Unloaded world \"" + worldName + "\"" );
 					} else {
 						worldsToBeRemoved.add( worldName );
