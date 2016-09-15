@@ -175,7 +175,7 @@ public class PlayerHandler implements Listener, Closeable {
 
 		UUID uuid = WorldDimension.getUUIDOfWorld( to );
 		UUID uuid1 = WorldDimension.getUUIDOfWorld( from );
-		if( Objects.equals( uuid, uuid1 ) ) return;
+		if( uuid1 == null || Objects.equals( uuid, uuid1 ) ) return;
 
 		if( loadedWorldData.containsKey( uuid1 ) ) {
 			userLeftWorld( event.getPlayer(), from );
