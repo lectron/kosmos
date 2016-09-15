@@ -217,8 +217,13 @@ public class PlayerHandler implements Listener, Closeable {
 
 		final UUID uuid = user.getUniqueId();
 
+		UserData data = loadedUserData.get( uuid );
+		if( data == null || !Objects.equals( WorldDimension.getBaseWorld( data.getOwner() ), world ) ) {
+			WorldDimension.getPlayersAllDimensions( world ).forEach( player -> player.sendMessage( colour( "&a&l>> &b" + user.getName() + " has joined." ) ) );
+		}
+
 		// TODO ASYNC? Could cause issues..
-		UserData data = UserData.load( core, world, uuid );
+		data = UserData.load( core, world, uuid );
 		loadedUserData.put( uuid, data );
 
 		boolean isOwner = user.getUniqueId().equals( WorldDimension.getUUIDOfWorld( world ) );
@@ -273,11 +278,6 @@ public class PlayerHandler implements Listener, Closeable {
 			user.setGameMode( GameMode.SURVIVAL );
 		}
 
-		World baseWorld = WorldDimension.getBaseWorld( user.getWorld() );
-		if( baseWorld != world ) {
-			WorldDimension.getPlayersAllDimensions( world ).forEach( player -> player.sendMessage( colour( "&c&l>> &b" + user.getName() + " has joined." ) ) );
-		}
-
 		user.setBedSpawnLocation( data.getBedLocation() );
 
 		Location lastLocation = data.getLastLocation() != null ? data.getLastLocation() : world.getSpawnLocation();
@@ -293,7 +293,7 @@ public class PlayerHandler implements Listener, Closeable {
 	 */
 	private void userLeftWorld( @NonNull Player user, @NonNull World world ) {
 
-		WorldDimension.getPlayersAllDimensions( world ).forEach( player -> player.sendMessage( colour( "&c&l>> &b" + user.getName() + " has joined." ) ) );
+		WorldDimension.getPlayersAllDimensions( world ).forEach( player -> player.sendMessage( colour( "&c&l>> &b" + user.getName() + " has left." ) ) );
 
 		// Okay we keep this because it's likely to get removed after this is call finishes.
 		final UserData userData = loadedUserData.get( user.getUniqueId() );
