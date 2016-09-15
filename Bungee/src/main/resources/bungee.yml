@@ -2,7 +2,7 @@
 name: Minecraftly
 
 # Bukkit version.
-version: ${pom.version}-BUNGEE
+version: ${pom.version}-BUNGEE+${describe}
 
 # I guess we can change this to authors? O_o
 author: Cory Redmond
