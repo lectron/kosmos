@@ -83,7 +83,7 @@ public class MessageListener implements Listener {
 			if ( messages.length == 3 ) {
 				Bukkit.broadcast( message, messages[2] );
 			} else {
-				Bukkit.broadcast( message, messages[2] );
+				Bukkit.broadcastMessage( message );
 			}
 
 		}
