@@ -79,7 +79,8 @@ public class MessageListener implements Listener {
 
 		if ( messages.length == 2 || messages.length == 3 && messages[0].equalsIgnoreCase( "MSG" ) ) {
 
-			String message = ChatColor.translateAlternateColorCodes( '&', messages[1] );
+			String message = ChatColor.translateAlternateColorCodes( '&', "&8[&cShout&8]&r" + messages[1] );
+
 			if ( messages.length == 3 ) {
 				Bukkit.broadcast( message, messages[2] );
 			} else {
