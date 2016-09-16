@@ -53,7 +53,8 @@ public class ShoutCommand implements CommandExecutor {
 			return true;
 		}
 
-		core.getChatHandler().queueMessage( joiner.join( args ), ((Player) sender).getUniqueId() );
+		sender.sendMessage( ChatColor.YELLOW + "Shout is currently the default chat!" );
+		//core.getChatHandler().queueMessage( joiner.join( args ), ((Player) sender).getUniqueId() );
 		return true;
 
 	}

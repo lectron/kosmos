@@ -9,7 +9,6 @@ import com.minecraftly.bukkit.MinecraftlyBukkitCore;
 import com.minecraftly.bukkit.commands.ShoutCommand;
 import com.minecraftly.bukkit.exceptions.WorldDoesNotExistException;
 import com.minecraftly.bukkit.world.WorldDimension;
-import com.minecraftly.bukkit.world.data.local.worlddata.WorldData;
 import com.minecraftly.core.manager.exceptions.NoJedisException;
 import com.minecraftly.core.manager.exceptions.ProcessingException;
 import lombok.NonNull;
@@ -31,7 +30,6 @@ import java.io.Closeable;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Set;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.logging.Level;
@@ -90,12 +88,12 @@ public class PlayerListener implements Listener, Closeable {
 
 		if ( event.getRecipients() instanceof ShoutCommand.MinecraftlySet ) return;
 
-		if ( event.getMessage().startsWith( "!" ) ) {
+		/*if ( event.getMessage().startsWith( "!" ) ) {
 			String message = event.getMessage().substring( 1 );
 			core.getChatHandler().queueMessage( message, event.getPlayer().getUniqueId() );
 			event.setCancelled( true );
 			return;
-		}
+		}*/
 
 		// Yes I'm aware this is naughty on Monitor.
 		if ( event.getMessage().equalsIgnoreCase( "worldpls" ) ) {
@@ -103,7 +101,7 @@ public class PlayerListener implements Listener, Closeable {
 			event.setCancelled( true );
 		}
 
-		World world = WorldDimension.getBaseWorld( event.getPlayer().getWorld() );
+		/*World world = WorldDimension.getBaseWorld( event.getPlayer().getWorld() );
 		WorldData worldData;
 		if ( (worldData = core.getPlayerHandler().getWorldData( world )) != null ) {
 			if ( worldData.getMutedUsers().containsKey( event.getPlayer().getUniqueId() ) )
@@ -113,7 +111,7 @@ public class PlayerListener implements Listener, Closeable {
 		// Per world chat.
 		Set<Player> recipients = event.getRecipients();
 		recipients.clear();
-		recipients.addAll( WorldDimension.getPlayersAllDimensions( world ) );
+		recipients.addAll( WorldDimension.getPlayersAllDimensions( world ) );*/
 
 	}
 
