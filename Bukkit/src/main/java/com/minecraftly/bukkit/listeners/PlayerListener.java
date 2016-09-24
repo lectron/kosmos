@@ -55,6 +55,8 @@ public class PlayerListener implements Listener, Closeable {
 				if ( Bukkit.unloadWorld( world, true ) ) {
 					core.getLogger().log( Level.INFO, "Unloaded world \"" + worldName + "\"" );
 				} else {
+					System.out.println( "There was 
+an error removing world " + worldName );
 					worldsToBeRemoved.add( worldName );
 				}
 			}
