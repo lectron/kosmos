@@ -343,7 +343,8 @@ public class PlayerListener implements Listener, Closeable {
 
 
 	public void load() {
-		worldUnloader.runTaskTimer( core.getOriginObject(), 3, 3 );
+		worldUnloader.runTaskTimer( core.getOriginObject(), 20, 
+20 );
 	}
 
 	@Override
