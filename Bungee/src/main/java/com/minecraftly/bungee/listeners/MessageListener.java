@@ -97,6 +97,13 @@ public class MessageListener implements Listener {
 
 			TpaCommand.sendTpaRequest( player, requesterUuid, requesterName );
 
+		} else if ( ( messageParts.length == 3 ) && messageParts[0].equalsIgnoreCase( "SENDP" ) ) {
+
+			UUID playerUuid = UUID.fromString( messageParts[1] );
+			UUID worldUuid = UUID.fromString( messageParts[2] );
+
+			core.sendToServer( playerUuid, worldUuid, true, false );
+
 		}
 
 	}

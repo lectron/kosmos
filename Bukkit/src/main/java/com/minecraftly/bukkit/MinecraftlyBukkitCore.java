@@ -12,6 +12,7 @@ import com.minecraftly.bukkit.listeners.MessageListener;
 import com.minecraftly.bukkit.world.WorldHandler;
 import com.minecraftly.bukkit.world.data.local.PlayerHandler;
 import com.minecraftly.core.MinecraftlyCore;
+import com.minecraftly.core.RedisKeys;
 import com.minecraftly.core.manager.exceptions.NoJedisException;
 import com.minecraftly.core.manager.exceptions.ProcessingException;
 import com.minecraftly.core.runnables.RunnableData;
@@ -48,6 +49,20 @@ public class MinecraftlyBukkitCore extends MinecraftlyCore<MinecraftlyBukkitPlug
 
 		super( plugin.getLogger(), plugin.getDataFolder(), plugin, Bukkit.getPort() );
 		getEventBus().register( new MessageListener( this ) );
+
+	}
+
+	@Override
+	public boolean sendToServer( UUID playerUuid, UUID server, boolean messageDownstream, boolean isTpa ) {
+
+		// TODO this is a dirty fix.
+		try ( Jedis jedis = getJedis() ) {
+			jedis.publish( RedisKeys.TRANSPORT.toString(), "SENDP\000" + playerUuid + "\000" + server );
+			return true;
+		} catch ( NoJedisException e ) {
+			e.printStackTrace();
+			return false;
+		}
 
 	}
 
