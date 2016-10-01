@@ -162,7 +162,6 @@ public abstract class MinecraftlyCore<P> implements Closeable {
 		core = this;
 
 		logger.log( Level.FINE, "Core initialised. Waiting for load.." );
-
 	}
 
 	public MinecraftlyCore( Logger logger, File minecraftlyDataFolder, P originObject, int port, MinecraftlyConfiguration config ) {
@@ -247,7 +246,6 @@ public abstract class MinecraftlyCore<P> implements Closeable {
 	 * @throws NoJedisException    Jedis is unreachable or closed.
 	 */
 	public final void sendMessage( RedisKeys key, String message ) throws ProcessingException, NoJedisException {
-
 		message = message.replace( "{identity}", identify() ).replace( "{myip}", getMyIpAddress() ).replace( "{port}", String.valueOf( getPort() ) );
 
 		try ( Jedis jedis = core.getJedis() ) {
@@ -291,7 +289,6 @@ public abstract class MinecraftlyCore<P> implements Closeable {
 	 * @throws IOException
 	 */
 	public final void close( boolean now ) throws IOException {
-
 		logger.log( Level.INFO, "Minecraftly shutting down.." );
 
 		// We don't have much of a choice but to kick everyone here.
@@ -327,19 +324,17 @@ public abstract class MinecraftlyCore<P> implements Closeable {
 		/*
 		 * Ideally close would be called when a task is stopped but hey ho.
 		 */
-		if ( heartBeatTask != null )
+		if (heartBeatTask != null)
 			heartBeatTask.close();
-
-		if ( now ) {
+		if (now) {
 			close1();
 		} else {
-			runTask( new CloseTask( () -> {
+			runTask(new CloseTask(() -> {
 				close1();
 				return null;
-			} ) );
+			}));
 			logger.log( Level.FINE, "Close call completed, waiting for close1." );
 		}
-
 	}
 
 	/**
@@ -348,12 +343,10 @@ public abstract class MinecraftlyCore<P> implements Closeable {
 	 * @see MinecraftlyCore#close()
 	 */
 	protected final void close1() {
-
 		getLogger().log( Level.INFO, "Shutting down..." );
 		shutdown();
 
 		try ( Jedis jedis = getJedis() ) {
-
 			if ( worldManager != null ) {
 				getLogger().log( Level.INFO, "Closing the world manager." );
 				try {
@@ -371,7 +364,6 @@ public abstract class MinecraftlyCore<P> implements Closeable {
 					getLogger().log( Level.SEVERE, "Error removing myself?", e );
 				}
 			}
-
 		} catch ( NoJedisException e ) {
 			e.printStackTrace();
 		}
@@ -387,7 +379,6 @@ public abstract class MinecraftlyCore<P> implements Closeable {
 
 		core = null;
 		logger.log( Level.INFO, "Minecraftly core closed!" );
-
 	}
 
 	public abstract void shutdown();
@@ -398,22 +389,18 @@ public abstract class MinecraftlyCore<P> implements Closeable {
 	 * @return A unique string per server. Possibly IP:Port.
 	 */
 	public String identify() {
-
 		int port = getPort();
 		IPAddressConfiguration ipAddress = getConfig().getMyAddress();
 
 		if ( ipAddress != null ) {
-
-			if ( ipAddress.getPort() > 0 ) port = ipAddress.getPort();
-
+			if ( ipAddress.getPort() > 0 ) { 
+				port = ipAddress.getPort();
+			}
 			if ( ipAddress.getIpAddress() != null && !ipAddress.getIpAddress().trim().isEmpty() ) {
 				return ipAddress.getIpAddress().trim() + ":" + port;
 			}
-
 		}
-
 		return getMyIpAddress() + ":" + port;
-
 	}
 
 	/**
@@ -496,7 +483,6 @@ public abstract class MinecraftlyCore<P> implements Closeable {
 	}
 
 	public enum ServerType {
-
 		BUKKIT,
 		BUNGEE,
 		UNKNOWN,
@@ -505,7 +491,5 @@ public abstract class MinecraftlyCore<P> implements Closeable {
 		 * For potential future use.
 		 */
 		CONTROLLER
-
 	}
-
 }
