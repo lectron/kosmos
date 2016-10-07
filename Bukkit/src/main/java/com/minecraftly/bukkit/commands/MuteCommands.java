@@ -123,16 +123,23 @@ public class MuteCommands implements CommandExecutor, TabCompleter {
 
 				Player punishee = Bukkit.getPlayer( param );
 
+				String message = null;
+
 				if ( remove ) {
 					player.sendMessage( ChatColor.BLUE + "UUID \"" + param + "\" is no longer muted!" );
-					if ( worldData.getMutedUsers().remove( param ) != null && punishee != null ) {
-						punishee.sendMessage( ChatColor.GREEN + "You are no longer muted!" );
+
+					if ( worldData.getMutedUsers().remove( param ) != null ) {
+						message = ChatColor.GREEN + "You are no longer muted!";
 					}
 
 				} else {
 					player.sendMessage( ChatColor.BLUE + "UUID \"" + param + "\" is now muted!" );
 					worldData.getMutedUsers().put( param, new PunishEntry( -1, "You are muted." ) );
-					if ( punishee != null ) punishee.sendMessage( ChatColor.DARK_RED + "You have been muted!" );
+					message = ChatColor.DARK_RED + "You have been muted!";
+				}
+
+				if ( message != null && punishee != null && WorldDimension.getPlayersAllDimensions( player.getWorld() ).contains( punishee ) ) {
+					punishee.sendMessage( message );
 				}
 
 				core.getPlayerHandler().save( worldData );

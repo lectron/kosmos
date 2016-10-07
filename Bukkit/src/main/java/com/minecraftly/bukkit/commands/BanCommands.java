@@ -124,8 +124,12 @@ public class BanCommands implements CommandExecutor, TabCompleter {
 				} else {
 					player.sendMessage( ChatColor.BLUE + "UUID \"" + param + "\" is now banned!" );
 					worldData.getBannedUsers().put( param, new PunishEntry( -1, "You are banned." ) );
+
+
 					Player offender = Bukkit.getPlayer( param );
-					if ( offender != null ) offender.kickPlayer( ChatColor.RED + "You're banned from this server." );
+					if ( offender != null && WorldDimension.getPlayersAllDimensions( player.getWorld() ).contains( offender ) ) {
+						offender.kickPlayer( ChatColor.RED + "You're banned from this server." );
+					}
 				}
 
 				// TODO kick player.

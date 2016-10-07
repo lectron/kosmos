@@ -86,6 +86,7 @@ public enum WorldDimension {
 	public static List<Player> getPlayersAllDimensions( @NonNull World unknownWorld ) {
 
 		World baseWorld = getBaseWorld( unknownWorld );
+		if( baseWorld == null ) return new ArrayList<>();
 		List<Player> players = new ArrayList<>( baseWorld.getPlayers() );
 
 		for ( WorldDimension worldDimension : WorldDimension.values() ) {
