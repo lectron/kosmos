@@ -196,6 +196,8 @@ public class PlayerListener implements Listener, Closeable {
 		// We really want to clear the join message.. TODO make it per world?
 		event.setJoinMessage( null );
 
+		event.getPlayer().setGameMode( GameMode.ADVENTURE );
+
 		try {
 
 			// Async loading of relevant world ID using {@link ReconnectionHandler}
