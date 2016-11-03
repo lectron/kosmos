@@ -72,8 +72,14 @@ public class WorldHandler {
 			}
 
 			// Create and init the world.
-			World world = new WorldCreator( worldName ).environment( environment ).createWorld();
+			World world = new WorldCreator( worldName ).environment( World.Environment.NORMAL ).createWorld();
 			initializeWorld( world );
+
+			World world_nether = new WorldCreator( WorldDimension.NETHER.convertTo( worldName ) ).environment( World.Environment.NETHER ).createWorld();
+			initializeWorld( world_nether );
+
+			World world_end = new WorldCreator( WorldDimension.THE_END.convertTo( worldName ) ).environment( World.Environment.THE_END ).createWorld();
+			initializeWorld( world_end );
 
 			// Let the network know that we've got the world loaded now.
 			Bukkit.getScheduler().runTaskAsynchronously( core.getOriginObject(), () -> {
