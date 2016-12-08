@@ -107,7 +107,7 @@ public abstract class MinecraftlyCore<P> implements Closeable {
 	 * The manager of player&lt;-&gt;uuid relationships.
 	 */
 	@Getter
-	private com.minecraftly.core.manager.UUIDManager UUIDManager;
+	private UUIDManager UUIDManager;
 	/**
 	 * The manager of players and people who requested to tpa.
 	 */
