@@ -7,6 +7,8 @@ package com.minecraftly.core;
 
 /**
  * @author Cory Redmond &lt;ace@ac3-servers.eu&gt;
+ *
+ * I'm keeping this here. I think it would be good to have a lobby system stil.
  */
 public enum DefaultServerAction {
 

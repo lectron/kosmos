@@ -3,7 +3,7 @@
  * Licenced to Minecraftly under GNU-GPLv3.
  */
 
-package com.minecraftly.core.manager.redis;
+package com.minecraftly.core.manager;
 
 import com.minecraftly.core.MinecraftlyCore;
 import com.minecraftly.core.RedisKeys;
@@ -22,7 +22,7 @@ import java.util.stream.Collectors;
  * @author Cory Redmond &lt;ace@ac3-servers.eu&gt;
  */
 @AllArgsConstructor
-public class TransportManager {
+public class PlayerManager {
 
 	@NonNull
 	private final MinecraftlyCore core;
@@ -34,9 +34,9 @@ public class TransportManager {
 	 * @return true if the playerUuid has a server.
 	 * @throws ProcessingException if an exception occurs.
 	 */
-	public boolean hasPendingReq( @NonNull Jedis jedis, @NonNull UUID playerUuid ) throws ProcessingException {
+	public boolean hasServer( @NonNull Jedis jedis, @NonNull UUID playerUuid ) throws ProcessingException {
 		try {
-			return jedis.hexists( RedisKeys.TRANSPORT.toString(), playerUuid.toString() );
+			return jedis.hexists( RedisKeys.PLAYER_REPO.toString(), playerUuid.toString() );
 		} catch ( Exception ex ) {
 			throw new ProcessingException( "There was an error checking if \"" + playerUuid + "\" has an owner!", ex );
 		}
@@ -49,28 +49,28 @@ public class TransportManager {
 	 * @return the serverId of where the player is.
 	 * @throws ProcessingException if an exception occurs.
 	 */
-	public UUID getRequester( @NonNull Jedis jedis, @NonNull UUID playerUuid ) throws ProcessingException {
+	public UUID getServer( @NonNull Jedis jedis, @NonNull UUID playerUuid ) throws ProcessingException {
 		try {
-			return UUID.fromString( jedis.hget( RedisKeys.TRANSPORT.toString(), playerUuid.toString() ) );
+			return UUID.fromString( jedis.hget( RedisKeys.PLAYER_REPO.toString(), playerUuid.toString() ) );
 		} catch ( Exception ex ) {
 			throw new ProcessingException( "There was an error getting the owner of \"" + playerUuid + "\"!", ex );
 		}
 	}
 
 	/**
-	 * Gets all the UUID's of the players a specified requesterUuid has tpa'd to..
+	 * Gets all the UUID's of the players on a specified world.
 	 *
-	 * @param jedis         A jedis instance to use.
-	 * @param requesterUuid The uuid of the requesterUuid you want information on.
+	 * @param jedis A jedis instance to use.
+	 * @param world The uuid of the world you want information on.
 	 * @return The list of UUID's on the server.
 	 * @throws ProcessingException if an exception occurs.
 	 */
-	public List<UUID> getAllForRequester( @NonNull Jedis jedis, @NonNull UUID requesterUuid ) throws ProcessingException {
+	public List<UUID> getAllForServer( @NonNull Jedis jedis, @NonNull UUID world ) throws ProcessingException {
 		try {
 
-			return jedis.hgetAll( RedisKeys.TRANSPORT.toString() ).entrySet()
+			return jedis.hgetAll( RedisKeys.PLAYER_REPO.toString() ).entrySet()
 					.stream()
-					.filter( row -> row.getValue().equals( requesterUuid.toString() ) )
+					.filter( row -> row.getValue().equals( world.toString() ) )
 					.map( row -> UUID.fromString( row.getValue() ) )
 					.collect( Collectors.toList() );
 
@@ -80,23 +80,23 @@ public class TransportManager {
 	}
 
 	/**
-	 * Set the requestUuid of the playerUuid.
+	 * Set the world of the playerUuid.
 	 *
-	 * @param playerUuid  The uuid of the player.
-	 * @param requestUuid The requestUuid that the player is in.
+	 * @param playerUuid The uuid of the player.
+	 * @param world      The world that the player is in.
 	 * @throws ProcessingException if an exception occurs.
 	 */
-	public void setRequester( @NonNull Jedis jedis, @NonNull UUID playerUuid, UUID requestUuid ) throws ProcessingException {
+	public void setServer( @NonNull Jedis jedis, @NonNull UUID playerUuid, UUID world ) throws ProcessingException {
 		try {
 
-			if ( requestUuid != null ) {
-				jedis.hset( RedisKeys.TRANSPORT.toString(), playerUuid.toString(), requestUuid.toString() );
+			if ( world != null ) {
+				jedis.hset( RedisKeys.PLAYER_REPO.toString(), playerUuid.toString(), world.toString() );
 			} else {
-				jedis.hdel( RedisKeys.TRANSPORT.toString(), playerUuid.toString() );
+				jedis.hdel( RedisKeys.PLAYER_REPO.toString(), playerUuid.toString() );
 			}
 
 		} catch ( Exception ex ) {
-			throw new ProcessingException( "There was an error setting the owner of \"" + playerUuid + "\" as server \"" + requestUuid + "\"!", ex );
+			throw new ProcessingException( "There was an error setting the owner of \"" + playerUuid + "\" as server \"" + world + "\"!", ex );
 		}
 	}
 
@@ -106,13 +106,13 @@ public class TransportManager {
 	 * @param world The world UUID to remove.
 	 * @throws ProcessingException if an exception occurs.
 	 */
-	public void removeAllFromRequester( @NonNull Jedis jedis, @NonNull UUID world ) throws ProcessingException {
+	public void removeAll( @NonNull Jedis jedis, @NonNull UUID world ) throws ProcessingException {
 		try {
 
-			jedis.hgetAll( RedisKeys.TRANSPORT.toString() ).entrySet()
+			jedis.hgetAll( RedisKeys.PLAYER_REPO.toString() ).entrySet()
 					.stream()
 					.filter( row -> row.getValue().equals( world.toString() ) )
-					.forEach( row -> jedis.hdel( RedisKeys.TRANSPORT.toString(), row.getKey() ) );
+					.forEach( row -> jedis.hdel( RedisKeys.PLAYER_REPO.toString(), row.getKey() ) );
 
 		} catch ( Exception ex ) {
 			throw new ProcessingException( "There was an error removing server \"" + world + "\"!", ex );
@@ -124,7 +124,7 @@ public class TransportManager {
 	 */
 	public long getSize( @NonNull Jedis jedis ) {
 		try {
-			return jedis.hlen( RedisKeys.TRANSPORT.toString() );
+			return jedis.hlen( RedisKeys.PLAYER_REPO.toString() );
 		} catch ( Exception ex ) {
 			return -1;
 		}

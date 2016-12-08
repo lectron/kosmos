@@ -11,6 +11,7 @@ import com.minecraftly.bukkit.listeners.PlayerListener;
 import com.minecraftly.core.manager.exceptions.NoJedisException;
 import com.minecraftly.core.manager.exceptions.ProcessingException;
 import lombok.NonNull;
+import org.bukkit.World;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.PluginCommand;
 import org.bukkit.command.TabCompleter;
@@ -58,6 +59,14 @@ public class MinecraftlyBukkitPlugin extends JavaPlugin {
 		getServer().getScheduler().runTaskTimerAsynchronously( this, core.getChatHandler(), 5, 5 );
 
 		setupCommands();
+
+		// Dirty attempt to force a temp fix for #22
+		getServer().getScheduler().runTaskTimer( this, () -> {
+			for( World world : getServer().getWorlds() ) {
+				if( world.getPlayers().isEmpty() )
+					getServer().unloadWorld( world, true );
+			}
+		}, 20*600, 20*600 );
 
 	}
 

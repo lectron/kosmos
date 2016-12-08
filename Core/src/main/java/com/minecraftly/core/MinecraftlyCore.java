@@ -13,6 +13,7 @@ import com.minecraftly.core.debugger.DebuggerEngine;
 import com.minecraftly.core.event.LoadCompleteEvent;
 import com.minecraftly.core.eventbus.Event;
 import com.minecraftly.core.eventbus.EventBus;
+import com.minecraftly.core.manager.*;
 import com.minecraftly.core.manager.exceptions.NoJedisException;
 import com.minecraftly.core.manager.exceptions.ProcessingException;
 import com.minecraftly.core.manager.redis.*;
@@ -106,7 +107,7 @@ public abstract class MinecraftlyCore<P> implements Closeable {
 	 * The manager of player&lt;-&gt;uuid relationships.
 	 */
 	@Getter
-	private UUIDManager UUIDManager;
+	private com.minecraftly.core.manager.UUIDManager UUIDManager;
 	/**
 	 * The manager of players and people who requested to tpa.
 	 */
@@ -297,7 +298,7 @@ public abstract class MinecraftlyCore<P> implements Closeable {
 		// We don't have much of a choice but to kick everyone here.
 		ServerType serverType = getServerType();
 		logger.log( Level.FINE, "1 ServerType: " + serverType );
-		if ( serverType == ServerType.BUNGEE || serverType == ServerType.CONTROLLER ) {
+		if ( serverType == ServerType.BUNGEE ) {
 
 			logger.log( Level.FINE, "2 Unsubscribing." );
 			getMessageListener().unsubscribe();
@@ -499,12 +500,7 @@ public abstract class MinecraftlyCore<P> implements Closeable {
 
 		BUKKIT,
 		BUNGEE,
-		UNKNOWN,
-
-		/**
-		 * For potential future use.
-		 */
-		CONTROLLER
+		UNKNOWN
 
 	}
 

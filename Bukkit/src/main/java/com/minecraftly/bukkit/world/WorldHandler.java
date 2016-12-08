@@ -107,6 +107,7 @@ public class WorldHandler {
 	private void initializeWorld( World world ) {
 		// settings and init?
 		world.setGameRuleValue( "mobGreifing", "false" );
+		world.setGameRuleValue( "keepInventory", "true" ); // Might this lead to dupes?
 	}
 
 }

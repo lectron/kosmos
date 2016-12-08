@@ -3,7 +3,7 @@
  * Licenced to Minecraftly under GNU-GPLv3.
  */
 
-package com.minecraftly.core.manager.redis;
+package com.minecraftly.core.manager;
 
 import com.minecraftly.core.MinecraftlyCore;
 import com.minecraftly.core.RedisKeys;
