@@ -22,10 +22,7 @@ import org.bukkit.command.TabCompleter;
 import org.bukkit.entity.Player;
 import redis.clients.jedis.Jedis;
 
-import java.util.Collections;
-import java.util.List;
-import java.util.Objects;
-import java.util.UUID;
+import java.util.*;
 import java.util.concurrent.Callable;
 import java.util.stream.Collectors;
 
@@ -66,6 +63,8 @@ public class BanCommands implements CommandExecutor, TabCompleter {
 			case "unban":
 				banCommand( player, args, true, worldData );
 				break;
+			case "list":
+				listBans( player, args, worldData );
 			default:
 				sendHelp( sender );
 				break;
@@ -73,6 +72,43 @@ public class BanCommands implements CommandExecutor, TabCompleter {
 		}
 
 		return true;
+	}
+
+	private void listBans( Player player, String[] args, WorldData worldData ) {
+
+		int page = 1;
+		if( args.length == 1 ) {
+			try {
+				page = Integer.parseInt( args[0] );
+			} catch ( Exception ex ) {
+				player.sendMessage( ChatColor.RED + "That page number is invalid!" );
+				return;
+			}
+		}
+
+		page--;
+		if( page < 1 ) {
+			player.sendMessage( ChatColor.RED + "That page number is invalid!" );
+			return;
+		}
+		int offset = (page - 1) * 8;
+
+		ArrayList<HashMap.Entry<UUID, PunishEntry>> punishments = new ArrayList<>( worldData.getBannedUsers().entrySet() );
+		ArrayList<String> messages = new ArrayList<>();
+
+		for( int i = offset; i<punishments.size(); i++ ) {
+			Map.Entry<UUID, PunishEntry> entry = punishments.get( i );
+			if( entry.getValue().isBanned() ) continue;
+
+			String name = worldData.getUsername( entry.getKey() );
+
+			messages.add( ChatColor.RED + "Banned user: " + ChatColor.DARK_RED + name );
+			messages.add( ChatColor.RED + "  Reason: " + ChatColor.YELLOW + entry.getValue().getReason() );
+
+		}
+
+		player.sendMessage( messages.toArray( new String[ messages.size() ] ) );
+
 	}
 
 	@Override

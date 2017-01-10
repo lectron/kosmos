@@ -28,6 +28,11 @@ import java.util.logging.Level;
 public class WorldData extends AbstractLocalData {
 
 	/**
+	 * A map of usernames and their latest UUID's.
+	 */
+	private Map<String, UUID> usernameCache = new HashMap<>();
+
+	/**
 	 * A map of banned user UUID's and their PunishEntry.
 	 */
 	private Map<UUID, PunishEntry> bannedUsers = new HashMap<>();
@@ -98,6 +103,26 @@ public class WorldData extends AbstractLocalData {
 			throw e;
 		}
 
+	}
+
+	public String getUsername( UUID uuid ) {
+
+		if (!getUsernameCache().containsValue( uuid )) {
+			return uuid.toString();
+		} else {
+			String result = getKeyByValue( getUsernameCache(), uuid );
+			return result == null ? uuid.toString() : result;
+		}
+
+	}
+
+	public static <T, E> T getKeyByValue(Map<T, E> map, E value) {
+		for (Map.Entry<T, E> entry : map.entrySet()) {
+			if (Objects.equals(value, entry.getValue())) {
+				return entry.getKey();
+			}
+		}
+		return null;
 	}
 
 }
