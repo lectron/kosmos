@@ -54,6 +54,18 @@ public class PlayerListener implements Listener, Closeable {
 			if ( worldName != null && (world = Bukkit.getWorld( worldName )) != null ) {
 				if ( Bukkit.unloadWorld( world, true ) ) {
 					core.getLogger().log( Level.INFO, "Unloaded world \"" + worldName + "\"" );
+
+					UUID worldUuid = WorldDimension.getUUIDOfWorld( world );
+					if( worldUuid == null ) return;
+
+					Bukkit.getScheduler().runTaskAsynchronously( core.getOriginObject(), () -> {
+						try ( Jedis jedis = core.getJedis() ) {
+							core.getWorldManager().setServer( jedis, worldUuid, null );
+						} catch ( NoJedisException | ProcessingException e ) {
+							e.printStackTrace();
+						}
+
+					} );
 				} else {
 					System.out.println( "There was an error removing world " + worldName );
 					worldsToBeRemoved.add( worldName );
@@ -320,6 +332,16 @@ public class PlayerListener implements Listener, Closeable {
 					String worldName = world.getName();
 					if ( Bukkit.unloadWorld( world, true ) ) {
 						core.getLogger().log( Level.INFO, "Unloaded world \"" + worldName + "\"" );
+
+						Bukkit.getScheduler().runTaskAsynchronously( core.getOriginObject(), () -> {
+							try ( Jedis jedis = core.getJedis() ) {
+								core.getWorldManager().setServer( jedis, uuid, null );
+							} catch ( NoJedisException | ProcessingException e ) {
+								e.printStackTrace();
+							}
+
+						} );
+
 					} else {
 						worldsToBeRemoved.add( worldName );
 					}
@@ -327,15 +349,6 @@ public class PlayerListener implements Listener, Closeable {
 				} catch ( Exception ex ) {
 					core.getLogger().log( Level.WARNING, "Unable to save & unload dimworld: \"" + world.getName() + "\"", ex );
 				}
-
-				Bukkit.getScheduler().runTaskAsynchronously( core.getOriginObject(), () -> {
-					try ( Jedis jedis = core.getJedis() ) {
-						core.getWorldManager().setServer( jedis, uuid, null );
-					} catch ( NoJedisException | ProcessingException e ) {
-						e.printStackTrace();
-					}
-
-				} );
 
 			}
 
