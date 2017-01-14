@@ -61,7 +61,7 @@
 	<repositories>
 		<repository>
 			<id>destroystokyo-repo</id>
-			<url>https://repo.destroystokyo.com/content/repositories/snapshots/</url>
+			<url>https://repo.destroystokyo.com/repository/maven-public/</url>
 		</repository>
 	</repositories>
 

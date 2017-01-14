@@ -11,8 +11,8 @@
 
 	<properties>
 		<versions.java>1.8</versions.java>
-		<versions.bukkit>1.10-R0.1-SNAPSHOT</versions.bukkit>
-		<versions.bungee>1.10-SNAPSHOT</versions.bungee>
+		<versions.bukkit>1.11.2-R0.1-SNAPSHOT</versions.bukkit>
+		<versions.bungee>1.11-SNAPSHOT</versions.bungee>
 	</properties>
 
 	<modules>
