@@ -1,7 +1,28 @@
-#Minecraftly Cosmos
+#Kosmos
 
-The solution for orchestrating multiple Minecraft servers, worlds as if it's a single thing (hence single universe). Think of this technology as Kubernetes (or Apache's Mesos) for Minecraft.
+The solution for using multiple servers to orchestrate multiple Minecraft worlds inside a single folder as if it's one universe.
 
+---
+
+##Bounty Program
+Make money fixing bugs and adding features for Minecraftly open source softwares.
+
+We empower the community and need your help, join and help out!
+
+[![GitHub Logo](https://d2bbtvgnhux6eq.cloudfront.net/assets/Bountysource-green-f2f437ed727ee2cacaee3f559c1907cb.png)](https://www.bountysource.com/teams/minecraftly)
+
+##Links
+  Server: m.ly
+  Website: [htts://m.ly](http://m.ly)
+  Dev Wiki: [https://github.com/minecraftly/kosmos/wiki](https://github.com/minecraftly/kosmos/wiki)
+
+---
+
+##Requirements
+ * BungeeCord: serve as a proxy server (equivalent to Nginx or HAProxy in web hosting)
+ * Spigot: serve as Minecraft server. Spigot is important because it has "--world-dir" flag at startup, which specifies the directory for all world maps.
+ * MySQL server: Necessary database.
+ 
 ---
 
 #Welcome
@@ -370,28 +391,6 @@ Minecraftly is inspired an improved from many technologies, some of them were re
 
 ---
 
-##Architecture
- Usually, in a traditional Minecraft server, player flow is like this:
- 
-<img src="https://m.ly/images/8hGSRpe.svg" width="100%"/>
- 
- Above is the old ways of handling players. It's too monolithic. Bottleneck usually happens when a single machine gets filled up with high amount of concurrent players.
- 
-Now, let's visualize another way to distribute players, where server is seperated from world files. In Minecraftly, it's like this:
- 
-<img src="https://m.ly/images/ykl5mnN.svg" width="100%"/>
-
-Each player has their own world that they control, accessible via their own public address. The beautiful thing is that all players can interact with others normally.
-
----
-
-##Requirements
- * BungeeCord: serve as a proxy server (equivalent to Nginx or HAProxy in web hosting)
- * Spigot: serve as Minecraft server. Spigot is important because it has "--world-dir" flag at startup, which specifies the directory for all world maps.
- * MySQL server: Necessary database.
-
----
-
 ##Contributing
  Thank you for your interest in Minecraftly. Contributing to Minecraftly is easy, just fork the project on GitHub, make your changes and submit a pull request to get your code merged. That's all there is to it.
  
@@ -404,13 +403,6 @@ Each player has their own world that they control, accessible via their own publ
 
 ---
 
-##Hosted Version
-  Besides the free and open source version, we also offer a value added hosted service at [https://m.ly](https://m.ly). We reduce the steps of getting a Minecraft server into a single action. 
-  
-  You can play with friends and don't have to setup server. Just join, that's it. 
-
----
-
 ##License
  Minecraftly is distributed under [GNU GPLv3](LICENSE) license.
  
@@ -419,10 +411,3 @@ Each player has their own world that they control, accessible via their own publ
  The only term of using this software is that you expressively credit Minecraftly website as the creator of the software you are using on your server and website.
  
  We welcome everyone to install and develop on top of Minecraftly free of charge for personal, non-commercial use. We have a patent pending on the software and. We don't allow any commercial use of this architecture.
-
-##Bounty Program
-Want to make money fixing bugs for Minecraftly open source softwares?
-
-We help developers earn a salary from contributing to our open-source software. So, be awesome and contribute your skillz!
-
-[![GitHub Logo](https://d2bbtvgnhux6eq.cloudfront.net/assets/Bountysource-green-f2f437ed727ee2cacaee3f559c1907cb.png)](https://www.bountysource.com/teams/minecraftly)
