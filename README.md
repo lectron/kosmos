@@ -12,11 +12,13 @@ We empower the community and need your help, join and help out!
 [![GitHub Logo](https://d2bbtvgnhux6eq.cloudfront.net/assets/Bountysource-green-f2f437ed727ee2cacaee3f559c1907cb.png)](https://www.bountysource.com/teams/minecraftly)
 
 ##Links
-Server: m.ly
+Minecraftly server address: **m.ly**
 
-Website: [htts://m.ly](http://m.ly)
+[Website](http://m.ly)
 
-Dev Wiki: [https://github.com/minecraftly/kosmos/wiki](https://github.com/minecraftly/kosmos/wiki)
+[Developer Wiki](https://github.com/minecraftly/kosmos/wiki)
+
+[Bounty Program](https://www.bountysource.com/teams/minecraftly)
 
 ---
 
