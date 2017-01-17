@@ -18,6 +18,8 @@ Minecraftly server address: **m.ly**
 
 [Developer Wiki](https://github.com/minecraftly/kosmos/wiki)
 
+[General Plugin Rules](https://github.com/minecraftly/kosmos/wiki/Plugin-Rules) (Important Read)
+
 [Bounty Program](https://www.bountysource.com/teams/minecraftly)
 
 ---
