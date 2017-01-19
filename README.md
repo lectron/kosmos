@@ -4,7 +4,7 @@ The solution for using multiple servers to orchestrate multiple Minecraft worlds
 
 ---
 
-##Bounty Program
+##MAKE MONEY VIA BOUNTY PROGRAM
 Make money fixing bugs and adding features for Minecraftly open source softwares.
 
 We empower the community and need your help, join and help out!
@@ -18,32 +18,32 @@ Minecraftly server address: **m.ly**
 
 [Developer Wiki](https://github.com/minecraftly/kosmos/wiki)
 
+[Current Main Branch - v2](https://github.com/minecraftly/kosmos/tree/v2)
+
 [General Plugin Rules](https://github.com/minecraftly/kosmos/wiki/Plugin-Rules) (Important Read)
 
 [Bounty Program](https://www.bountysource.com/teams/minecraftly)
 
 ---
 
-##Requirements
- * BungeeCord: serve as a proxy server (equivalent to Nginx or HAProxy in web hosting)
- * Spigot: serve as Minecraft server. Spigot is important because it has "--world-dir" flag at startup, which specifies the directory for all world maps.
- * MySQL server: Necessary database.
- 
----
-
 #Welcome
 
-  Minecraftly is a free and open source (FOSS) Minecraft server-side plugin to automatically create and handle worlds and interactions between multiple infinite Minecraft worlds across multiple server instances, using the least amount of code, CPU, RAM, and configurations as possible. It is designed & produced from scratch by [Viet Nguyen](https://vi.et), with assistance from friends, developers and helpers from the internet. Minecraftly is now community-developed and will be remained free under [GNU GPLv3](LICENSE) license.
+  Kosmos is a Minecraft server-side plugin that automatically creates and handles worlds loading, unloading, player interactions and more across one or many server instances. This type of virtualization use the least amount of code, CPU, RAM, and configurations as possible. It is designed & produced from scratch by [Viet Nguyen](https://vi.et), with assistance from friends, developers and helpers from the internet. Minecraftly is community-developed and will be remained free for personal, non-commercial use under [GNU GPLv3](LICENSE) license.
   
   Minecraftly is compatible with most infrastructures, including but not limited to:
   - Single machine
-  - Multiple machine cluster
+  - Multiple machine clusters
   - Cloud computing infrastructure
   - Containers
+  
+##Requirements
+ * [BungeeCord](https://www.spigotmc.org/wiki/bungeecord/): serve as a proxy server (equivalent to Nginx or HAProxy in web hosting)
+ * [Spigot](https://www.spigotmc.org/wiki/spigot/): serve as Minecraft server. Spigot is important because it has "--world-dir" flag at startup, which specifies the directory for all world maps.
+ * Redis server: Real time backend database that connects Proxy and Server together.
 
 ---
 
-##Concepts
+##WORK IN PROGRESS
 - Player joins via {their_username}.{domain}.{tld}:
   - [x] if joins for the first time, server creates the world
   - [x] world has the folder format name {uuid}
