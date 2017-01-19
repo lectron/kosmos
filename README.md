@@ -39,8 +39,9 @@ Minecraftly server address: **m.ly**
 ##REQUIREMENTS
  * [BungeeCord](https://www.spigotmc.org/wiki/bungeecord/): serve as a proxy server (equivalent to Nginx or HAProxy in web hosting)
  * [Spigot](https://www.spigotmc.org/wiki/spigot/): serve as Minecraft server.
- * [Redis server](https://redis.io/): Real time backend database that connects BungeeCord and Spigot together.
- * Dank memes (optional)
+ * [Redis server](https://redis.io/): Real time volatile database that connects BungeeCord and Spigot together.
+ * (optional) shared file system for multiple Spigot servers to access the same /worlds folder
+ * (optional) Dank memes
 
 ---
 
