@@ -36,10 +36,11 @@ Minecraftly server address: **m.ly**
   - Cloud computing infrastructure
   - Containers
   
-##Requirements
+##REQUIREMENTS
  * [BungeeCord](https://www.spigotmc.org/wiki/bungeecord/): serve as a proxy server (equivalent to Nginx or HAProxy in web hosting)
- * [Spigot](https://www.spigotmc.org/wiki/spigot/): serve as Minecraft server. Spigot is important because it has "--world-dir" flag at startup, which specifies the directory for all world maps.
- * Redis server: Real time backend database that connects Proxy and Server together.
+ * [Spigot](https://www.spigotmc.org/wiki/spigot/): serve as Minecraft server.
+ * [Redis server](https://redis.io/): Real time backend database that connects BungeeCord and Spigot together.
+ * Dank memes (optional)
 
 ---
 
@@ -305,10 +306,10 @@ Here are a few things that need changes in the config of Spigot Minecraft server
 
 Startup script for startup must have the "--world-dir /{folder location}" [start-up parameter](https://www.spigotmc.org/wiki/start-up-parameters/), so that all spigot servers can share the same collection of worlds.
 
-For example:
+For example, we use /mnt/worlds folder for all Spigot servers to access world files:
 
 ```powershell
-java -jar spigot.jar --world-dir /minecraft/worlds
+java -jar spigot.jar --world-dir /mnt/worlds
 ```
 
 ---
@@ -346,13 +347,6 @@ Simply create a new Freestyle project with the following configurations:
 - Post-build Actions
   - Click "Add Post-build action" -> Archive the artifacts
   - Files to archive: **/*.jar
-
----
-
-##How to describe Minecraftly
-- Tumblr for Minecraft
-- Wordpress Multisite for Minecraft
-- A Minecraft server within a server
 
 ---
 
