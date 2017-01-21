@@ -69,6 +69,8 @@ Minecraftly server address: **m.ly**
   - /home/minecraft/server1/plugins
   - /home/minecraft/server2/plugins
   - /home/minecraft/worlds
+  - /home/minecraft/worlds/world1
+  - /home/minecraft/worlds/world2
   - /home/minecraft/playerdata
   - /home/minecraft/stats
 2. Install Redis & screen:
@@ -79,56 +81,70 @@ Minecraftly server address: **m.ly**
 3. Download server softwares to the appropriate folder:
   - Download BungeeCord:
     - Download link: http://ci.md-5.net/job/BungeeCord/lastSuccessfulBuild/artifact/bootstrap/target/BungeeCord.jar
-    - Download to /home/minecraft/proxy1
-    - and /home/minecraft/proxy2
+    - Download to:
+      - /home/minecraft/proxy1
+      - /home/minecraft/proxy2
   - Download PaperSpigot:
     - Download link: https://ci.destroystokyo.com/job/PaperSpigot/lastSuccessfulBuild/artifact/paperclip.jar
-    - Download to /home/minecraft/server1
-    - and /home/minecraft/server2
+    - Download to:
+      - /home/minecraft/server1
+      - /home/minecraft/server2
   - Download Kosmos (our plugin):
-    - https://ci.minecraftly.com/job/Kosmos/lastSuccessfulBuild/artifact/Kosmos.jar
-    - Download to /home/minecraft/proxy1/plugins
-    - and /home/minecraft/proxy2/plugins
-    - and /home/minecraft/server1/plugins
-    - and /home/minecraft/server2/plugins
+    - Download link: https://github.com/minecraftly/kosmos/releases
+    - Download to:
+      - /home/minecraft/proxy1/plugins
+      - /home/minecraft/proxy2/plugins
+      - /home/minecraft/server1/plugins
+      - /home/minecraft/server2/plugins
+  
 4. Run servers to generate configs
-  NOTE: Startup script for startup must have the "--world-dir /{folder location}" [start-up parameter](https://www.spigotmc.org/wiki/start-up-parameters/), so that all spigot servers can share the same "worlds" folder.
+  NOTE: Startup script for startup must have the "--world-dir" [start-up parameter](https://www.spigotmc.org/wiki/start-up-parameters/), so that all spigot servers can share the same "worlds" folder.
 
   For example, we use /home/minecraft/worlds folder for all Spigot servers to access world files:
 
   ```powershell
   cd /home/minecraft/proxy1 && java -jar BungeeCord.jar
   cd /home/minecraft/proxy2 && java -jar BungeeCord.jar
-  cd /home/minecraft/server1 && java -jar paper.jar --world-dir /home/minecraft/worlds
-  cd /home/minecraft/server2 && java -jar paper.jar --world-dir /home/minecraft/worlds
+  cd /home/minecraft/server1 && java -Dcom.mojang.eula.agree=true -jar paper.jar --port 25567 --level-name world1 --world-dir /home/minecraft/worlds
+  cd /home/minecraft/server2 && java -Dcom.mojang.eula.agree=true -jar paper.jar --port 25568 --level-name world2 --world-dir /home/minecraft/worlds
   ```
 
 5. Proxies & servers config
   Here are a few things that need changes in the config of Spigot Minecraft server to make things work. Most of the configurations are very standard, just double check and make sure that "server-ip" and "server-port" are defined correctly.
+  - Proxy config:
+    - /home/proxy1/config.yml:
+      ```
+      query_port: 25565
+      ```
+    - /home/proxy2/config.yml:
+      ```
+      query_port: 25566
+      ```
+  
+  - Server config:
+    - server.properties
+    ```yaml
+      server-ip={the public or private server IP that is attached to your machine}
+      server-port={whatever port you want}
+      online-mode=false
+    ```
 
-  - server.properties
-  ```yaml
-    server-ip={the public or private server IP that is attached to your machine}
-    server-port={whatever port you want}
-    online-mode=false
-  ```
+    - bukkit.yml
+    ```yaml
+      connection-throttle: -1
+    ```
 
-  - bukkit.yml
-  ```yaml
-    connection-throttle: -1
-  ```
-
-  - spigot.yml
-  ```yaml
-    bungeecord: true
-  ```
+    - spigot.yml
+    ```yaml
+      bungeecord: true
+    ```
 
 6. Spigot Startup Script
   Startup script for startup must have the "--world-dir /{folder location}" [start-up parameter](https://www.spigotmc.org/wiki/start-up-parameters/), so that all spigot servers can share the same collection of worlds.
 
   For example, we use /home/minecraft/worlds folder for all Spigot servers to access world files:
 
-  ```powershell
+  ```
   java -jar spigot.jar --world-dir /home/minecraft/worlds
   ```
 
