@@ -6,15 +6,7 @@ The light weight, distributed layer for Minecraft. It allows multiple servers to
 
 ![Image of a Minecraft world](https://i.imgur.com/sjtYfym.png)
 
-The ultimate goal with Kosmos is to be able to implement high availability and cross-server interactions without dividing player experience, which traditional Minecraft softwares do not inherently provide that functionality. The implementation is efficient, not complex (few moving parts), and highly performant.
----
-
-##MAKE MONEY VIA BOUNTY PROGRAM
-Make money fixing bugs and adding features for Minecraftly open source softwares.
-
-We empower the community and need your help, join and help out!
-
-[![GitHub Logo](https://d2bbtvgnhux6eq.cloudfront.net/assets/Bountysource-green-f2f437ed727ee2cacaee3f559c1907cb.png)](https://www.bountysource.com/teams/minecraftly)
+The ultimate goal with Kosmos is to be able to implement high availability and cross-server interactions without dividing player experience, which traditional Minecraft softwares do not inherently provide that functionality. The implementation is efficient, not complex, and highly performant.
 
 ##Links
 Minecraftly server address: **m.ly**
@@ -27,7 +19,8 @@ Minecraftly server address: **m.ly**
 
 [General Plugin Rules](https://github.com/minecraftly/kosmos/wiki/Plugin-Rules) (Important Read)
 
-[Bounty Program](https://www.bountysource.com/teams/minecraftly)
+[Make money via our bounty Program](https://www.bountysource.com/teams/minecraftly)
+We empower and compensate the community for helping us fix bugs and add new features.
 
 ---
 
