@@ -1,7 +1,12 @@
 #Kosmos
 
-The solution for using multiple servers to orchestrate multiple Minecraft worlds inside a single folder as if it's one universe.
+Minecraft multi-world, orchestrated by multi-server. Interact as one universe.
 
+The light weight, distributed layer for Minecraft. It allows multiple servers to orchestrate player interactions across multiple worlds as if it's one universe. Currently these supports BungeeCord and Spigot. Kosmos supports multi-server setup and is designed for high availability.
+
+![Image of a Minecraft world](https://i.imgur.com/sjtYfym.png)
+
+The ultimate goal with Kosmos is to be able to implement high availability and cross-server interactions without dividing player experience, which traditional Minecraft softwares do not inherently provide that functionality. The implementation is efficient, not complex (few moving parts), and highly performant.
 ---
 
 ##MAKE MONEY VIA BOUNTY PROGRAM
