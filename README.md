@@ -60,101 +60,96 @@ Minecraftly server address: **m.ly**
 
 ###Steps
 1. Create the following folders:
-- /home/minecraft/proxy1
-- /home/minecraft/proxy2
-- /home/minecraft/proxy1/plugins
-- /home/minecraft/proxy2/plugins
-- /home/minecraft/server1
-- /home/minecraft/server2
-- /home/minecraft/server1/plugins
-- /home/minecraft/server2/plugins
-- /home/minecraft/worlds
-- /home/minecraft/playerdata
-- /home/minecraft/stats
+  - /home/minecraft/proxy1
+  - /home/minecraft/proxy2
+  - /home/minecraft/proxy1/plugins
+  - /home/minecraft/proxy2/plugins
+  - /home/minecraft/server1
+  - /home/minecraft/server2
+  - /home/minecraft/server1/plugins
+  - /home/minecraft/server2/plugins
+  - /home/minecraft/worlds
+  - /home/minecraft/playerdata
+  - /home/minecraft/stats
 2. Install Redis & screen:
-```
-apt-get install redis-server
-apt-get install screen
-```
+  ```
+  apt-get install redis-server
+  apt-get install screen
+  ```
 3. Download server softwares to the appropriate folder:
-- Download BungeeCord:
-  - Download link: http://ci.md-5.net/job/BungeeCord/lastSuccessfulBuild/artifact/bootstrap/target/BungeeCord.jar
-  - Download to /home/minecraft/proxy1
-  - and /home/minecraft/proxy2
-- Download PaperSpigot:
-  - Download link: https://ci.destroystokyo.com/job/PaperSpigot/lastSuccessfulBuild/artifact/paperclip.jar
-  - Download to /home/minecraft/server1
-  - and /home/minecraft/server2
-- Download Kosmos (our plugin):
-  - https://ci.minecraftly.com/job/Kosmos/lastSuccessfulBuild/artifact/Kosmos.jar
-  - Download to /home/minecraft/proxy1/plugins
-  - and /home/minecraft/proxy2/plugins
-  - and /home/minecraft/server1/plugins
-  - and /home/minecraft/server2/plugins
+  - Download BungeeCord:
+    - Download link: http://ci.md-5.net/job/BungeeCord/lastSuccessfulBuild/artifact/bootstrap/target/BungeeCord.jar
+    - Download to /home/minecraft/proxy1
+    - and /home/minecraft/proxy2
+  - Download PaperSpigot:
+    - Download link: https://ci.destroystokyo.com/job/PaperSpigot/lastSuccessfulBuild/artifact/paperclip.jar
+    - Download to /home/minecraft/server1
+    - and /home/minecraft/server2
+  - Download Kosmos (our plugin):
+    - https://ci.minecraftly.com/job/Kosmos/lastSuccessfulBuild/artifact/Kosmos.jar
+    - Download to /home/minecraft/proxy1/plugins
+    - and /home/minecraft/proxy2/plugins
+    - and /home/minecraft/server1/plugins
+    - and /home/minecraft/server2/plugins
 4. Run servers to generate configs
-NOTE: Startup script for startup must have the "--world-dir /{folder location}" [start-up parameter](https://www.spigotmc.org/wiki/start-up-parameters/), so that all spigot servers can share the same "worlds" folder.
+  NOTE: Startup script for startup must have the "--world-dir /{folder location}" [start-up parameter](https://www.spigotmc.org/wiki/start-up-parameters/), so that all spigot servers can share the same "worlds" folder.
 
-For example, we use /home/minecraft/worlds folder for all Spigot servers to access world files:
+  For example, we use /home/minecraft/worlds folder for all Spigot servers to access world files:
 
-```powershell
-cd /home/minecraft/proxy1 && java -jar BungeeCord.jar
-cd /home/minecraft/proxy2 && java -jar BungeeCord.jar
-cd /home/minecraft/server1 && java -jar paper.jar --world-dir /home/minecraft/worlds
-cd /home/minecraft/server2 && java -jar paper.jar --world-dir /home/minecraft/worlds
-```
+  ```powershell
+  cd /home/minecraft/proxy1 && java -jar BungeeCord.jar
+  cd /home/minecraft/proxy2 && java -jar BungeeCord.jar
+  cd /home/minecraft/server1 && java -jar paper.jar --world-dir /home/minecraft/worlds
+  cd /home/minecraft/server2 && java -jar paper.jar --world-dir /home/minecraft/worlds
+  ```
 
 5. Proxies & servers config
-Here are a few things that need changes in the config of Spigot Minecraft server to make things work. Most of the configurations are very standard, just double check and make sure that "server-ip" and "server-port" are defined correctly.
+  Here are a few things that need changes in the config of Spigot Minecraft server to make things work. Most of the configurations are very standard, just double check and make sure that "server-ip" and "server-port" are defined correctly.
 
-- server.properties
-```yaml
-  server-ip={the public or private server IP that is attached to your machine}
-  server-port={whatever port you want}
-  online-mode=false
-```
+  - server.properties
+  ```yaml
+    server-ip={the public or private server IP that is attached to your machine}
+    server-port={whatever port you want}
+    online-mode=false
+  ```
 
-- bukkit.yml
-```yaml
-  connection-throttle: -1
-```
+  - bukkit.yml
+  ```yaml
+    connection-throttle: -1
+  ```
 
-- spigot.yml
-```yaml
-  bungeecord: true
-```
-
----
+  - spigot.yml
+  ```yaml
+    bungeecord: true
+  ```
 
 6. Spigot Startup Script
+  Startup script for startup must have the "--world-dir /{folder location}" [start-up parameter](https://www.spigotmc.org/wiki/start-up-parameters/), so that all spigot servers can share the same collection of worlds.
 
-Startup script for startup must have the "--world-dir /{folder location}" [start-up parameter](https://www.spigotmc.org/wiki/start-up-parameters/), so that all spigot servers can share the same collection of worlds.
+  For example, we use /home/minecraft/worlds folder for all Spigot servers to access world files:
 
-For example, we use /home/minecraft/worlds folder for all Spigot servers to access world files:
-
-```powershell
-java -jar spigot.jar --world-dir /home/minecraft/worlds
-```
+  ```powershell
+  java -jar spigot.jar --world-dir /home/minecraft/worlds
+  ```
 
 7. Kosmos config
-Kosmos config is very simple. The files can be found at plugins/Kosmos/config.json
-Make sure all servers are shutdown before applying the configs
+  Kosmos config is very simple. The files can be found at plugins/Kosmos/config.json
+  Make sure all servers are shutdown before applying the configs
 
-```yaml
-{
-  "redisConfig": {
-    "ip": "127.0.0.1",
-    "port": 6379,
-    "password": "",
-    "timeOut": 3000,
-    "maxNumPools": 20
-  },  
-  "myAddress": {
-    "ipAddress": "YOUR-SERVER-IP-ADDRESS",
-    "port": -1
-  },
-```
-
----
+  ```yaml
+  {
+    "redisConfig": {
+      "ip": "127.0.0.1",
+      "port": 6379,
+      "password": "",
+      "timeOut": 3000,
+      "maxNumPools": 20
+    },  
+    "myAddress": {
+      "ipAddress": "YOUR-SERVER-IP-ADDRESS",
+      "port": -1
+    },
+  ```
 
 ##WORK IN PROGRESS
 - Player joins via {their_username}.{domain}.{tld}:
@@ -411,30 +406,22 @@ Simply create a new Freestyle project with the following configurations:
 ---
 
 ##Uniqueness
-- Individual server per player.
-- Accessible via player username: (username).m.ly
-- If a player changes username, the server will map to that subdomain accordingly.
-- Same plugins as everyone else, good for leaderboards, ranks, etc...
-- Servers are always on, no need to "startup on demand", or "stop when inactive".
-- Players can have control of their server. The player is partially OP'd when they login to their server. They have access to:
-- 1. Kick, Ban, Mute others
-- 2. Whitelist their server
-- 3. Reset their world, while keeping their inventories.
-- Teleportation cross servers
-- No slots limit.
-
----
-
-##Similar Technologies
-Minecraftly is inspired an improved from many technologies, some of them were released after Minecraftly but wasn't that complete.
-- [Multiverse](http://dev.bukkit.org/bukkit-plugins/multiverse-core/)
-- [Docker + Minecraft = Dockercraft](https://github.com/docker/dockercraft)
-- [Google's Containerized Minecraft Roulette](http://www.blog.juliaferraioli.com/2015/11/containerized-minecraft-roulette.html)
+  - Individual server per player.
+  - Accessible via player username: (username).m.ly
+  - If a player changes username, the server will map to that subdomain accordingly.
+  - Same plugins as everyone else, good for leaderboards, ranks, etc...
+  - Servers are always on, no need to "startup on demand", or "stop when inactive".
+  - Players can have control of their server. The player is partially OP'd when they login to their server. They have access to:
+    - 1. Kick, Ban, Mute others
+    - 2. Whitelist their server
+    - 3. Reset their world, while keeping their inventories.
+  - Teleportation cross servers
+  - No slots limit.
 
 ---
 
 ##Why Open Source?
-  I'm [Viet](https://twitter.com/vietdoge), a simple guy with love for cloud computing, the web, technologies, and Minecraft just like you. Ever since I first run a Minecraft server in 2012, I've always been looking for a way to scale Minecraft with high availability and fault tolerant. It took me years to think and build the first prototype after seeing that not many people in the community have a high availability mindset. I can't do it alone and need your contribution to make it better.
+  I'm [Viet](https://twitter.com/vietdoge), a simple guy with love for gaming, technologies, and Minecraft just like you. I created one of the first Minecraft server in the world (way back in 2012), I've always been looking for a way to scale Minecraft with high availability and fault tolerant. There have been many people in the gaming community wanting a "single server" online gaming experience, that can have lots of players online in the same place at the same time. So I want to do it.
 
   Started out as a simple Minecraft game server like every other, I understood that Minecraft and open world games have limitation in connections. I saw that it needs something that can handle connections and allows Minecraft to scale incredibly far with limited resources. So I created Minecraftly. It took over a year to develop the first prototype. It's now open source. I'm glad to share the technology with passionate people who want to contribute to the community, to change the world via cloud computing, and with everyone who wants to learn about high availability architecture.
 
