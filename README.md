@@ -160,8 +160,8 @@ Minecraftly server address: **m.ly**
   - [x] other players can only load the world if available.
   - [x] worlds are stored in the pre defined folder ~/minecraft/worlds/{uuid}
   - [x] ~/minecraft/worlds folder is shared across all spigot servers
-  - [ ] player data will be in the common folder ~/minecraft/playerdata, shared across all spigot servers
-  - [ ] achievement stats will be in the common folder ~/minecraft/stats, shared across all spigot servers
+  - [x] player data will be in the common folder ~/minecraft/playerdata, shared across all spigot servers
+  - [x] achievement stats will be in the common folder ~/minecraft/stats, shared across all spigot servers
   - [x] works with {domain}.{tld} or simply the proxy IP address
   - [x] default game mode for world owner is SURVIVAL
   - [x] Default game rule changes for all worlds:
@@ -199,17 +199,17 @@ Minecraftly server address: **m.ly**
     - [x] You can use this command when you are on any world
     - [x] If using this command while playing in another world, check if the world's UUID is already loaded on any server
 - [ ] Whitelist
-  - [ ] Whitelist your world
-  - [ ] Turn on whitelist: /whitelist on
-  - [ ] Add players to your whitelist: /whitelist add {username}
-  - [ ] List the players who are in your whitelist: /whitelist list
-  - [ ] Turn off whitelist: /whitelist off
-- [ ] Ban
-  - [ ] Ban players from ever playing in your world
-  - [ ] Ban a player: /ban {username}
-  - [ ] Show your ban list: /banlist
-  - [ ] Unban a player: /unban {username}
-  - [ ] Upon being banned, the player will be teleported back to their world
+  - [x] Whitelist your world
+  - [x] Turn on whitelist: /whitelist on
+  - [x] Add players to your whitelist: /whitelist add {username}
+  - [x] List the players who are in your whitelist: /whitelist list
+  - [x] Turn off whitelist: /whitelist off
+- [x] Ban
+  - [x] Ban players from ever playing in your world
+  - [x] Ban a player: /ban {username}
+  - [x] Show your ban list: /banlist
+  - [x] Unban a player: /unban {username}
+  - [x] Upon being banned, the player will be teleported back to their world
 -  [ ] Teleport to a player
   - [ ] Teleport to any player
   - [ ] Send teleport request so you can teleport to the other player: /tpa {username}
@@ -218,11 +218,12 @@ Minecraftly server address: **m.ly**
   - [ ] Deny a teleport request: /tpdeny
   - [ ] If world is whitelisted and you are not in that world's whitelist, don't teleport
   - [ ] If you are banned from that world, don't teleport
-- [ ] Teleport to a world
-  - [ ] Teleport yourself to any world of any player
-  - [ ] Command: /server {username}
-  - [ ] If world is whitelisted and you are not in that world's whitelist, don't teleport
-  - [ ] If you are banned from that world, don't telepor-  [ ] Teleport to a player
+- [x] Teleport to a world
+  - [x] Teleport yourself to any world of any player
+  - [x] Command: /world {username}
+  - [x] If world is whitelisted and you are not in that world's whitelist, don't teleport
+  - [x] If you are banned from that world, don't teleport
+- [ ] Teleport to a player
   - [ ] Teleport to any player
   - [ ] Send teleport request so you can teleport to the other player: /tpa {username}
   - [ ] Send teleport request so the other player teleport to you: /tpahere {username}
@@ -230,38 +231,34 @@ Minecraftly server address: **m.ly**
   - [ ] Deny a teleport request: /tpdeny
   - [ ] If world is whitelisted and you are not in that world's whitelist, don't teleport
   - [ ] If you are banned from that world, don't teleport
-- [ ] Separation of server message
-  - [ ] Server messages that are shown per server will now be shown per world to reduce spammy, irrelevant messages
-  - [ ] join message
-  - [ ] leave message
-  - [ ] quit message
-  - [ ] kick message
-  - [ ] death message
-  - [ ] achievements message
+- [x] Separation of server message
+  - [x] Server messages that are shown per server will now be shown per world to reduce spammy, irrelevant messages
+  - [x] join message
+  - [x] leave message
+  - [x] quit message
+  - [x] kick message
 - [ ] Mute
   - [ ] Mute annoying player from talking in your world
   - [ ] /mute {username}
   - [ ] /mutelist
   - [ ] /unmute {username}
-- [ ] Kick
-  - [ ] Kick a player from playing in your world
-  - [ ] /kick {username}
+- [x] Kick
+  - [x] Kick a player from playing in your world
+  - [x] /kick {username}
   - [ ] Upon being kicked, the player will be teleported back to their world
 - [ ] Reset
-  - [x] Reset your world, world_nether, world_the_end, and dat file
-  - [x] Doesn't reset your playerdata or achievement stats
-  - [x] Command: /reset
-  - [x] Type /reset again to confirm
+  - [ ] Reset your world, world_nether, world_the_end, and dat file
+  - [ ] Doesn't reset your playerdata or achievement stats
+  - [ ] Command: /reset
+  - [ ] Type /reset again to confirm
 - [ ] Back
   - [ ] Command: /back
   - [ ] You can go back to your death location on the world you are in.
-- [ ] List players currently playing on the world you are in
-  - [ ] Command: /list
-- [ ] Tablist
-  - [ ] Tablist will show a random 80 players currently online on all servers.
-- [ ] CNAME
-  - [ ] Peole can use their custom domain to map into official {their_username}.{domain}.{tld}
-  - Example: myminecraftserver.com can set a CNAME record to vietnguyen.m.ly & everyone who joins myminecraftserver.com will go to player vietnguyen's world right away.
+- [x] List players currently playing on the world you are in
+  - [x] Command: /list
+- [x] CNAME
+  - [x] Peole can use their custom domain to map into official {their_username}.{domain}.{tld}
+  - Example: We setup play.minecraftly.com can set a CNAME record to 696f8b26-c97b-4e0c-b8f2-a1938d469701.m.ly & everyone who joins play.minecraftly.com will be in that player "minecraftly" world right away.
 
 ---
 
