@@ -20,19 +20,8 @@ Minecraftly server address: **m.ly**
 [General Plugin Rules](https://github.com/minecraftly/kosmos/wiki/Plugin-Rules) (Important Read)
 
 [Make money via our bounty Program](https://www.bountysource.com/teams/minecraftly)
+
 We empower and compensate the community for helping us fix bugs and add new features.
-
----
-
-#Welcome
-
-  Kosmos is a Minecraft server-side plugin that automatically creates and handles worlds loading, unloading, player interactions and more across one or many server instances. This type of virtualization use the least amount of code, CPU, RAM, and configurations as possible. It is designed & produced from scratch by [Viet Nguyen](https://vi.et), with assistance from friends, developers and helpers from the internet. Minecraftly is community-developed and will be remained free for personal, non-commercial use under [GNU GPLv3](LICENSE) license.
-  
-  Minecraftly is compatible with most infrastructures, including but not limited to:
-  - Single machine
-  - Multiple machine clusters
-  - Cloud computing infrastructure
-  - Containers
 
 ---
 
