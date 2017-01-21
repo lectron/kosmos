@@ -35,13 +35,124 @@ Minecraftly server address: **m.ly**
   - Multiple machine clusters
   - Cloud computing infrastructure
   - Containers
-  
+
+---
+
 ##REQUIREMENTS
  * [BungeeCord](https://www.spigotmc.org/wiki/bungeecord/): serve as a proxy server (equivalent to Nginx or HAProxy in web hosting)
  * [Spigot](https://www.spigotmc.org/wiki/spigot/): serve as Minecraft server.
+   - Alternative: PaperSpigot is a derivative of Spigot, giving a little higher performance than traditional Spigot.
  * [Redis server](https://redis.io/): Real time volatile database that connects BungeeCord and Spigot together.
  * (optional) shared file system for multiple Spigot servers to access the same /worlds folder
  * (optional) Dank memes
+
+---
+
+##Setup Example
+###Assumptions
+- This is a single server setup. If you are managing multiple server, you obviously know what you are doing.
+- This example is based on Debian.
+- We assumed that you already have Java 8 installed.
+- We use /home/minecraft folder for server files
+- We use /home/minecraft/worlds folder for world folder
+- We use /home/minecraft/playerdata for playerdata
+- We use /home/minecraft/stats for stats
+
+###Steps
+1. Create the following folders:
+- /home/minecraft/proxy1
+- /home/minecraft/proxy2
+- /home/minecraft/proxy1/plugins
+- /home/minecraft/proxy2/plugins
+- /home/minecraft/server1
+- /home/minecraft/server2
+- /home/minecraft/server1/plugins
+- /home/minecraft/server2/plugins
+- /home/minecraft/worlds
+- /home/minecraft/playerdata
+- /home/minecraft/stats
+2. Install Redis & screen:
+```
+apt-get install redis-server
+apt-get install screen
+```
+3. Download server softwares to the appropriate folder:
+- Download BungeeCord:
+  - Download link: http://ci.md-5.net/job/BungeeCord/lastSuccessfulBuild/artifact/bootstrap/target/BungeeCord.jar
+  - Download to /home/minecraft/proxy1
+  - and /home/minecraft/proxy2
+- Download PaperSpigot:
+  - Download link: https://ci.destroystokyo.com/job/PaperSpigot/lastSuccessfulBuild/artifact/paperclip.jar
+  - Download to /home/minecraft/server1
+  - and /home/minecraft/server2
+- Download Kosmos (our plugin):
+  - https://ci.minecraftly.com/job/Kosmos/lastSuccessfulBuild/artifact/Kosmos.jar
+  - Download to /home/minecraft/proxy1/plugins
+  - and /home/minecraft/proxy2/plugins
+  - and /home/minecraft/server1/plugins
+  - and /home/minecraft/server2/plugins
+4. Run servers to generate configs
+NOTE: Startup script for startup must have the "--world-dir /{folder location}" [start-up parameter](https://www.spigotmc.org/wiki/start-up-parameters/), so that all spigot servers can share the same "worlds" folder.
+
+For example, we use /home/minecraft/worlds folder for all Spigot servers to access world files:
+
+```powershell
+cd /home/minecraft/proxy1 && java -jar BungeeCord.jar
+cd /home/minecraft/proxy2 && java -jar BungeeCord.jar
+cd /home/minecraft/server1 && java -jar paper.jar --world-dir /home/minecraft/worlds
+cd /home/minecraft/server2 && java -jar paper.jar --world-dir /home/minecraft/worlds
+```
+
+5. Proxies & servers config
+Here are a few things that need changes in the config of Spigot Minecraft server to make things work. Most of the configurations are very standard, just double check and make sure that "server-ip" and "server-port" are defined correctly.
+
+- server.properties
+```yaml
+  server-ip={the public or private server IP that is attached to your machine}
+  server-port={whatever port you want}
+  online-mode=false
+```
+
+- bukkit.yml
+```yaml
+  connection-throttle: -1
+```
+
+- spigot.yml
+```yaml
+  bungeecord: true
+```
+
+---
+
+6. Spigot Startup Script
+
+Startup script for startup must have the "--world-dir /{folder location}" [start-up parameter](https://www.spigotmc.org/wiki/start-up-parameters/), so that all spigot servers can share the same collection of worlds.
+
+For example, we use /home/minecraft/worlds folder for all Spigot servers to access world files:
+
+```powershell
+java -jar spigot.jar --world-dir /home/minecraft/worlds
+```
+
+7. Kosmos config
+Kosmos config is very simple. The files can be found at plugins/Kosmos/config.json
+Make sure all servers are shutdown before applying the configs
+
+```yaml
+{
+  "redisConfig": {
+    "ip": "127.0.0.1",
+    "port": 6379,
+    "password": "",
+    "timeOut": 3000,
+    "maxNumPools": 20
+  },  
+  "myAddress": {
+    "ipAddress": "YOUR-SERVER-IP-ADDRESS",
+    "port": -1
+  },
+```
 
 ---
 
@@ -263,72 +374,20 @@ logout (table)
 
 ---
 
-##Minecraftly config
-Minecraftly proxy and server plugins' config is very simple. You only need to define a database credentials. That's it!
-
-```yaml
-redis:
-  host: 127.0.0.1
-  port: 6379
-  password: ''
-mysql:
-  host: 127.0.0.1
-  port: 3306
-  database: minecraftly
-  username: root
-  password: ''
-```
-
----
-
-##Spigot server config
-Here are a few things that need changes in the config of Spigot Minecraft server to make things work. Most of the configurations are very standard, just double check and make sure that "server-ip" and "server-port" are defined correctly.
-
-- server.properties
-```yaml
-  server-ip={the public or private server IP that is attached to your machine}
-  server-port={whatever port you want}
-  online-mode=false
-```
-
-- bukkit.yml
-```yaml
-  connection-throttle: -1
-```
-
-- spigot.yml
-```yaml
-  bungeecord: true
-```
-
----
-
-##Spigot Startup Script
-
-Startup script for startup must have the "--world-dir /{folder location}" [start-up parameter](https://www.spigotmc.org/wiki/start-up-parameters/), so that all spigot servers can share the same collection of worlds.
-
-For example, we use /mnt/worlds folder for all Spigot servers to access world files:
-
-```powershell
-java -jar spigot.jar --world-dir /mnt/worlds
-```
-
----
-
 ##Compiling
 Minecraftly is distributed as a [Maven](http://maven.apache.org/) project. To compile it and install it in your local Maven repository:
 
 ```git
 apt-get install git -y
 apt-get install maven -y
-git clone https://github.com/minecraftly/minecraftly.git
+git clone https://github.com/minecraftly/kosmos.git
 cd minecraftly
 mvn clean install
 ```
 
 ---
 
-##Build Minecraftly plugin on Jenkins
+##Build Kosmos plugin on Jenkins
 This guide presumes that you got Jenkins server installed
 Simply create a new Freestyle project with the following configurations:
 
@@ -340,7 +399,7 @@ Simply create a new Freestyle project with the following configurations:
 
 - Source Code Management
   - Choose "Git"
-  - Repository URL: https://github.com/minecraftly/minecraftly.git
+  - Repository URL: https://github.com/minecraftly/kosmos.git
 
 - Build
   - Execute shell command: mvn clean install
