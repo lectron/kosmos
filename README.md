@@ -15,6 +15,8 @@ Minecraftly server address: **m.ly**
 
 [Developer Wiki](https://github.com/minecraftly/kosmos/wiki)
 
+[Work in Progress]()
+
 [Current Main Branch - v2](https://github.com/minecraftly/kosmos/tree/v2)
 
 [General Plugin Rules](https://github.com/minecraftly/kosmos/wiki/Plugin-Rules) (Important Read)
@@ -22,6 +24,21 @@ Minecraftly server address: **m.ly**
 [Make money via our bounty Program](https://www.bountysource.com/teams/minecraftly)
 
 We empower and compensate the community for helping us fix bugs and add new features.
+
+---
+
+##Uniqueness
+  - Individual world per player.
+  - Accessible via a player's own username: {username}.m.ly
+  - If a player changes username, the server will map to that subdomain accordingly.
+  - Worlds are always on, no need to "startup on demand", or "stop when inactive".
+  - A player is admin control of their world. They have access to:
+    - 1. Kick, Ban, Mute others
+    - 2. Whitelist their world
+    - 3. Reset their world, while keeping their inventories.
+    - 4. Appoint moderators, and give trust to people at different trust levels
+  - Teleportation cross worlds
+  - No slots limit.
 
 ---
 
@@ -35,220 +52,7 @@ We empower and compensate the community for helping us fix bugs and add new feat
  
 ##SETUP
   See setup example [here](https://github.com/minecraftly/kosmos/wiki/Setup)
-
-##WORK IN PROGRESS
-- Player joins via {their_username}.{domain}.{tld}:
-  - [x] if joins for the first time, server creates the world
-  - [x] world has the folder format name {uuid}
-  - [x] it contains world contents like usual (world, world_nether, world_the_end, session.lock, etc...)
-  - [x] only owner of the world can create the world
-  - [x] other players can only load the world if available.
-  - [x] worlds are stored in the pre defined folder ~/minecraft/worlds/{uuid}
-  - [x] ~/minecraft/worlds folder is shared across all spigot servers
-  - [x] player data will be in the common folder ~/minecraft/playerdata, shared across all spigot servers
-  - [x] achievement stats will be in the common folder ~/minecraft/stats, shared across all spigot servers
-  - [x] works with {domain}.{tld} or simply the proxy IP address
-  - [x] default game mode for world owner is SURVIVAL
-  - [x] Default game rule changes for all worlds:
-    - [x] keepInventory: true
-    - [x] mobGriefing: false
-- Player joins via {another_player_username}.m.ly
-  - [x] proxy checks player's UUID
-  - [x] check if the world's UUID is already loaded on any server
-  - [x] proxy brings player to the server with world already loaded
-  - [x] else, brings player to any server and load world via that server
-  - [x] Default game mode for visitor of a world is ADVENTURE
-    - [ ] Players with ADVENTURE mode can't open chests
-- Trust a player to build in your world
-  - [x] Owner of world can trust others to build
-  - [x] The trusted player will have game mode changed from ADVENTURE to SURVIVAL for that world only.
-  - [x] Trust command: /trust {username_you_want_to_trust}
-  - [x] Trust list command: /trustlist
-  - [x] Untrust command: untrust {username_you_want_to_untrust}
-- [ ] Location handling
-  - [ ] If player joins via IP address or normal {domain}.{tld} -> brings player to previous logout location on previous world
-  - [ ] If player joins explicitly via {subdomain}.{domain}.{tld} -> bring player to previous logout location of that specific world
-- Spawn point
-  - [x] /setspawn: Set your world's spawn at your standing location in your world
-    - [x] Everyone who joins your world for the first time, including you, will spawn here
-    - [ ] If you die, you will spawn back here if you don't set a home location
-    - If anyone else die in your world, they will spawn back here
-  - [x] /spawn: Go back to your spawn point instantly
-    - [x] Everyone, including you, in your world who types this command will teleport to the spawn point of your world.
-- Home location
-  - [x] /sethome: Set your home location at your standing location in your world
-    - [x] Only you are able to set home in your world
-    - [ ] When you die, you will spawn back here
-  - [x] /home
-    - [x] You go to your home location
-    - [x] You can use this command when you are on any world
-    - [x] If using this command while playing in another world, check if the world's UUID is already loaded on any server
-- [ ] Whitelist
-  - [x] Whitelist your world
-  - [x] Turn on whitelist: /whitelist on
-  - [x] Add players to your whitelist: /whitelist add {username}
-  - [x] List the players who are in your whitelist: /whitelist list
-  - [x] Turn off whitelist: /whitelist off
-- [x] Ban
-  - [x] Ban players from ever playing in your world
-  - [x] Ban a player: /ban {username}
-  - [x] Show your ban list: /banlist
-  - [x] Unban a player: /unban {username}
-  - [x] Upon being banned, the player will be teleported back to their world
--  [ ] Teleport to a player
-  - [ ] Teleport to any player
-  - [ ] Send teleport request so you can teleport to the other player: /tpa {username}
-  - [ ] Send teleport request so the other player teleport to you: /tpahere {username}
-  - [ ] Accept a teleport request: /tpaccept
-  - [ ] Deny a teleport request: /tpdeny
-  - [ ] If world is whitelisted and you are not in that world's whitelist, don't teleport
-  - [ ] If you are banned from that world, don't teleport
-- [x] Teleport to a world
-  - [x] Teleport yourself to any world of any player
-  - [x] Command: /world {username}
-  - [x] If world is whitelisted and you are not in that world's whitelist, don't teleport
-  - [x] If you are banned from that world, don't teleport
-- [ ] Teleport to a player
-  - [ ] Teleport to any player
-  - [ ] Send teleport request so you can teleport to the other player: /tpa {username}
-  - [ ] Send teleport request so the other player teleport to you: /tpahere {username}
-  - [ ] Accept a teleport request: /tpaccept
-  - [ ] Deny a teleport request: /tpdeny
-  - [ ] If world is whitelisted and you are not in that world's whitelist, don't teleport
-  - [ ] If you are banned from that world, don't teleport
-- [x] Separation of server message
-  - [x] Server messages that are shown per server will now be shown per world to reduce spammy, irrelevant messages
-  - [x] join message
-  - [x] leave message
-  - [x] quit message
-  - [x] kick message
-- [ ] Mute
-  - [ ] Mute annoying player from talking in your world
-  - [ ] /mute {username}
-  - [ ] /mutelist
-  - [ ] /unmute {username}
-- [x] Kick
-  - [x] Kick a player from playing in your world
-  - [x] /kick {username}
-  - [ ] Upon being kicked, the player will be teleported back to their world
-- [ ] Reset
-  - [ ] Reset your world, world_nether, world_the_end, and dat file
-  - [ ] Doesn't reset your playerdata or achievement stats
-  - [ ] Command: /reset
-  - [ ] Type /reset again to confirm
-- [ ] Back
-  - [ ] Command: /back
-  - [ ] You can go back to your death location on the world you are in.
-- [x] List players currently playing on the world you are in
-  - [x] Command: /list
-- [x] CNAME
-  - [x] Peole can use their custom domain to map into official {their_username}.{domain}.{tld}
-  - Example: We setup play.minecraftly.com can set a CNAME record to 696f8b26-c97b-4e0c-b8f2-a1938d469701.m.ly & everyone who joins play.minecraftly.com will be in that player "minecraftly" world right away.
-
----
-
-#Redis key-value store database structure
-Redis key-value store is for use for queueing, bringing players to the right place at the right time, whether it's join, teleport, or other related events.
-
-uuid (table)
-- For UUID caching
-- Because Mojang has an API limit of only 10 per minute.
-
- | uuid  | username
- | --- | --- | --- |
- | 0cc87f4b-6b4a-404f-b11d-db2e76a24243 | AsianGuy_Gamer |
- | c088272e-a8ca-496c-91a2-b7394ffe879c | ImRainbowActive |
- | cf1f1ea8-4bc9-4cba-886c-33997403eb80 | AruAkise_ |
- | ... | ... | ... |
-
-world (table)
-- Showing which world is currently loaded by which server.
-- If a world is already/currently loaded on one server, subsequent player who joins via subdomain will go to correct server.
-- This will prevent world being loaded twice on many different spigot servers
-- IP and port columns will use Spigot's server.properties' server-ip and server-port values
-
- | world  | address |
- | --- | --- |
- | 00ceaed3-3715-49e9-b45f-0e01cf94f798 | 10.240.0.1:25566 |
- | 00f0ec76-03a1-4d68-b7de-2f30a054e864 | 10.240.0.2:25567 |
- | 00f6795c-8409-4efb-a5e8-ef94f51e68dc | 10.240.0.3:25568 |
- | ... | ... |
-
-server (table)
-- Showing which Spigot servers are currently running correctly
-- This acts as BungeeCord's dynamic config to list the available servers
-- It helps handling join event via BungeeCord after sessions login, not subsequent join from server to server.
-- IP and port columns will use Spigot's server.properties' server-ip and server-port values
-- "players" column shows number of players currently online inside that Spigot server.
-- BungeeCord server will base on this to bring players to the Spigot server with least number of players currently online.
-- This feature will be ignore if a player is joining a specific world with specific players currently online on that world, instead it will use "world" table to route players correctly instead.
-
- | address | players |
- | --- | --- |
- | 10.240.0.1:25566 | 43 |
- | 10.240.0.2:25567 | 7 |
- | 10.240.0.3:25568 | 56 |
- | ... | ... |
-
-player (table)
-- List all players online with their current server IP and port
-- For teleporting player to player correctly
-- IP and port columns will use Spigot's server.properties' server-ip and server-port values
-
- | uuid  | address |
- | --- | --- |
- | 0cc87f4b-6b4a-404f-b11d-db2e76a24243 | 10.240.0.1:25566 |
- | bc68ca39-8f3a-4eb4-a764-8526de7fb90b | 10.240.0.2:25567 |
- | bc384491-4cf7-4185-be07-9bdb5a8310d4 | 10.240.0.3:25568 |
- | ... | ... |
-
----
-
-#MySQL database structure
-
-mute (table)
-- List all players who are muted on each world
-
- | uuid  | world |
- | --- | --- |
- | 0cc87f4b-6b4a-404f-b11d-db2e76a24243 | bc68ca39-8f3a-4eb4-a764-8526de7fb90b |
- | bc68ca39-8f3a-4eb4-a764-8526de7fb90b | bc384491-4cf7-4185-be07-9bdb5a8310d4 |
- | bc384491-4cf7-4185-be07-9bdb5a8310d4 | 0cc87f4b-6b4a-404f-b11d-db2e76a24243 |
- | ... | ... | ... |
-
-ban (table)
-- List all players who are banned on each world
-
- | uuid  | world |
- | --- | --- |
- | 0cc87f4b-6b4a-404f-b11d-db2e76a24243 | bc68ca39-8f3a-4eb4-a764-8526de7fb90b |
- | bc68ca39-8f3a-4eb4-a764-8526de7fb90b | bc384491-4cf7-4185-be07-9bdb5a8310d4 |
- | bc384491-4cf7-4185-be07-9bdb5a8310d4 | 0cc87f4b-6b4a-404f-b11d-db2e76a24243 |
- | ... | ... | ... |
-
-back (table)
-- Previous death location for a player in a specific world
-- Logs only when player is dead in a world
   
- | uuid  | world | x | y | z | yaw | pitch |
- | --- | --- | --- | --- | --- | --- | --- |
- | 0cc87f4b-6b4a-404f-b11d-db2e76a24243 | bc68ca39-8f3a-4eb4-a764-8526de7fb90b | 128.0 | 67.0 | 4954.0 | 89.0 | -74.4 |
- | bc68ca39-8f3a-4eb4-a764-8526de7fb90b | bc384491-4cf7-4185-be07-9bdb5a8310d4 | 6573.0 | 78.0 | 231.0 | 56.0 | 75.9 |
- | bc384491-4cf7-4185-be07-9bdb5a8310d4 | 0cc87f4b-6b4a-404f-b11d-db2e76a24243 | 54654.0 | 54.0 | 6758.0 | 67.0 | 34.6 |
- | ... | ... | ... | ... | ... | ... | ... |
-
-logout (table)
-- Previously logged out location for a player in a specific world
-- It helps when players log back into the same world, they will be in their previous location
-- Create entry only when player logs out in a world
-
- | uuid  | world | x | y | z | yaw | pitch |
- | --- | --- | --- | --- | --- | --- | --- |
- | 0cc87f4b-6b4a-404f-b11d-db2e76a24243 | bc68ca39-8f3a-4eb4-a764-8526de7fb90b | 128.0 | 67.0 | 4954.0 | 89.0 | -74.4 |
- | bc68ca39-8f3a-4eb4-a764-8526de7fb90b | bc384491-4cf7-4185-be07-9bdb5a8310d4 | 6573.0 | 78.0 | 231.0 | 56.0 | 75.9 |
- | bc384491-4cf7-4185-be07-9bdb5a8310d4 | 0cc87f4b-6b4a-404f-b11d-db2e76a24243 | 54654.0 | 54.0 | 6758.0 | 67.0 | 34.6 |
- | ... | ... | ... | ... | ... | ... | ... |
-
 ---
 
 ##Compiling
@@ -269,7 +73,7 @@ This guide presumes that you got Jenkins server installed
 Simply create a new Freestyle project with the following configurations:
 
 - Freestyle project name
-  - minecraftly
+  - kosmos
 
 - Branches to build
   - Branch Specifier (blank for 'any'): master
@@ -287,23 +91,8 @@ Simply create a new Freestyle project with the following configurations:
 
 ---
 
-##Uniqueness
-  - Individual server per player.
-  - Accessible via player username: (username).m.ly
-  - If a player changes username, the server will map to that subdomain accordingly.
-  - Same plugins as everyone else, good for leaderboards, ranks, etc...
-  - Servers are always on, no need to "startup on demand", or "stop when inactive".
-  - Players can have control of their server. The player is partially OP'd when they login to their server. They have access to:
-    - 1. Kick, Ban, Mute others
-    - 2. Whitelist their server
-    - 3. Reset their world, while keeping their inventories.
-  - Teleportation cross servers
-  - No slots limit.
-
----
-
 ##Why Open Source?
-  I'm [Viet](https://twitter.com/vietdoge), a simple guy with love for gaming, technologies, and Minecraft just like you. I created one of the first Minecraft server in the world (way back in 2012), I've always been looking for a way to scale Minecraft with high availability and fault tolerant. There have been many people in the gaming community wanting a "single server" online gaming experience, that can have lots of players online in the same place at the same time. So I want to do it.
+  I'm [Viet](http://vi.et), a simple guy with love for gaming, technologies, and Minecraft just like you. I created one of the first Minecraft server in the world (way back in 2012), I've always been looking for a way to scale Minecraft with high availability and fault tolerant. There have been many people in the gaming community wanting a "single server" online gaming experience, that can have lots of players online in the same place at the same time. So I want to do it.
 
   Started out as a simple Minecraft game server like every other, I understood that Minecraft and open world games have limitation in connections. I saw that it needs something that can handle connections and allows Minecraft to scale incredibly far with limited resources. So I created Minecraftly. It took over a year to develop the first prototype. It's now open source. I'm glad to share the technology with passionate people who want to contribute to the community, to change the world via cloud computing, and with everyone who wants to learn about high availability architecture.
 
