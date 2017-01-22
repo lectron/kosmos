@@ -27,18 +27,21 @@ Minecraftly server address: **m.ly**
 
 ---
 
-##Uniqueness
-  - Individual world per player.
-  - Accessible via a player's own username: {username}.m.ly
-  - If a player changes username, the server will map to that subdomain accordingly.
+##In a Nutshell
+  - Each player gets a world
+  - Each world has it's own subdomain name, mapped to player's own username: *{player-username}.m.ly*
+  - Custom domain is possible via mapping CNAME to *{player-uuid}.m.ly*
   - Worlds are always on, no need to "startup on demand", or "stop when inactive".
+  - Worlds are loaded and unloaded dynamically by one or multiple Spigot servers.
+  - One or multiple BungeeCord server(s) bring players to the appropriate Spigot servers inside the appropriate world.
+  - Player-to-player teleportation accross worlds
+  - Player-to-world teleportation accross worlds
+  - Player-to-warp teleporation accross worlds
   - A player is admin control of their world. They have access to:
     - 1. Kick, Ban, Mute others
     - 2. Whitelist their world
     - 3. Reset their world, while keeping their inventories.
     - 4. Appoint moderators, and give trust to people at different trust levels
-  - Teleportation cross worlds
-  - No slots limit.
 
 ---
 
