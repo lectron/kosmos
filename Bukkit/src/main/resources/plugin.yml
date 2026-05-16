@@ -1,84 +1,48 @@
-# We're Minecraftly.
-name: Minecraftly
-
-# Bukkit version.
+name: Kosmos
 version: ${pom.version}-BUKKIT+${describe}
-
-# I guess we can change this to authors? O_o
 author: Cory Redmond
-
-# Main class.
 main: com.minecraftly.bukkit.MinecraftlyBukkitPlugin
-
-# WIP..
-description: Minecraft cloud platform.
-
-# Startup load please.
+description: Kosmos cloud platform
 load: STARTUP
-
-# We are here bro..
 website: http://minecraftly.com/
-
 commands:
-
-  ## Debug command.
   mdebug:
-    description: A debugging command.
-    aliases: [mbdebug]
-
-  ## List command.
+    description: A debugging command
+    aliases: [mdebug]
   list:
-    description: Get a list of currently online players in the current world.
-
-  ## World command.
+    description: Get a list of currently online players in the current world
   world:
-    description: Go to the specified world.
-
-  ## Spawn commands.
+    description: Go to the specified world
   spawn:
-    description: Teleport to the spawn of the current world.
+    description: Teleport to the spawn of the current world
   setspawn:
-    description: Set the spawn of the current world.
-
-  ## Home commands.
+    description: Set the spawn of the current world
   home:
-    description: Teleport to the spawn of the current world.
+    description: Teleport to the spawn of the current world
   sethome:
-    description: Set a home.
+    description: Set a home
   delhome:
-    description: Delete the specified home.
-
-  ## Whitelist commands.
+    description: Delete the specified home
   whitelist:
-    description: The base whitelist command.
-
-  ## Trust commands.
+    description: The base whitelist command
   trust:
-    description: Allows the specified player to build.
+    description: Allows the specified player to build
   untrust:
-    description: Disallows the specified player to build.
+    description: Disallows the specified player to build
   trusted:
-    description: Get a list of currently trusted online players.
-
-  ## Ban commands.
+    description: Get a list of currently trusted online players
   ban:
-    description: Prevents the specified player joining.
+    description: Prevents the specified player joining
   unban:
-    description: Allows the specified player to join.
-
-  ## Kick command.
+    description: Allows the specified player to join
   kick:
-    description: Kicks the specified player.
-
-  ## Mute commands.
+    description: Kicks the specified player
   mute:
-    description: Prevents the specified player from speaking.
+    description: Prevents the specified player from speaking
   unmute:
-    description: Allows the specified player to chat.
+    description: Allows the specified player to chat
   muted:
-    description: Get a list of currently muted online players.
-
-  ## Shout command.
+    description: Get a list of currently muted online players
   shout:
-    description: Shout globally.
+    description: Shout globally
     aliases: [y, yell]
